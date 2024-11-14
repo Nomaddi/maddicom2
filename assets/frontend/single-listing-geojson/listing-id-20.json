@@ -1,0 +1,34 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-74.055257",
+                    "40.704665"
+                ]
+            },
+            "properties": {
+                "id": "58e9b403a50b83397430c2f45991ac27",
+                "index": 0,
+                "isActive": true,
+                "logo": "thumbnail.png",
+                "image": "thumbnail.png",
+                "link": "http://localhost/Atlas-2.14/general/cumque-quaerat-sed-q/20",
+                "url": "",
+                "name": "Cumque quaerat sed q",
+                "category": "general",
+                "email": "",
+                "stars": "0.0",
+                "phone": "",
+                "address": "Nostrum enim nihil u",
+                "about": "about",
+                "tags": [
+                    ""
+                ]
+            }
+        }
+    ]
+}
