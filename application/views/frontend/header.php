@@ -38,3 +38,4 @@
 <!-- /container -->
 </div>
 <!-- /sub_header -->
+<link rel="stylesheet" href="/maddicom2/assets/frontend/css/custom.css">

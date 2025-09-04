@@ -6,24 +6,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    "-74.010668",
-                    "40.708257"
+                    "-73.758612",
+                    "3.991851"
                 ]
             },
             "properties": {
-                "id": "11284f1d240595c5e43ff0b87965806c",
+                "id": "5a7f14a48cdcbfdd68c2135268baba74",
                 "index": 0,
                 "isActive": true,
-                "logo": "thumbnail.png",
-                "image": "thumbnail.png",
-                "link": "http://localhost/atlas_3.1.0/general/test-listing/20",
+                "logo": "89630b4ba784768a24222dbb10452166.jpg",
+                "image": "89630b4ba784768a24222dbb10452166.jpg",
+                "link": "https://maddicom2.nomaddi.com/restaurant/arepas-doña-lilia/35",
                 "url": "",
-                "name": "test listing",
-                "category": "general",
+                "name": "Arepas Doña Lilia",
+                "category": "restaurant",
                 "email": "",
                 "stars": "0.0",
                 "phone": "",
-                "address": "test",
+                "address": "Calle 13 23-45 Barrio Independencia",
                 "about": "about",
                 "tags": []
             }

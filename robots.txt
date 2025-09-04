@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://maddicom2.nomaddi.com/sitemap.xml
+Sitemap: https://maddicom2.nomaddi.com/start.php?sitemap.xml

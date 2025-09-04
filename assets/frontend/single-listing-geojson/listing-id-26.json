@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.48418869083244",
+                    "4.270770773298723"
+                ]
+            },
+            "properties": {
+                "id": "73d230f9cc9719e19b13c03f9b82028a",
+                "index": 0,
+                "isActive": true,
+                "logo": "4f0fc3508f4fa83804fb688c8a18f20e.jpg",
+                "image": "4f0fc3508f4fa83804fb688c8a18f20e.jpg",
+                "link": "https://maddicom2.nomaddi.com/hotel/casa-hotel-el-cafetal/26",
+                "url": "https://www.veruperyvuhyfeb.ca",
+                "name": "Casa Hotel El Cafetal",
+                "category": "hotel",
+                "email": "ladahu@mailinator.com",
+                "stars": "0.0",
+                "phone": "3142782784",
+                "address": "Quo quis commodi parrnrn",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

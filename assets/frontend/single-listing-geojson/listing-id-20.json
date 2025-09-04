@@ -6,28 +6,26 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    "-74.055257",
-                    "40.704665"
+                    "-73.769434",
+                    "3.998208"
                 ]
             },
             "properties": {
-                "id": "58e9b403a50b83397430c2f45991ac27",
+                "id": "4655cd06faae7df853172b377a92de13",
                 "index": 0,
                 "isActive": true,
-                "logo": "thumbnail.png",
-                "image": "thumbnail.png",
-                "link": "http://localhost/Atlas-2.14/general/cumque-quaerat-sed-q/20",
+                "logo": "6d15bddac2599935fee5774077504a70.jpg",
+                "image": "6d15bddac2599935fee5774077504a70.jpg",
+                "link": "https://maddicom2.nomaddi.com/general/hotel-la-primavera/20",
                 "url": "",
-                "name": "Cumque quaerat sed q",
+                "name": "HOTEL LA PRIMAVERA",
                 "category": "general",
                 "email": "",
                 "stars": "0.0",
-                "phone": "",
-                "address": "Nostrum enim nihil u",
+                "phone": "3209548779",
+                "address": "asociacion de amigos, 507001, Acacías, Meta 3.9987797595365335, -73.76923917338104",
                 "about": "about",
-                "tags": [
-                    ""
-                ]
+                "tags": []
             }
         }
     ]

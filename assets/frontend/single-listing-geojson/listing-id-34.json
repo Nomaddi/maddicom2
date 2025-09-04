@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.764253552073",
+                    "3.9870523688357498"
+                ]
+            },
+            "properties": {
+                "id": "7ff973ae2cd7d42aac4e5c6aed52ad44",
+                "index": 0,
+                "isActive": true,
+                "logo": "5f9a64154981099ec1e48d084f77bfc1.jpg",
+                "image": "5f9a64154981099ec1e48d084f77bfc1.jpg",
+                "link": "https://maddicom2.nomaddi.com/general/terminal-de-transporte-acacias/34",
+                "url": "https://www.desiqexyto.org",
+                "name": "Terminal de transporte Acacias",
+                "category": "general",
+                "email": "hijuf@mailinator.com",
+                "stars": "0.0",
+                "phone": "3123265649",
+                "address": "",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

@@ -7752,3 +7752,16 @@ a.social_bt.google:before {
     display: none;
   }
 }
+.btn-primary {
+  background-color: #3CB74E !important;
+  border-color: #3CB74E !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #F6C100 !important;
+  border-color: #F6C100 !important;
+  color: #212529 !important;
+}

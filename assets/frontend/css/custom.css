@@ -489,3 +489,43 @@ video {
   font-size: 15px;
 }
 
+.btn-primary {
+  background-color: #3CB74E !important;
+  border-color: #3CB74E !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #F6C100 !important;
+  border-color: #F6C100 !important;
+  color: #212529 !important;
+}
+/* Ocultar campo de ciudades en el home */
+.home .search-form .form-group:nth-child(2) {
+  display: none !important;
+}
+
+/* Ajustar proporciones de los campos visibles */
+.home .search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* espacio entre campos */
+}
+
+.home .search-form .form-group {
+  flex: 1 1 auto;
+}
+
+.home .search-form .form-group:first-child {
+  max-width: 50%; /* campo de texto */
+}
+
+.home .search-form .form-group:last-child {
+  max-width: 25%; /* categorías */
+}
+
+.home .search-form .btn {
+  flex: 0 0 15%; /* botón fijo */
+}

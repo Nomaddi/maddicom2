@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.86194367810164",
+                    "3.779965381904094"
+                ]
+            },
+            "properties": {
+                "id": "64b30ad8bc9bd9883d37da446344947c",
+                "index": 0,
+                "isActive": true,
+                "logo": "f1d96d1109b0d8ea848d193491fe0061.jpg",
+                "image": "f1d96d1109b0d8ea848d193491fe0061.jpg",
+                "link": "https://maddicom2.nomaddi.com/general/hacienda-tierra-dulce/30",
+                "url": "https://www.mewomiqehopyloj.org.au",
+                "name": "Hacienda Tierra dulce",
+                "category": "general",
+                "email": "nizuquvewo@mailinator.com",
+                "stars": "0.0",
+                "phone": "3235669874",
+                "address": "Q4HQ+M8, San Luís de Cubarral, Meta",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

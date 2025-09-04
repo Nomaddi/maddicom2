@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'db_host',
-	'username' => 'db_user',
-	'password' => 'db_pass',
-	'database' => 'db_name',
+	'hostname' => 'localhost',
+	'username' => 'u847983705_maddicom2_user',
+	'password' => 'kah++Ly4Y/',
+	'database' => 'u847983705_maddicom2_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
