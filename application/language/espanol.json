@@ -454,9 +454,6 @@
     "total": "Total",
     "email_us": "Envíanos un correo",
     "call_now": "Llama ahora",
-    "facebook": "Facebook",
-    "twitter": "Twitter",
-    "linkedin": "LinkedIn",
     "opening_hours": "Horas de apertura",
     "saturday": "Sábado",
     "sunday": "Domingo",
@@ -602,5 +599,8 @@
     "user_image": "Imagen del usuario",
     "add_user": "Agregar usuario",
     "edit_rating_wise_quality": "Editar calidad según calificación",
-    "edit_form": "Formulario de edición"
+    "edit_form": "Formulario de edición",
+    "certifications": "Certificaciones",
+    "add_new_certification": "Agregar nueva certificación",
+    "certification_name": "Nombre de la certificación"
 }
