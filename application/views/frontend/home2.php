@@ -53,18 +53,25 @@
 							<i class="icon_search"></i>
 						</div>
 					</div>
+					<?php
+					// ID de Acacías en tu BD
+					$ACACIAS_ID   = 3;
+					$ACACIAS_NAME = 'Acacías';
+					?>
+
+					<!-- estos 2 sí se envían en la búsqueda -->
+					<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
+					<input type="hidden" name="state"             value="meta">
+
 					<div class="col-lg-3">
-						
-						<select class="wide" name="selected_city_id">
-						
-							<option value=""><?php echo get_phrase('Where'); ?></option>
-							<?php
-							$cities = $this->crud_model->get_cities()->result_array();
-							foreach ($cities as $city):?>
-								<option value="<?php echo $city['id']; ?>"><?php echo $city['name']; ?></option>
-							<?php endforeach; ?>
-						</select>
+					<!-- solo visual, bloqueado -->
+					<select class="wide" disabled>
+						<option value="<?php echo $ACACIAS_ID; ?>" selected>
+						<?php echo $ACACIAS_NAME; ?>
+						</option>
+					</select>
 					</div>
+
 					<div class="col-lg-3">
 						<select class="wide" name="selected_category_id">
 							<option value=""><?php echo get_phrase('all_categories'); ?></option>
@@ -81,10 +88,7 @@
 				</div>
 				<!-- /row -->
 			</form>
-				<ul class="counter">
-					<li><strong><?php echo $this->db->count_all('city');?></strong> <?= get_phrase('Cities'); ?></li>
-					<li><strong><?php echo $this->db->count_all('user');?></strong> <?= get_phrase('Users'); ?></li>
-				</ul>
+				
 		</div>
 	</div>
 </section>
@@ -218,7 +222,7 @@
 				</div>
 			</div>
 			<!-- /row -->
-			<p class="text-center add_top_30 wow bounceIn" data-wow-delay="0.5s"><a id="sign_up" class="btn_1 rounded" href="<?php echo site_url('home/sign_up'); ?>"><?php echo get_phrase("register"); ?></a></p>
+			<!-- <p class="text-center add_top_30 wow bounceIn" data-wow-delay="0.5s"><a id="sign_up" class="btn_1 rounded" href="<?php echo site_url('home/sign_up'); ?>"><?php echo get_phrase("register"); ?></a></p> -->
 		</div>
 		<canvas id="hero-canvas" width="1920" height="1080"></canvas>
 	</div>

@@ -42,16 +42,24 @@
 								<i class="icon_search"></i>
 							</div>
 						</div>
-						<div class="col-lg-3">
-							<select class="wide" name="city">
-								<option value=""><?php echo get_phrase('all_cities'); ?></option>
-								<?php
-								$cities = $this->crud_model->get_cities()->result_array();
-								foreach ($cities as $city):?>
-									<option value="<?php echo $city['slug']; ?>" <?php if($city_id == $city['id']) echo 'selected'; ?>><?php echo $city['name']; ?></option>
-								<?php endforeach; ?>
-							</select>
-						</div>
+
+					<?php
+					$ACACIAS_ID   = 3;
+					$ACACIAS_NAME = 'Acacías';
+					?>
+
+					<!-- estos 2 sí se envían en la búsqueda -->
+					<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
+					<input type="hidden" name="city"             value="<?php echo $ACACIAS_ID; ?>">
+
+					<div class="col-lg-3">
+					<!-- solo visual, bloqueado -->
+					<select class="wide" disabled>
+						<option value="<?php echo $ACACIAS_ID; ?>" selected>
+						<?php echo $ACACIAS_NAME; ?>
+						</option>
+					</select>
+					</div>
 
 					
 						<div class="col-lg-3">
@@ -196,13 +204,7 @@
 							<a href="javascript::" id = "category-toggle-btn" onclick="showToggle(this, 'hidden-categories')"><?php echo count($categories) > $number_of_visible_categories ? get_phrase('show_more') : ""; ?></a>
 						</div>
 
-						<!-- Price range filter -->
-						<div class="filter_type">
-							<h6><?php echo get_phrase('price_limit'); ?></h6>
-							<div class="distance"> <?php echo get_phrase('price_within'); ?> <span></span> <?php echo get_settings('system_currency'); ?></div>
-							<input type="range" class="price-range" min="0" max="<?php echo $this->frontend_model->get_the_maximum_price_limit_of_all_listings(); ?>" step="10" value="<?php echo $price_range; ?>" data-orientation="horizontal" onchange="filter(this)">
-						</div>
-
+						
 						<input type="hidden" id="search_string_1" name="search_string_1" value="<?=$search_string?>">
 
 						<div class="filter_type">
@@ -238,91 +240,6 @@
 							<a href="javascript::" id = "amenity-toggle-btn" onclick="showToggle(this, 'hidden-amenities')"><?php echo count($amenities) > $number_of_visible_amenities ? get_phrase('show_more') : ""; ?></a>
 						</div>
 
-						<div class="filter_type">
-							<h6><?php echo get_phrase('States'); ?></h6>
-							<ul>
-								<li>
-									<div class="">
-										<input type="radio" id="state_all" name="state" class="state" value="all" onclick="filter(this)" <?php if($state_id == 'all') echo 'checked'; ?>>
-										<label for="state_all"><?php echo get_phrase('all'); ?></label>
-									</div>
-								</li>
-								<?php
-
-								$counter = 1;
-								$states = $this->crud_model->get_states()->result_array();
-								foreach ($states as $state):
-									$counter++;
-								?>
-								<?php if ($counter <= $number_of_visible_states): ?>
-									<div class="">
-										<li>
-											<div class="">
-												<input type="radio" id="state_<?php echo $state['id'];?>" name="state" class="state stateonchange " value="<?php echo $state['slug']; ?>" onclick="onchnage(this)" <?php if($state['id'] == $state_id) echo 'checked'; ?>>
-										    <label for="state_<?php echo $state['id'];?>"><?php echo $state['name']; ?></label>
-											</div>
-										</li>
-									</div>
-								<?php else: ?>
-									<div class="hidden-states hidden">
-										<li>
-											<div class="">
-												<input type="radio" id="state_<?php echo $state['id'];?>" name="state stateonchange" class="state" value="<?php echo $state['slug']; ?>" onclick="onchnage(this)" <?php if($state['id'] == $state_id) echo 'checked'; ?>>
-												<label for="state_<?php echo $state['id'];?>"><?php echo $state['name']; ?></label>
-											</div>
-										</li>
-									</div>
-								<?php endif; ?>
-								<?php endforeach; ?>
-							</ul>
-							<a href="javascript::" id = "state-toggle-btn" onclick="showToggle(this, 'hidden-states')"><?php echo count($states) > $number_of_visible_states ? get_phrase('show_more') : ""; ?></a>
-						</div>
-
-						<div class="filter_type">
-							<h6><?php echo get_phrase('cities'); ?></h6>
-							<ul>
-								 
-								<?php if($state_id=="all"):?>
-								<li>
-									<div class="">
-										<input type="radio" id="city_all" name="city" class="city" value="all" onclick="filter(this)" <?php if($city_id == 'all') echo 'checked'; ?>>
-										<label for="city_all"><?php echo get_phrase('all'); ?></label>
-									</div>
-								</li>
-								<?php endif;?>
-							
-								<?php
-								$counter = 1;
-								if($state_id!="all")
-								    {$cities = $this->crud_model->get_cities_by_state($state_id)->result_array();}
-								else
-								    {	$cities = $this->crud_model->get_cities()->result_array();}	
-								foreach ($cities as $city):
-									$counter++;
-								?>
-								<?php if ($counter <= $number_of_visible_cities): ?>
-									<div class="">
-										<li>
-											<div class="">
-												<input type="radio" id="city_<?php echo $city['id'];?>" name="city" class="city cityval" value="<?php echo $city['slug']; ?>" onclick="filter(this)" <?php if($city['id'] == $city_id) echo 'checked'; ?>>
-										    <label for="city_<?php echo $city['id'];?>"><?php echo $city['name']; ?></label>
-											</div>
-										</li>
-									</div>
-								<?php else: ?>
-									<div class="hidden-cities hidden">
-										<li>
-											<div class="">
-												<input type="radio" id="city_<?php echo $city['id'];?>" name="city" class="city cityval" value="<?php echo $city['slug']; ?>" onclick="filter(this)" <?php if($city['id'] == $city_id) echo 'checked'; ?>>
-												<label for="city_<?php echo $city['id'];?>"><?php echo $city['name']; ?></label>
-											</div>
-										</li>
-									</div>
-								<?php endif; ?>
-								<?php endforeach; ?>
-							</ul>
-							<a href="javascript::" id = "city-toggle-btn" onclick="showToggle(this, 'hidden-cities')"><?php echo count($cities) > $number_of_visible_cities ? get_phrase('show_more') : ""; ?></a>
-						</div>
 
 						<div class="filter_type">
 							<h6><?php echo get_phrase('opening_status'); ?></h6>

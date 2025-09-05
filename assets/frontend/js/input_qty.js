@@ -8,7 +8,7 @@
     }
 
     var cardQty = document.querySelector(".qtyTotal");
-    cardQty.innerHTML = tot;
+     if (cardQty) cardQty.innerHTML = tot;   // <= evita error si no existe
 	} 
 	qtySum();
 
@@ -40,6 +40,6 @@
 
 	   function removeAnimation() { $(".qtyTotal").removeClass("rotate-x"); }
 	   const counter = document.querySelector(".qtyTotal");
-	   counter.addEventListener("animationend", removeAnimation);
+		if (counter) counter.addEventListener("animationend", removeAnimation); // <= idem
 
 	});
