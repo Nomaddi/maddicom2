@@ -7,16 +7,13 @@
 		<ul class="clearfix">
 			<li><a href="#description" class="active"><?php echo get_phrase('description'); ?></a></li>
 			<li><a href="#reviews"><?php echo get_phrase('reviews'); ?></a></li>
-			<?php if(has_package_feature('ability_to_add_contact_form', $listing_details['user_id']) == 1): ?>
-				<li><a href="#sidebar"><?php echo get_phrase('booking'); ?></a></li>
-			<?php endif; ?>
 		</ul>
 	</div>
 </nav>
 
 <div class="container margin_60_35">
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-lg-12">
 			<section id="description">
 				<div class="detail_title_1">
 					<div class="row">
@@ -99,20 +96,55 @@
 				<hr>
 				<?php include 'contact_and_social.php'; ?>
 
-				<h5 class="add_bottom_15"><?php echo get_phrase('amenities'); ?></h5>
-				<div class="row add_bottom_30">
-					<?php foreach (json_decode($listing_details['amenities']) as $key => $amenity): ?>
-						<div class="col-md-4">
-							<ul class="">
-								<li>
-									<i class="<?php echo $this->frontend_model->get_amenity($amenity, 'icon')->row('icon'); ?> "></i>
-									<?php echo $this->frontend_model->get_amenity($amenity, 'name')->row()->name; ?>
-								</li>
-							</ul>
-						</div>
-					<?php endforeach; ?>
-				</div>
+				<?php
+// Lee y normaliza
+$amenities = json_decode($listing_details['amenities'], true);
+$amenities = is_array($amenities) ? array_filter($amenities) : [];
+?>
+
+<?php if (count($amenities) > 0): ?>
+  <h5 class="add_bottom_15"><?php echo get_phrase('amenities'); ?></h5>
+  <div class="row add_bottom_30">
+    <?php foreach ($amenities as $amenity_id): ?>
+      <?php
+        // Si tu método get_amenity requiere el campo, usa dos llamadas como ya hace el proyecto:
+        $icon = $this->frontend_model->get_amenity($amenity_id, 'icon')->row('icon');
+        $nameObj = $this->frontend_model->get_amenity($amenity_id, 'name')->row();
+        if (!$nameObj) continue; // por si hay IDs huérfanos
+      ?>
+      <div class="col-md-4">
+        <ul>
+          <li>
+            <i class="<?php echo $icon; ?>"></i>
+            <?php echo $nameObj->name; ?>
+          </li>
+        </ul>
+      </div>
+    <?php endforeach; ?>
+  </div>
+<?php endif; ?>
+
 				<!-- /row -->
+
+				<?php
+				// Mostrar certificaciones si hay
+				$certs = json_decode($listing_details['certifications'], true);
+				if (is_array($certs) && count($certs) > 0): ?>
+					<h5 class="add_bottom_15"><?php echo get_phrase('certifications'); ?></h5>
+					<div class="row add_bottom_30">
+						<?php foreach ($certs as $cert_id): ?>
+							<div class="col-md-4">
+								<ul>
+									<li>
+										<i class="<?php echo $this->frontend_model->get_certification($cert_id, 'icon')->row('icon'); ?>"></i>
+										<?php echo $this->frontend_model->get_certification($cert_id, 'name')->row()->name; ?>
+									</li>
+								</ul>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+
 
 				<!-- Opening and Closing Time -->
 				<?php include 'opening_and_closing_time_schedule.php'; ?>
@@ -144,54 +176,14 @@
 			</section>
 			<!-- /section -->
 			<!-- Section Of Review Starts -->
-			<?php include 'listing_reviews.php'; ?>
+			
 			<!-- /section -->
 
-			<?php $google_analytics_id = $this->db->get_where('listing', array('id' => $listing_id))->row('google_analytics_id'); ?>
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $google_analytics_id; ?>"></script>
-			<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-
-			gtag('config', '<?php echo $google_analytics_id; ?>');
-			</script>
+			
 		</div>
 		<!-- /col -->
 
-		<!-- Contact Form Base On Package-->
-		<?php if(has_package_feature('ability_to_add_contact_form', $listing_details['user_id']) == 1): ?>
-			<aside class="col-lg-4" id="sidebar">
-				<div class="box_detail booking">
-					<form class="contact-us-form" action="<?php echo site_url('home/contact_us/'.$listing_details['listing_type']); ?>" method="post">
-						<input type="hidden" name="user_id" value="<?php echo $listing_details['user_id']; ?>">
-						<input type="hidden" name="requester_id" value="<?php echo $this->session->userdata('user_id'); ?>">
-						<input type="hidden" name="listing_id" value="<?php echo $listing_details['id']; ?>">
-						<input type="hidden" name="listing_type" value="<?php echo $listing_details['listing_type']; ?>">
-						<input type="hidden" name="slug" value="<?php echo slugify($listing_details['name']); ?>">
-						<?php if ($listing_details['listing_type'] == 'hotel'): ?>
-							<?php include 'hotel_room_booking_contact_form.php'; ?>
-						<?php elseif ($listing_details['listing_type'] == 'restaurant'): ?>
-							<?php include 'restaurant_booking_contact_form.php'; ?>
-						<?php elseif ($listing_details['listing_type'] == 'beauty'): ?>
-							<?php include 'beauty_service_contact_form.php'; ?>
-						<?php else: ?>
-							<?php include 'general_contact_form.php'; ?>
-						<?php endif; ?>
-						<a href="javascript::" class=" add_top_30 btn_1 full-width purchase" onclick="getTheGuestNumberForBooking('<?php echo $listing_details['listing_type']; ?>')"><?php echo get_phrase('submit'); ?></a>
-					</form>
-					<a href="javascript:" onclick="addToWishList('<?php echo $listing_details['id']; ?>')" class="btn_1 full-width outline wishlist" id = "btn-wishlist"><i class="icon_heart"></i> <?php echo is_wishlisted($listing_details['id']) ? get_phrase('remove_from_wishlist') : get_phrase('add_to_wishlist'); ?></a>
-					<div class="text-center"><small><?php echo get_phrase('no_money_charged_in_this_step'); ?></small></div>
-				</div>
-
-				<ul class="share-buttons">
-					<li><a href = "https://www.facebook.com/sharer/sharer.php?u=<?php echo current_url();?>" class="fb-share" target="_blank"><i class="social_facebook"></i> Share</a></li>
-					<li><a href = "https://twitter.com/share?url=<?php echo current_url();?>" target = "_blank" class="twitter-share"><i class="social_twitter"></i> Tweet</a></li>
-					<li><a href = "http://pinterest.com/pin/create/link/?url=<?php echo current_url();?>" target="_blank" class="gplus-share"><i class="social_pinterest"></i> Pin</a></li>
-				</ul>
-			</aside>
-		<?php endif; ?>
+		
 
 	</div>
 	<!-- /row -->

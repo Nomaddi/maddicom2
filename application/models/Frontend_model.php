@@ -297,6 +297,20 @@ class Frontend_model extends CI_Model
     return $this->db->get('amenities');
   }
 
+public function get_certification($id, $field = '')
+  {
+    if ($field != "") {
+      $this->db->select($field);
+    }
+
+    if ($id != "") {
+      $this->db->where('id', $id);
+    }
+
+
+    return $this->db->get('certifications');
+  }
+
   // Functions related to review
   function post_review()
   {

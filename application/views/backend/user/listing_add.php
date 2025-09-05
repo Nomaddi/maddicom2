@@ -81,6 +81,36 @@ $states  = $this->db->get('state')->result_array();
                     </div>
                 </div>
 
+                <!-- >>>>>>>>>>>>>>>>>> NUEVA SECCIÓN: CERTIFICATIONS <<<<<<<<<<<<<<<<<< -->
+                <div class="col-lg-12">
+                    <h4 class="header-title mt-3"><?php echo get_phrase('certifications'); ?></h4>
+                    <hr>
+                    <div class="row">
+                        <?php
+                            // Cargar certificaciones desde el modelo
+                            $certifications = $this->crud_model->get_certifications();
+                            foreach ($certifications->result_array() as $cert):
+                        ?>
+                        <div class="col-xl-6 mb-1">
+                            <div class="custom-control custom-checkbox">
+                                <input
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    name="certifications[]"
+                                    id="cert-<?php echo $cert['id']; ?>"
+                                    value="<?php echo $cert['id']; ?>">
+                                <label class="custom-control-label" for="cert-<?php echo $cert['id']; ?>">
+                                    <i class="<?php echo $cert['icon']; ?>" style="color: #636363;"></i>
+                                    <?php echo $cert['name']; ?>
+                                </label>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <!-- <<<<<<<<<<<<<<<<<< FIN SECCIÓN CERTIFICATIONS <<<<<<<<<<<<<<<<<< -->
+
+
                 <div class="col-lg-12">
                     <h4 class="header-title mt-3"><?php echo get_phrase('thumbnail'); ?></h4>
                     <hr>

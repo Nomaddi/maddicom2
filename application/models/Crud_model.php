@@ -356,6 +356,13 @@ return $this->db->get('listing');
       $data['amenities'] = json_encode(array());
     }
 
+    if (is_array($this->input->post('certifications')) && sizeof(sanitizer($this->input->post('certifications'))) > 0) {
+      $data['certifications'] = $this->make_json(sanitizer($this->input->post('certifications')));
+    } else {
+      $data['certifications'] = json_encode(array());
+    }
+
+
     if (!empty($this->input->post('categories'))) {
       $data['categories'] = $this->make_json(sanitizer($this->input->post('categories')));
     } else {
@@ -605,6 +612,13 @@ return $this->db->get('listing');
     } else {
       $data['amenities'] = json_encode(array());
     }
+
+    if (is_array($this->input->post('certifications')) && sizeof(sanitizer($this->input->post('certifications'))) > 0) {
+      $data['certifications'] = $this->make_json(sanitizer($this->input->post('certifications')));
+    } else {
+      $data['certifications'] = json_encode(array());
+    }
+
 
     if (is_array($this->input->post('categories')) && sizeof(sanitizer($this->input->post('categories'))) > 0) {
       $data['categories'] = $this->make_json(sanitizer($this->input->post('categories')));
@@ -1339,6 +1353,38 @@ return $this->db->get('listing');
     }
     return $this->db->get('blogs');
   }
+
+  public function get_certifications($id = "")
+  {
+    if ((int)$id > 0) {
+      $this->db->where('id', $id);
+    }
+    return $this->db->get('certifications');
+  }
+
+  public function add_certification()
+  {
+    $data['name'] = sanitizer($this->input->post('name'));
+    $data['icon'] = sanitizer($this->input->post('icon'));
+    $data['slug'] = slugify($data['name']);
+    $this->db->insert('certifications', $data);
+  }
+
+  public function edit_certification($id = "")
+  {
+    $data['name'] = sanitizer($this->input->post('name'));
+    $data['icon'] = sanitizer($this->input->post('icon'));
+    $data['slug'] = slugify($data['name']);
+    $this->db->where('id', $id);
+    $this->db->update('certifications', $data);
+  }
+
+  public function delete_certification($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('certifications');
+  }
+
 
   public function add_blog()
   {

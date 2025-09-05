@@ -76,6 +76,28 @@
             </ul>
         </li>
 
+        <!-- Certifications -->
+        <li class="<?php if ($page_name == 'certifications' || $page_name == 'certification_add' || $page_name == 'certification_edit') echo 'opened active has-sub'; ?>">
+            <a href="#">
+                <i class="fa fa-certificate"></i>
+                <span><?php echo get_phrase('certifications'); ?></span>
+            </a>
+            <ul>
+                <li class="<?php if ($page_name == 'certifications') echo 'active'; ?> ">
+                    <a href="<?php echo site_url('admin/certifications'); ?>">
+                        <span><i class="entypo-dot"></i> <?php echo get_phrase('certifications'); ?></span>
+                    </a>
+                </li>
+
+                <li class="<?php if ($page_name == 'certification_add') echo 'active'; ?> ">
+                    <a href="<?php echo site_url('admin/certification_form/add'); ?>">
+                        <span><i class="entypo-dot"></i> <?php echo get_phrase('add_new_certification'); ?></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
         <!-- Listings -->
         <li class="<?php if ($page_name == 'listings' || $page_name == 'listing_add_wiz' || $page_name == 'listing_edit_wiz' || $page_name == 'reported_listings' || $page_name == 'claimed_listings') echo 'opened active has-sub'; ?>">
             <a href="#">
@@ -157,7 +179,7 @@
         </li>
 
         <!-- Bookings -->
-        <li class="<?php if ($page_name == 'booking_request_hotel' || $page_name == 'booking_request_restaurant' || $page_name == 'booking_request_beauty') echo 'opened active has-sub'; ?>">
+        <li id="booking_request" class="<?php if ($page_name == 'booking_request_hotel' || $page_name == 'booking_request_restaurant' || $page_name == 'booking_request_beauty') echo 'opened active has-sub'; ?>">
             <a href="#">
                 <i class="fa fa-tasks"></i>
                 <span><?php echo get_phrase('booking_requests'); ?></span>
@@ -197,7 +219,7 @@
 
         
 
-                <li class="<?php if ($page_name == 'city_add') echo 'active'; ?> ">
+                <li id="city_add" class="<?php if ($page_name == 'city_add') echo 'active'; ?> ">
                     <a href="<?php echo site_url('admin/city_form/add'); ?>">
                         <span><i class="entypo-dot"></i> <?php echo get_phrase('add_new_city'); ?></span>
                     </a>
@@ -224,16 +246,16 @@
                 </li>
 
 
-                <li class="<?php if ($page_name == 'state_add') echo 'active'; ?> ">
+                <!-- <li class="<?php if ($page_name == 'state_add') echo 'active'; ?> ">
                     <a href="<?php echo site_url('admin/state_form/add'); ?>">
                         <span><i class="entypo-dot"></i> <?php echo get_phrase('add_new_state'); ?></span>
                     </a>
-                </li>
+                </li> -->
 
             </ul>
         </li>
         <!-- Pricing -->
-        <li class="<?php if ($page_name == 'packages' || $page_name == 'package_add' || $page_name == 'package_edit') echo 'opened active has-sub'; ?>">
+        <li id="pricing" class="<?php if ($page_name == 'packages' || $page_name == 'package_add' || $page_name == 'package_edit') echo 'opened active has-sub'; ?>">
             <a href="#">
                 <i class="fa fa-credit-card"></i>
                 <span><?php echo get_phrase('pricings'); ?></span>
@@ -254,7 +276,7 @@
         </li>
 
         <!-- Offline Payment -->
-        <li class="<?php if ($page_name == 'offline_payment') echo 'active'; ?> " style="border-top:1px solid #232540;">
+        <li id="offline_payment" class="<?php if ($page_name == 'offline_payment') echo 'active'; ?> " style="border-top:1px solid #232540;">
             <a href="<?php echo site_url('admin/offline_payment'); ?>">
                 <i class="fa fa-archive"></i>
                 <span><?php echo get_phrase('offline_payment'); ?></span>
@@ -262,7 +284,7 @@
         </li>
 
         <!-- Reports -->
-        <li class="<?php if ($page_name == 'report' || $page_name == 'package_invoice') echo 'active'; ?> " style="border-top:1px solid #232540;">
+        <li id="payment_history" class="<?php if ($page_name == 'report' || $page_name == 'package_invoice') echo 'active'; ?> " style="border-top:1px solid #232540;">
             <a href="<?php echo site_url('admin/report'); ?>">
                 <i class="fa fa-paperclip"></i>
                 <span><?php echo get_phrase('payment_history'); ?></span>
@@ -297,7 +319,7 @@
             </ul>
         </li>
         <!-- Addons -->
-        <li class="<?php if ($page_name == 'addon_manager' || $page_name == 'available_addon') echo 'opened'; ?>">
+        <li id="addons" class="<?php if ($page_name == 'addon_manager' || $page_name == 'available_addon') echo 'opened'; ?>">
             <a href="#">
                 <i class="fa fa-superscript"></i>
                 <span><?php echo get_phrase('addons'); ?></span>

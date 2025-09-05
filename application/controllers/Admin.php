@@ -667,6 +667,54 @@ class Admin extends CI_Controller {
 		$this->load->view('backend/index.php', $page_data);
 	}
 
+	// == LISTADO / ACCIONES ==
+	public function certifications($param1 = "", $param2 = "") {
+		if ($this->session->userdata('admin_login') != true) {
+			redirect(site_url('login'), 'refresh');
+		}
+
+		if ($param1 == 'add') {
+			$this->crud_model->add_certification();
+			$this->session->set_flashdata('flash_message', get_phrase('certification_added'));
+			redirect(site_url('admin/certifications'), 'refresh');
+
+		} else if ($param1 == 'edit') {
+			$this->crud_model->edit_certification($param2);
+			$this->session->set_flashdata('flash_message', get_phrase('certification_updated'));
+			redirect(site_url('admin/certifications'), 'refresh');
+
+		} else if ($param1 == 'delete') {
+			$this->crud_model->delete_from_table('certifications', $param2);
+			$this->session->set_flashdata('flash_message', get_phrase('certification_deleted'));
+			redirect(site_url('admin/certifications'), 'refresh');
+		}
+
+		$page_data['page_name']   = 'certifications';
+		$page_data['page_title']  = get_phrase('certifications');
+		$page_data['certifications'] = $this->crud_model->get_certifications()->result_array();
+		$this->load->view('backend/index.php', $page_data);
+	}
+
+	// == FORM (add / edit) ==
+	public function certification_form($param1 = "", $param2 = "") {
+		if ($this->session->userdata('admin_login') != true) {
+			redirect(site_url('login'), 'refresh');
+		}
+
+		if ($param1 == 'add') {
+			$page_data['page_name']  = 'certification_add';
+			$page_data['page_title'] = get_phrase('add_new_certification');
+
+		} elseif ($param1 == 'edit') {
+			$page_data['page_name']  = 'certification_edit';
+			$page_data['certification_id'] = $param2;
+			$page_data['page_title'] = get_phrase('update_certification');
+		}
+
+		$this->load->view('backend/index.php', $page_data);
+	}
+
+
 	// Settings portion
 	public function system_settings($param1 = "") {
 		if ($this->session->userdata('admin_login') != true) {

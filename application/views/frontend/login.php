@@ -29,9 +29,6 @@
 							<div class="col-md-12 mb-2">
 								<input type="submit" value="<?php echo get_phrase("log_in"); ?>" class="btn_1 w-100">
 							</div>
-							<div class="col-md-12">
-								<a id="sign_up" class="btn_1 full-width outline wishlist icon-login" href="<?php echo site_url('home/sign_up'); ?>"><?php echo get_phrase("sign_up"); ?></a>
-							</div>
 						</div>
 					</div>
 				</form>

@@ -6,6 +6,8 @@ $countries  = $this->db->get('country')->result_array();
 $categories = $this->db->get('category')->result_array();
 $listing_amenities = json_decode($listing_details['amenities'], false);
 $listing_categories = json_decode($listing_details['categories'], false);
+$listing_certifications = json_decode($listing_details['certifications'] ?? '[]', false);
+
 ?>
 
 <div class="row ">
@@ -85,6 +87,35 @@ $listing_categories = json_decode($listing_details['categories'], false);
                             </div>
                         <?php endforeach; ?>
                     </div>
+                    <!-- Certifications -->
+                    <div class="col-xl-12">
+                        <h4 class="header-title mt-3"><?php echo get_phrase('certifications'); ?></h4>
+                        <hr>
+                        <div class="row">
+                            <?php
+                                // Debe existir en tu modelo: get_certifications()
+                                $certifications = $this->crud_model->get_certifications();
+                                foreach ($certifications->result_array() as $cert):
+                            ?>
+                            <div class="col-xl-6 mb-1">
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        name="certifications[]"
+                                        id="cert-<?php echo $cert['id']; ?>"
+                                        value="<?php echo $cert['id']; ?>"
+                                        <?php echo (is_array($listing_certifications) && in_array($cert['id'], $listing_certifications)) ? 'checked' : ''; ?>>
+                                    <label class="custom-control-label" for="cert-<?php echo $cert['id']; ?>">
+                                        <i class="<?php echo $cert['icon']; ?>" style="color: #636363;"></i>
+                                        <?php echo $cert['name']; ?>
+                                    </label>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="col-xl-12">

@@ -1,7 +1,7 @@
 <!-- start page title -->
 <div class="row ">
   <div class="col-lg-12">
-    <a href="<?php echo site_url('admin/state_form/add'); ?>" class="btn btn-primary alignToTitle"><i class="entypo-plus"></i><?php echo get_phrase('add_new_state'); ?></a>
+    <!-- <a href="<?php echo site_url('admin/state_form/add'); ?>" class="btn btn-primary alignToTitle"><i class="entypo-plus"></i><?php echo get_phrase('add_new_state'); ?></a> -->
   </div><!-- end col-->
 </div>
 
@@ -39,7 +39,10 @@
               </td>
               <td>
                 <div class="bs-example">
-                  <div class="btn-group">
+                  <span class="btn btn-info">
+                       Sin opciones
+                     </span>
+                  <!-- <div class="btn-group">
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                       <?php echo get_phrase('action'); ?> <span class="caret"></span>
                     </button>
@@ -58,7 +61,7 @@
                         </a>
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
               </td>
             </tr>

@@ -1,0 +1,8 @@
+#booking_request,
+#pricing,
+#offline_payment,
+#payment_history,
+#addons,
+#city_add {
+    display: none !important;
+}

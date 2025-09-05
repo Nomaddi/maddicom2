@@ -96,6 +96,12 @@ $categories = $this->db->get('category')->result_array();
   								<span class="hidden-xs"><?php echo get_phrase('amenities'); ?></span>
   							</a>
   						</li>
+              <li>
+                <a href="#certs" data-toggle="tab">
+                  <span class="visible-xs"><i class="entypo-bookmark"></i></span>
+                  <span class="hidden-xs"><?php echo get_phrase('certifications'); ?></span>
+                </a>
+              </li>
   						<li>
   							<a href="#fourth" data-toggle="tab">
   								<span class="visible-xs"><i class="entypo-cog"></i></span>
@@ -141,6 +147,11 @@ $categories = $this->db->get('category')->result_array();
   						<div class="tab-pane" id="third">
   							<?php include 'add_listing_amenity.php'; ?>
   						</div>
+
+  						<div class="tab-pane" id="certs">
+                <?php include 'add_listing_certifications.php'; ?>
+              </div>
+
 
   						<div class="tab-pane" id="fourth">
   							<?php include 'add_listing_media.php'; ?>

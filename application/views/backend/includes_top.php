@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="<?php echo base_url('assets/backend/css/neon-theme.css');?>" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url('assets/backend/css/neon-forms.css');?>" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url('assets/backend/css/custom.css');?>" type="text/css">
+<!-- nomaddi.css -->
+<link rel="stylesheet" href="<?php echo base_url('assets/backend/css/nomaddi.css');?>" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url('assets/backend/js/vertical-timeline/css/component.css');?>" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url('assets/backend/js/datatable/css/dataTables.bootstrap.css');?>" type="text/css"/>
 <link rel="stylesheet" href="<?php echo base_url('assets/backend/js/datatable/buttons/css/buttons.bootstrap.css');?>" type="text/css"/>

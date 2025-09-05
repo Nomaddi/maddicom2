@@ -28,6 +28,12 @@ $all_users = $this->db->get('user')->result_array();
 							</a>
 						</li>
 						<li>
+							<a href="#certs" data-toggle="tab">
+								<span class="visible-xs"><i class="entypo-bookmark"></i></span>
+								<span class="hidden-xs"><?php echo get_phrase('certifications'); ?></span>
+							</a>
+						</li>
+						<li>
 							<a href="#fourth" data-toggle="tab">
 								<span class="visible-xs"><i class="entypo-video"></i></span>
 								<span class="hidden-xs"><?php echo get_phrase('media'); ?></span>
@@ -71,6 +77,10 @@ $all_users = $this->db->get('user')->result_array();
 						</div>
 						<div class="tab-pane" id="third">
 							<?php include 'add_listing_amenity.php'; ?>
+						</div>
+
+						<div class="tab-pane" id="certs">
+							<?php include 'add_listing_certifications.php'; ?>
 						</div>
 
 						<div class="tab-pane" id="fourth">

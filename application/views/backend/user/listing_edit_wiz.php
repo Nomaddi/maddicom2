@@ -7,6 +7,7 @@ $categories = $this->db->get('category')->result_array();
 $states  = $this->db->get('state')->result_array();
 $listing_amenities = json_decode($listing_details['amenities'], false);
 $listing_categories = json_decode($listing_details['categories'], false);
+$listing_certifications = json_decode($listing_details['certifications'] ?? '[]', true);
 ?>
 
 <div class="row">
@@ -31,6 +32,12 @@ $listing_categories = json_decode($listing_details['categories'], false);
 							<a href="#third" data-toggle="tab">
 								<span class="visible-xs"><i class="entypo-mail"></i></span>
 								<span class="hidden-xs"><?php echo get_phrase('amenities'); ?></span>
+							</a>
+						</li>
+						<li>
+							<a href="#certs" data-toggle="tab">
+								<span class="visible-xs"><i class="entypo-bookmark"></i></span>
+								<span class="hidden-xs"><?php echo get_phrase('certifications'); ?></span>
 							</a>
 						</li>
 						<li>
@@ -78,6 +85,11 @@ $listing_categories = json_decode($listing_details['categories'], false);
 						<div class="tab-pane" id="third">
 							<?php include 'edit_listing_amenity.php'; ?>
 						</div>
+
+						<div class="tab-pane" id="certs">
+							<?php include 'edit_listing_certifications.php'; ?>
+						</div>
+
 
 						<div class="tab-pane" id="fourth">
 							<?php include 'edit_listing_media.php'; ?>
