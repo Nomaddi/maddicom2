@@ -29,7 +29,7 @@ class Frontend_model extends CI_Model
   }
 
 
-  function filter_listing($search_string,$category_ids = array(), $amenity_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = 'all', $page_number = 1)
+  function filter_listing($search_string,$category_ids = array(), $amenity_ids = array(), $certification_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = 'all', $page_number = 1)
   {
     //for custom pagination
     if ($page_number <= 1) :
@@ -75,6 +75,20 @@ class Frontend_model extends CI_Model
       $this->db->group_end();
     }
 
+    // Filtro por certificaciones (JSON con IDs)
+    if (count($certification_ids) > 0) {
+      $this->db->group_start();
+        foreach ($certification_ids as $cert_key => $cert_id) {
+          if ($cert_key == 0) {
+            $this->db->like('certifications', '"'.$cert_id.'"');
+          } else {
+            $this->db->or_like('certifications', '"'.$cert_id.'"');
+          }
+        }
+      $this->db->group_end();
+    }
+
+
     if($state_id != 'all'){
       $this->db->group_start();
         $this->db->where('state_id', $state_id);
@@ -110,7 +124,7 @@ class Frontend_model extends CI_Model
   }
 
 
-  function filter_listing_all_rows($search_string,$category_ids = array(), $amenity_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = 'all')
+  function filter_listing_all_rows($search_string,$category_ids = array(), $amenity_ids = array(), $certification_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = 'all')
   {
     $this->listing_table_data_centralized();
 
@@ -146,6 +160,20 @@ class Frontend_model extends CI_Model
         }
       $this->db->group_end();
     }
+
+    // Filtro por certificaciones (JSON con IDs)
+    if (count($certification_ids) > 0) {
+      $this->db->group_start();
+        foreach ($certification_ids as $cert_key => $cert_id) {
+          if ($cert_key == 0) {
+            $this->db->like('certifications', '"'.$cert_id.'"');
+          } else {
+            $this->db->or_like('certifications', '"'.$cert_id.'"');
+          }
+        }
+      $this->db->group_end();
+    }
+
 
     if($state_id != 'all'){
       $this->db->group_start();

@@ -29,6 +29,19 @@
             </div>
           </div>
 
+          <?php $cert = $this->crud_model->get_certifications($certification_id)->row_array(); ?>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><?= get_phrase('image'); ?></label>
+            <div class="col-sm-7">
+              <?php if (!empty($cert['image'])): ?>
+                <img src="<?= base_url('uploads/certifications/'.$cert['image']); ?>" style="height:32px;width:auto;margin-bottom:6px;">
+              <?php endif; ?>
+              <input type="file" name="image" class="form-control" accept="image/*">
+              <small class="text-muted"><?= get_phrase('upload_to_replace_leave_blank_to_keep'); ?></small>
+            </div>
+          </div>
+
+
           <div class="col-sm-offset-3 col-sm-5" style="padding-top: 10px;">
             <button type="submit" class="btn btn-info"><?php echo get_phrase('update_certification'); ?></button>
           </div>

@@ -20,7 +20,7 @@
           <thead>
             <tr>
               <th width="80"><div>#</div></th>
-              <th><div><?php echo get_phrase('icon'); ?></div></th>
+              <th><div><?php echo get_phrase('icon_or_image'); ?></div></th>
               <th><div><?php echo get_phrase('certification_name'); ?></div></th>
               <th><div><?php echo get_phrase('options'); ?></div></th>
             </tr>
@@ -28,11 +28,23 @@
           <tbody>
             <?php
             $counter = 0;
-            foreach ($certifications as $cert): ?>
+            foreach ($certifications as $cert): 
+              $has_image = !empty($cert['image']) && file_exists(FCPATH.'uploads/certifications/'.$cert['image']);
+            ?>
               <tr>
                 <td><?php echo ++$counter; ?></td>
-                <td><i class="<?php echo $cert['icon']; ?>"></i></td>
-                <td><?php echo $cert['name']; ?></td>
+                <td>
+                  <?php if ($has_image): ?>
+                    <img src="<?= base_url('uploads/certifications/'.$cert['image']); ?>"
+                         alt="<?= html_escape($cert['name']); ?>"
+                         style="height:30px;width:auto;">
+                  <?php elseif (!empty($cert['icon'])): ?>
+                    <i class="<?= html_escape($cert['icon']); ?>"></i>
+                  <?php else: ?>
+                    <span class="text-muted">-</span>
+                  <?php endif; ?>
+                </td>
+                <td><?php echo html_escape($cert['name']); ?></td>
                 <td>
                   <div class="bs-example">
                     <div class="btn-group">

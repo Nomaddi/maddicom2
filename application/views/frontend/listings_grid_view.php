@@ -3,9 +3,11 @@
 	$number_of_visible_amenities 	= 10;
 	$number_of_visible_cities 		= 10;
 	$number_of_visible_states 		= 10;
+	$number_of_visible_certifications = 10;
 
 	isset($category_ids) ? "" : $category_ids = array();
 	isset($amenity_ids) ? "" 	: $amenity_ids = array();
+	isset($certification_ids) ? "" : $certification_ids = array();
 	isset($city_id) ? "" 			: $city_id = '';
 	isset($state_id) ? "" 			: $state_id = 'all';
 	isset($price_range) ? "" 			: $price_range = 0;
@@ -15,15 +17,6 @@
 	isset($selected_city_id) ? "": $selected_city_id = "";
 	isset($selected_category_id) ? "": $selected_category_id = "";
 	isset($selected_state_id) ? "": $selected_state_id = "";
-
-
-
-
-	
-
-
-
-
 ?>
 <div id="results">
 	<div class="container">
@@ -50,7 +43,7 @@
 
 					<!-- estos 2 sí se envían en la búsqueda -->
 					<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
-					<input type="hidden" name="city"             value="<?php echo $ACACIAS_ID; ?>">
+					<input type="hidden" name="state"           value="meta">
 
 					<div class="col-lg-3">
 					<!-- solo visual, bloqueado -->
@@ -76,10 +69,10 @@
 						
 
 						<input type="hidden" name="amenity" value="">
-						<input type="hidden" name="price-range" value="<?=$price_range?>">
+						<input type="hidden" name="certification" value="">
+						<input type="hidden" name="price-range" value="">
 						<input type="hidden" name="with_video" value="<?=$with_video?>">
 						<input type="hidden" name="status" value="all">
-						<input type="hidden" name="state" value="<?=$state_id?>">
 
 						
 						<div class="col-lg-1">
@@ -172,6 +165,53 @@
 				<!-- Filter form starts-->
 				<form class="filter-form" action="" method="get" enctype="multipart/form-data">
 					<div class="collapse show" id="collapseFilters">
+						<div class="filter_type">
+    <h6><?php echo get_phrase('certifications'); ?></h6>
+    <ul>
+        <?php
+        $counter = 0;
+        $certs = $this->crud_model->get_certifications()->result_array();
+        foreach ($certs as $cert):
+            $counter++;
+            $is_checked = in_array($cert['id'], $certification_ids);
+            $row_html = '
+            <li>
+                <label class="container_check">
+                ';
+                
+            // Mostrar la imagen si existe, de lo contrario mostrar el icono
+            if (!empty($cert['image'])) {
+                $row_html .= '<img src="'.base_url('uploads/certifications/'.$cert['image']).'" alt="'.html_escape($cert['name']).'" style="width:30px; height:30px; object-fit:contain; margin-right:5px;">';
+            } else {
+                $row_html .= (!empty($cert['icon']) ? '<i class="'.html_escape($cert['icon']).'"></i> ' : '');
+            }
+
+            // Mostrar el nombre de la certificación
+            $row_html .= html_escape($cert['name']).'
+                <input type="checkbox" class="certifications" name="certification[]" value="'.html_escape($cert['slug']).'" onclick="filter(this)" '.($is_checked ? 'checked' : '').'>
+                <span class="checkmark"></span>
+                </label>
+            </li>
+            ';
+
+            // Mostrar solo las primeras 10 certificaciones
+            if ($counter <= $number_of_visible_certifications): ?>
+                <div class="">
+                    <?php echo $row_html; ?>
+                </div>
+            <?php else: ?>
+                <div class="hidden-certifications hidden">
+                    <?php echo $row_html; ?>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+    <a href="javascript::" id="certification-toggle-btn" onclick="showToggle(this, 'hidden-certifications')">
+        <?php echo count($certs) > $number_of_visible_certifications ? get_phrase('show_more') : ""; ?>
+    </a>
+</div>
+
+
 						<div class="filter_type">
 							<h6><?php echo get_phrase('category'); ?></h6>
 							<ul class="">
@@ -340,21 +380,29 @@
 							<?php $opening_status = get_now_open($listing['id']); ?>
 							<li><span class="<?php echo $opening_status == 'closed' ? 'loc_closed' : 'loc_open'; ?>"><?php echo get_phrase($opening_status); ?></span></li>
 							<li>
-								<div class="score">
-									<span>
-										<?php
-				            if ($this->frontend_model->get_listing_wise_rating($listing['id']) > 0) {
-				              $quality = $this->frontend_model->get_rating_wise_quality($listing['id']);
-				              echo $quality['quality'];
-				            }else {
-											echo get_phrase('unreviewed');
-										}
-				            ?>
-										<em>
-											<?php echo count($this->frontend_model->get_listing_wise_review($listing['id'])).' '.get_phrase('reviews'); ?>
-										</em>
-									</span>
-									<strong><?php echo $this->frontend_model->get_listing_wise_rating($listing['id']); ?></strong></div>
+								<div class="certifications-list d-flex align-items-center">
+									<?php 
+									$certs = json_decode($listing['certifications'] ?? '[]', true);
+									if (is_array($certs) && count($certs) > 0): 
+										foreach ($certs as $cert_id): 
+											$cert = $this->frontend_model->get_certification($cert_id)->row();
+											if ($cert): ?>
+												<?php if (!empty($cert->image)): ?>
+													<img src="<?php echo base_url('uploads/certifications/'.$cert->image); ?>" 
+														alt="<?php echo $cert->name; ?>" 
+														title="<?php echo $cert->name; ?>"
+														style="width:30px; height:30px; object-fit:contain; margin-right:5px;">
+												<?php else: ?>
+													<i class="<?php echo $cert->icon; ?>" 
+													title="<?php echo $cert->name; ?>" 
+													style="margin-right:5px;"></i>
+												<?php endif; ?>
+											<?php endif; ?>
+										<?php endforeach; 
+									else: ?>
+										<!-- Si quieres, aquí no mostrar nada o algún fallback -->
+									<?php endif; ?>
+								</div>
 							</li>
 						</ul>
 					</div>
@@ -487,6 +535,7 @@ $('.stateonchange').change(function($this){
 		var urlSuffix = "";
 		var slectedCategories = "";
 		var selectedAmenities = "";
+		var selectedCertifications = "";
 		var selectedCity = "";
 		var selectedState = "";
 		var selectedVideoAvailability = 0;
@@ -500,6 +549,10 @@ $('.stateonchange').change(function($this){
 
 		$('.amenities:checked').each(function() {
 			(selectedAmenities === "") ? selectedAmenities = $(this).attr('value') : selectedAmenities = selectedAmenities + "--" + $(this).attr('value');
+		});
+
+		$('.certifications:checked').each(function() {
+			(selectedCertifications === "") ? selectedCertifications = $(this).attr('value') : selectedCertifications = selectedCertifications + "--" + $(this).attr('value');
 		});
 
 
@@ -528,7 +581,7 @@ $('.stateonchange').change(function($this){
 
 
 		selectedPriceRange = $('.price-range').val();
-		urlSuffix = "search_string="+search_string+"&&category="+slectedCategories+"&&amenity="+selectedAmenities+"&&city="+selectedCity+"&&price-range="+selectedPriceRange+"&&video="+selectedVideoAvailability+"&&status="+selectedOpeningStatus+"&&state="+selectedState;
+		urlSuffix = "search_string="+search_string+"&&category="+slectedCategories+"&&amenity="+selectedAmenities+"&&certification="+selectedCertifications+"&&city="+'Acacias'+"&&price-range="+selectedPriceRange+"&&video="+selectedVideoAvailability+"&&status="+selectedOpeningStatus+"&&state="+'meta';
 	
 		window.location.replace(urlPrefix+urlSuffix);
 		

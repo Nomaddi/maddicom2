@@ -200,6 +200,7 @@ class Home extends CI_Controller
 
         $category_ids = array();
         $amenity_ids    = array();
+        $certification_ids = array();
         $city_id        = "";
         $state_id        = "";
         $price_range  = 0;
@@ -260,6 +261,17 @@ class Home extends CI_Controller
             }
         }
 
+        // Get the certification ids  <--- NUEVO
+        if (isset($_GET['certification']) && !empty($_GET['certification'])) {
+            $selected_certs = explode('--', $_GET['certification']);
+            foreach ($selected_certs as $cert_slug) {
+                $cert_row = $this->db->get_where('certifications', array('slug' => $cert_slug))->row();
+                if ($cert_row) {
+                    $certification_ids[] = $cert_row->id;
+                }
+            }
+        }
+
         // Get the city ids
         if (isset($_GET['city']) && !empty($_GET['city'])) {
             if ($_GET['city'] != 'all') {
@@ -295,12 +307,12 @@ class Home extends CI_Controller
         }
 
         // If all the filter options remain default, redirect to listings method
-        if ($_GET['category'] == "" && $_GET['amenity'] == "" && $_GET['city'] == "all" && $price_range == 0 && $_GET['video'] == 0 && $_GET['status'] == 'all') {
+        if ($_GET['category'] == "" && $_GET['amenity'] == "" &&  (empty($_GET['certification']) || $_GET['certification'] == "") && $_GET['city'] == "all" && $price_range == 0 && $_GET['video'] == 0 && $_GET['status'] == 'all') {
             redirect(site_url('home/listings'), 'refresh');
         }
 
-        $all_listings = $this->frontend_model->filter_listing_all_rows($search_string,$category_ids, $amenity_ids, $state_id, $city_id, $price_range, $with_video, $with_open);
-        $listings = $this->frontend_model->filter_listing($search_string,$category_ids, $amenity_ids, $state_id, $city_id, $price_range, $with_video, $with_open, $page_number);
+        $all_listings = $this->frontend_model->filter_listing_all_rows($search_string,$category_ids, $certification_ids, $amenity_ids, $state_id, $city_id, $price_range, $with_video, $with_open);
+        $listings = $this->frontend_model->filter_listing($search_string,$category_ids, $amenity_ids, $certification_ids, $state_id, $city_id, $price_range, $with_video, $with_open, $page_number);
 
 
         $page_data['geo_json']       =  $this->make_geo_json_for_map($listings);
@@ -327,6 +339,7 @@ class Home extends CI_Controller
         $page_data['category_ids'] = $category_ids;
         //$page_data['selected_category_id'] = $selected_category_id;
         $page_data['amenity_ids']  = $amenity_ids;
+        $page_data['certification_ids']  = $certification_ids; // <--- NUEVO
         $page_data['city_id']      = $city_id;
         $page_data['search_string']      = $search_string;
         $page_data['state_id']      = $state_id;

@@ -97,53 +97,69 @@
 				<?php include 'contact_and_social.php'; ?>
 
 				<?php
-// Lee y normaliza
-$amenities = json_decode($listing_details['amenities'], true);
-$amenities = is_array($amenities) ? array_filter($amenities) : [];
-?>
+				// Lee y normaliza
+				$amenities = json_decode($listing_details['amenities'], true);
+				$amenities = is_array($amenities) ? array_filter($amenities) : [];
+				?>
 
-<?php if (count($amenities) > 0): ?>
-  <h5 class="add_bottom_15"><?php echo get_phrase('amenities'); ?></h5>
-  <div class="row add_bottom_30">
-    <?php foreach ($amenities as $amenity_id): ?>
-      <?php
-        // Si tu método get_amenity requiere el campo, usa dos llamadas como ya hace el proyecto:
-        $icon = $this->frontend_model->get_amenity($amenity_id, 'icon')->row('icon');
-        $nameObj = $this->frontend_model->get_amenity($amenity_id, 'name')->row();
-        if (!$nameObj) continue; // por si hay IDs huérfanos
-      ?>
-      <div class="col-md-4">
-        <ul>
-          <li>
-            <i class="<?php echo $icon; ?>"></i>
-            <?php echo $nameObj->name; ?>
-          </li>
-        </ul>
-      </div>
-    <?php endforeach; ?>
-  </div>
-<?php endif; ?>
+				<?php if (count($amenities) > 0): ?>
+				<h5 class="add_bottom_15"><?php echo get_phrase('amenities'); ?></h5>
+				<div class="row add_bottom_30">
+					<?php foreach ($amenities as $amenity_id): ?>
+					<?php
+						// Si tu método get_amenity requiere el campo, usa dos llamadas como ya hace el proyecto:
+						$icon = $this->frontend_model->get_amenity($amenity_id, 'icon')->row('icon');
+						$nameObj = $this->frontend_model->get_amenity($amenity_id, 'name')->row();
+						if (!$nameObj) continue; // por si hay IDs huérfanos
+					?>
+					<div class="col-md-4">
+						<ul>
+						<li>
+							<i class="<?php echo $icon; ?>"></i>
+							<?php echo $nameObj->name; ?>
+						</li>
+						</ul>
+					</div>
+					<?php endforeach; ?>
+				</div>
+				<?php endif; ?>
 
 				<!-- /row -->
 
 				<?php
-				// Mostrar certificaciones si hay
-				$certs = json_decode($listing_details['certifications'], true);
-				if (is_array($certs) && count($certs) > 0): ?>
-					<h5 class="add_bottom_15"><?php echo get_phrase('certifications'); ?></h5>
-					<div class="row add_bottom_30">
-						<?php foreach ($certs as $cert_id): ?>
-							<div class="col-md-4">
-								<ul>
-									<li>
-										<i class="<?php echo $this->frontend_model->get_certification($cert_id, 'icon')->row('icon'); ?>"></i>
-										<?php echo $this->frontend_model->get_certification($cert_id, 'name')->row()->name; ?>
-									</li>
-								</ul>
-							</div>
-						<?php endforeach; ?>
+				// IDs de certificaciones guardados en el listing (JSON)
+				$cert_ids = json_decode($listing_details['certifications'] ?? '[]', true);
+
+				if (is_array($cert_ids) && !empty($cert_ids)): ?>
+				<h5 class="add_bottom_15"><?= get_phrase('certifications'); ?></h5>
+				<div class="row add_bottom_30">
+					<?php foreach ($cert_ids as $cert_id):
+					// Trae la fila completa de la certificación
+					$cert = $this->frontend_model->get_certification($cert_id)->row_array();
+					if (!$cert) continue;
+
+					// ¿Hay imagen física subida?
+					$has_image = !empty($cert['image']) && file_exists(FCPATH.'uploads/certifications/'.$cert['image']);
+					?>
+					<div class="col-md-4">
+						<ul class="mb-2">
+						<li>
+							<?php if ($has_image): ?>
+							<img
+								src="<?= base_url('uploads/certifications/'.$cert['image']); ?>"
+								alt="<?= html_escape($cert['name']); ?>"
+								style="height:60px;width:auto;vertical-align:middle;margin-right:6px;">
+							<?php elseif (!empty($cert['icon'])): ?>
+							<i class="<?= html_escape($cert['icon']); ?>" style="margin-right:6px;"></i>
+							<?php endif; ?>
+							<?= html_escape($cert['name']); ?>
+						</li>
+						</ul>
 					</div>
+					<?php endforeach; ?>
+				</div>
 				<?php endif; ?>
+
 
 
 				<!-- Opening and Closing Time -->

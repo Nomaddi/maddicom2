@@ -1362,11 +1362,28 @@ return $this->db->get('listing');
     return $this->db->get('certifications');
   }
 
+  public function get_certification($id) {
+    return $this->db->get_where('certifications', ['id' => (int)$id]);
+  }
+
+
   public function add_certification()
   {
     $data['name'] = sanitizer($this->input->post('name'));
     $data['icon'] = sanitizer($this->input->post('icon'));
     $data['slug'] = slugify($data['name']);
+
+    // NUEVO: imagen opcional
+    if (!empty($_FILES['image']['name'])) {
+        $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+        $allowed = ['jpg','jpeg','png','webp','gif','svg'];
+        if (in_array($ext, $allowed)) {
+            $filename = md5(uniqid(true)).'.'.$ext;
+            move_uploaded_file($_FILES['image']['tmp_name'], FCPATH.'uploads/certifications/'.$filename);
+            $data['image'] = $filename;
+        }
+    }
+
     $this->db->insert('certifications', $data);
   }
 
@@ -1375,12 +1392,32 @@ return $this->db->get('listing');
     $data['name'] = sanitizer($this->input->post('name'));
     $data['icon'] = sanitizer($this->input->post('icon'));
     $data['slug'] = slugify($data['name']);
+
+    // NUEVO: reemplazo de imagen (si suben una nueva)
+    if (!empty($_FILES['image']['name'])) {
+        $old = $this->db->get_where('certifications', ['id'=>$id])->row('image');
+        $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+        $allowed = ['jpg','jpeg','png','webp','gif','svg'];
+        if (in_array($ext, $allowed)) {
+            $filename = md5(uniqid(true)).'.'.$ext;
+            move_uploaded_file($_FILES['image']['tmp_name'], FCPATH.'uploads/certifications/'.$filename);
+            $data['image'] = $filename;
+            if ($old && file_exists(FCPATH.'uploads/certifications/'.$old)) @unlink(FCPATH.'uploads/certifications/'.$old);
+        }
+    }
+
     $this->db->where('id', $id);
     $this->db->update('certifications', $data);
   }
 
   public function delete_certification($id)
   {
+    // NUEVO: borrar archivo físico si existía
+    $row = $this->db->get_where('certifications', ['id'=>$id])->row();
+    if ($row && $row->image && file_exists(FCPATH.'uploads/certifications/'.$row->image)) {
+        @unlink(FCPATH.'uploads/certifications/'.$row->image);
+    }
+
     $this->db->where('id', $id);
     $this->db->delete('certifications');
   }
