@@ -28,7 +28,7 @@
         </div>
         <br>
         <!-- Home -->
-        <li class="<?php if ($page_name == 'dashboard') echo 'active'; ?> " style="border-top:1px solid #232540;">
+        <li id="panel" class="<?php if ($page_name == 'dashboard') echo 'active'; ?> " style="border-top:1px solid #232540;">
             <a href="<?php echo site_url('admin/dashboard'); ?>">
                 <i class="fa fa-home"></i>
                 <span><?php echo get_phrase('dashboard'); ?></span>
@@ -291,7 +291,7 @@
             </a>
         </li>
         <!-- Rating wise quality -->
-        <li class="<?php if ($page_name == 'rating_wise_quality' || $page_name == 'edit_rating_wise_quality') echo 'active'; ?> " style="border-top:1px solid #232540;">
+        <li id="rating" class="<?php if ($page_name == 'rating_wise_quality' || $page_name == 'edit_rating_wise_quality') echo 'active'; ?> " style="border-top:1px solid #232540;">
             <a href="<?php echo site_url('admin/rating_wise_quality'); ?>">
                 <i class="fa fa-thumbs-up"></i>
                 <span><?php echo get_phrase('rating_wise_quality'); ?></span>

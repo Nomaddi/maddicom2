@@ -69,6 +69,51 @@ class Crud_model extends CI_Model
     return $this->db->get('city');
   }
 
+  public function get_top_listings_by_certs($limit = 8)
+  {
+      // 1) Intento SQL con JSON_LENGTH (MySQL 5.7+)
+      $this->db->select("listing.*, JSON_LENGTH(certifications) AS cert_count", false);
+      $this->db->from('listing');
+      $this->db->where('status', 'active');
+      $this->db->order_by('cert_count', 'DESC');
+      $this->db->order_by('is_featured', 'DESC');
+      $this->db->order_by('id', 'DESC');
+      // Traigo de más por si hay negocios sin paquete
+      $this->db->limit($limit * 3);
+
+      $rows = $this->db->get()->result_array();
+      if (!is_array($rows) || count($rows) === 0) {
+          // 2) Fallback: computo en PHP
+          $rows = $this->db->get_where('listing', ['status' => 'active'])->result_array();
+          foreach ($rows as &$r) {
+              $arr = json_decode($r['certifications'] ?? '[]', true);
+              $r['cert_count'] = is_array($arr) ? count($arr) : 0;
+          }
+          unset($r);
+          usort($rows, function($a,$b){
+              if ($b['cert_count'] === $a['cert_count']) {
+                  // desempate por destacado y luego id desc
+                  if ($b['is_featured'] === $a['is_featured']) {
+                      return $b['id'] <=> $a['id'];
+                  }
+                  return $b['is_featured'] <=> $a['is_featured'];
+              }
+              return $b['cert_count'] <=> $a['cert_count'];
+          });
+      }
+
+      // 3) Filtrar por negocios con paquete
+      $final = [];
+      foreach ($rows as $r) {
+          if (has_package($r['user_id']) > 0) {
+              $final[] = $r;
+              if (count($final) >= $limit) break;
+          }
+      }
+      return $final;
+  }
+
+
   function get_cities_by_state($state_id = 0)
   {
     if ($state_id > 0) {

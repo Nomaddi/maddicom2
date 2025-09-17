@@ -3,6 +3,8 @@
 #offline_payment,
 #payment_history,
 #addons,
-#city_add {
+#city_add,
+#rating,
+#panel{
     display: none !important;
 }

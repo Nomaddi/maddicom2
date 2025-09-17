@@ -361,26 +361,39 @@
 									<?php endif; ?>
 							</div>
 							<ul class="<?php if($listing['is_featured'] == 1) echo 'featured-footer'; ?>">
-								<?php $opening_status = get_now_open($listing['id']); ?>
-								<li><span class="<?php echo $opening_status == 'closed' ? 'loc_closed' : 'loc_open'; ?>"><?php echo get_phrase($opening_status); ?></span></li>
-								<li>
-									<div class="score">
-										<span>
-											<?php
-					            if ($this->frontend_model->get_listing_wise_rating($listing['id']) > 0) {
-					              $quality = $this->frontend_model->get_rating_wise_quality($listing['id']);
-					              echo $quality['quality'];
-					            }else {
-												echo get_phrase('unreviewed');
-											}
-					            ?>
-											<em>
-												<?php echo count($this->frontend_model->get_listing_wise_review($listing['id'])).' '.get_phrase('reviews'); ?>
-											</em>
-										</span>
-										<strong><?php echo $this->frontend_model->get_listing_wise_rating($listing['id']); ?></strong></div>
-								</li>
-							</ul>
+	<?php $opening_status = get_now_open($listing['id']); ?>
+	<li>
+		<span class="<?php echo $opening_status == 'closed' ? 'loc_closed' : 'loc_open'; ?>">
+			<?php echo get_phrase($opening_status); ?>
+		</span>
+	</li>
+
+	<!-- Sustituye el li de score/reviews por este -->
+	<li>
+		<div class="certifications-list d-flex align-items-center">
+			<?php
+			$certs = json_decode($listing['certifications'] ?? '[]', true);
+			if (is_array($certs) && count($certs) > 0):
+				foreach ($certs as $cert_id):
+					$cert = $this->frontend_model->get_certification($cert_id)->row();
+					if (!$cert) continue;
+
+					if (!empty($cert->image)): ?>
+						<img src="<?php echo base_url('uploads/certifications/'.$cert->image); ?>"
+							 alt="<?php echo html_escape($cert->name); ?>"
+							 title="<?php echo html_escape($cert->name); ?>"
+							 style="width:30px;height:30px;object-fit:contain;margin-right:6px;">
+					<?php elseif (!empty($cert->icon)): ?>
+						<i class="<?php echo html_escape($cert->icon); ?>"
+						   title="<?php echo html_escape($cert->name); ?>"
+						   style="font-size:18px;margin-right:8px;opacity:.9;"></i>
+					<?php endif;
+				endforeach;
+			endif; ?>
+		</div>
+	</li>
+</ul>
+
 						</div>
 					</div>
 				</div>

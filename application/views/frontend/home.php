@@ -123,29 +123,40 @@ $hero_settings = json_decode(get_frontend_settings('hero_settings'), true);
 		<!-- /row -->
 		
 		<div class="main_title_3">
-			<span></span>
-			<h2><?php echo get_phrase('popular_listings'); ?></h2>
-			<p><?php echo get_phrase('the_popular_listings_are_progressively_below'); ?>.</p>
-			<a href="<?php echo site_url('home/listings'); ?>"><?php echo get_phrase('see_all'); ?></a>
-		</div>
-		<div class="row add_bottom_30">
-			<?php $listings = $this->frontend_model->get_top_ten_listings();
-			foreach ($listings as $key => $listing): ?>
-				<?php if($key < 8): ?>
-					<div class="col-lg-3 col-sm-6">
-						<a href="<?php echo get_listing_url($listing['id']); ?>" class="grid_item small">
-							<figure>
-								<img src="<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>" class="img-fluid" alt="" width="400" height="266">
-								<div class="info">
-									<!-- <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i></div> -->
-									<h3><?php echo get_phrase($listing['name']); ?></h3>
-								</div>
-							</figure>
-						</a>
-					</div>
-				<?php endif; ?>
-			<?php endforeach; ?>
-		</div>
+	<span></span>
+	<h2><?php echo get_phrase('popular_listings'); ?></h2>
+	<p><?php echo get_phrase('the_popular_listings_are_progressively_below'); ?>.</p>
+	<a href="<?php echo site_url('home/listings'); ?>"><?php echo get_phrase('see_all'); ?></a>
+</div>
+<div class="row add_bottom_30">
+	<?php $listings = $this->frontend_model->get_top_ten_listings(); 
+		foreach ($listings as $key => $listing): ?>
+			<?php if($key < 8): ?>
+				<div class="col-lg-3 col-sm-6">
+					<a href="<?php echo get_listing_url($listing['id']); ?>" class="grid_item small">
+						<figure>
+							<img src="<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>" class="img-fluid" alt="" width="400" height="266">
+							<div class="info">
+								<h3><?php echo get_phrase($listing['name']); ?></h3>
+
+								<?php 
+								// Mostrar certificaciones
+								$certifications = json_decode($listing['certifications'], true);
+								if (!empty($certifications)): ?>
+									<div class="certifications">
+										<?php foreach ($certifications as $cert_id): ?>
+											<img src="<?php echo base_url('uploads/certifications/'.$this->crud_model->get_certification($cert_id, 'image')->row('image')); ?>" alt="<?php echo $this->crud_model->get_certification($cert_id, 'name')->row()->name; ?>" style="width: 20px; height: 20px; margin-right: 5px;">
+										<?php endforeach; ?>
+									</div>
+								<?php endif; ?>
+							</div>
+						</figure>
+					</a>
+				</div>
+			<?php endif; ?>
+		<?php endforeach; ?>
+</div>
+
 	</div>
 	<!-- /row -->
 </div>

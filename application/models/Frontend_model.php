@@ -560,6 +560,41 @@ public function get_certification($id, $field = '')
     }
   }
 
+  public function get_top_listings_by_certs($limit = 8)
+  {
+      $listing_ids = array();
+      $listing_id_with_cert_count = array();
+      $listings = $this->get_listings()->result_array();
+      foreach ($listings as $listing) {
+          if (!has_package($listing['user_id']) > 0) {
+              continue;
+          }
+          // Obtener la cantidad de certificaciones
+          $certs = json_decode($listing['certifications'] ?? '[]', true);
+          $listing_id_with_cert_count[$listing['id']] = count($certs);
+      }
+
+      // Ordenamos por la cantidad de certificaciones
+      arsort($listing_id_with_cert_count);
+      foreach ($listing_id_with_cert_count as $key => $value) {
+          if (count($listing_ids) <= $limit) {
+              array_push($listing_ids, $key);
+          }
+      }
+
+      // Filtrar solo aquellos con paquetes activos
+      $final = [];
+      foreach ($listing_ids as $listing_id) {
+          $listing = $this->db->get_where('listing', ['id' => $listing_id])->row_array();
+          if (has_package($listing['user_id']) > 0) {
+              $final[] = $listing;
+              if (count($final) >= $limit) break;
+          }
+      }
+      return $final;
+  }
+
+
   ////Search function For custom pagination
   function search_listing($search_string = '', $selected_city_id = '', $selected_category_id = '', $page_number = 1)
   {

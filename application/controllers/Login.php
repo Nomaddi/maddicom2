@@ -18,9 +18,9 @@ class Login extends CI_Controller {
 
     public function index() {
         if ($this->session->userdata('admin_login') == true) {
-            redirect(site_url('admin/dashboard'), 'refresh');
+            redirect(site_url('admin/listings'), 'refresh');
         }elseif ($this->session->userdata('user_login') == true) {
-            redirect(site_url('user/dashboard'), 'refresh');
+            redirect(site_url('user/listings'), 'refresh');
         }else {
             redirect(site_url('home/login'), 'refresh');
         }
@@ -48,10 +48,10 @@ class Login extends CI_Controller {
             $this->session->set_userdata('name', $row->name);
             if ($row->role_id == 1) {
                 $this->session->set_userdata('admin_login', '1');
-                redirect(site_url('admin/dashboard'), 'refresh');
+                redirect(site_url('admin/listings'), 'refresh');
             }else if($row->role_id == 2){
                 $this->session->set_userdata('user_login', '1');
-                redirect(site_url('user/dashboard'), 'refresh');
+                redirect(site_url('user/listings'), 'refresh');
             }
         }else {
             $this->session->set_flashdata('error_message', get_phrase('provided_credentials_are_invalid'));

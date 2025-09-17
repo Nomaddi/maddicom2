@@ -124,68 +124,76 @@
 		</div>
 		<!-- /hero_single -->	
 
-		<div class="container-fluid margin_80_55">
-			<div class="main_title_2">
-				<span><em></em></span>
-				<h2><?php echo get_phrase('popular_listings'); ?></h2>
-				<p><?php echo get_phrase('the_popular_listings_are_progressively_below'); ?>.</p>
-			</div>
-			<div id="reccomended" class="owl-carousel owl-theme">
-			<?php
-				$this->db->order_by('name', 'asc');
-				$this->db->limit(8);
-				$listings = $this->db->get_where('listing', array('is_featured' => 1))->result_array();
-				foreach ($listings as $key => $listing):?>
-				<?php if($key < 8): ?>
-				<div class="item">				
-					<div class="strip grid">					
-						<figure <?php if($listing['is_featured'] == 1) echo 'featured-body'; ?>>
-							<!-- <a href="detail-restaurant.html" class=""></a> -->
-							<a href="javascript::" class="wish_bt" onclick="addToWishList(this, '<?php echo $listing['id']; ?>')">
-									<i class=" <?php echo is_wishlisted($listing['id']) ? 'fas fa-heart' : 'far fa-heart'; ?> "></i>
-								</a>
-							<a href="<?php echo get_listing_url($listing['id']); ?>"><img src="<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>" class="img-fluid" alt="" width="400" height="266"><div class="read_more"><span><?php echo get_phrase('read_more'); ?></span></div></a>
-							<small><?php echo $listing['listing_type'] == "" ? ucfirst(get_phrase('general')) : ucfirst(get_phrase($listing['listing_type'])) ; ?></small>
-						</figure>
-						<div class="wrapper">
-							<h3><a href="<?php echo get_listing_url($listing['id']); ?>"><?php echo get_phrase($listing['name']); ?></a></h3>
-							<p><?php echo $listing['description']; ?></p>
-							<?php if ($listing['latitude'] != "" && $listing['longitude'] != ""): ?>
-											<a class="address" href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361:">Get directions</a>
-									<?php endif; ?>
-						</div>
-						<ul class="<?php if($listing['is_featured'] == 1) echo 'featured-footer'; ?>">
-								<?php $opening_status = get_now_open($listing['id']); ?>
-								<li><span class="<?php echo $opening_status == 'closed' ? 'loc_closed' : 'loc_open'; ?>"><?php echo get_phrase($opening_status); ?></span></li>
-								<li>
-									<div class="score">
-										<span>
-											<?php
-					            if ($this->frontend_model->get_listing_wise_rating($listing['id']) > 0) {
-					              $quality = $this->frontend_model->get_rating_wise_quality($listing['id']);
-					              echo $quality['quality'];
-					            }else {
-												echo get_phrase('unreviewed');
-											}
-					            ?>
-											<em>
-												<?php echo count($this->frontend_model->get_listing_wise_review($listing['id'])).' '.get_phrase('reviews'); ?>
-											</em>
-										</span>
-										<strong><?php echo $this->frontend_model->get_listing_wise_rating($listing['id']); ?></strong></div>
-								</li>
-							</ul>
-					</div>					
-				</div>
-				<?php endif; ?>
-				<?php endforeach; ?>
-			</div>
-			<!-- /carousel -->
-			<div class="container">
-				<div class="btn_home_align"><a  class="btn_1 rounded" href="<?php echo site_url('home/listings'); ?>"><?php echo get_phrase('View_all'); ?></a></div>
-			</div>
-			<!-- /container -->
+	<div class="container-fluid margin_80_55">
+		<div class="main_title_2">
+			<span><em></em></span>
+			<h2><?php echo get_phrase('popular_listings'); ?></h2>
+			<p><?php echo get_phrase('the_popular_listings_are_progressively_below'); ?>.</p>
 		</div>
+		<div id="reccomended" class="owl-carousel owl-theme">
+			<?php $listings = $this->frontend_model->get_top_listings_by_certs(8); ?>
+			<?php foreach ($listings as $key => $listing): ?>
+			<div class="item">
+				<div class="strip grid">
+					<figure <?php if($listing['is_featured'] == 1) echo 'featured-body'; ?>>
+						<a href="javascript::" class="wish_bt" onclick="addToWishList(this, '<?php echo $listing['id']; ?>')">
+							<i class=" <?php echo is_wishlisted($listing['id']) ? 'fas fa-heart' : 'far fa-heart'; ?> "></i>
+						</a>
+						<a href="<?php echo get_listing_url($listing['id']); ?>">
+							<img src="<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>" class="img-fluid" alt="" width="400" height="266">
+							<div class="read_more"><span><?php echo get_phrase('read_more'); ?></span></div>
+						</a>
+						<small><?php echo $listing['listing_type'] == "" ? ucfirst(get_phrase('general')) : ucfirst(get_phrase($listing['listing_type'])) ; ?></small>
+					</figure>
+					<div class="wrapper">
+						<h3><a href="<?php echo get_listing_url($listing['id']); ?>"><?php echo get_phrase($listing['name']); ?></a></h3>
+						<p><?php echo $listing['description']; ?></p>
+						<?php if ($listing['latitude'] != "" && $listing['longitude'] != ""): ?>
+							<a class="address" href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361:">Get directions</a>
+						<?php endif; ?>
+					</div>
+					<ul class="<?php if($listing['is_featured'] == 1) echo 'featured-footer'; ?> mb-0">
+	<li>
+		<span class="<?php echo get_now_open($listing['id']) == 'closed' ? 'loc_closed' : 'loc_open'; ?>">
+			<?php echo get_phrase(get_now_open($listing['id'])); ?>
+		</span>
+	</li>
+
+	<li>
+		<div class="certifications-list d-flex align-items-center">
+			<?php 
+			$cert_ids = json_decode($listing['certifications'] ?? '[]', true);
+			if (is_array($cert_ids) && count($cert_ids) > 0):
+				foreach ($cert_ids as $cid):
+					$c = $this->crud_model->get_certification($cid)->row_array();
+					if (!$c) continue;
+
+					if (!empty($c['image'])): ?>
+						<img src="<?php echo base_url('uploads/certifications/'.$c['image']); ?>"
+						     alt="<?php echo html_escape($c['name']); ?>"
+						     title="<?php echo html_escape($c['name']); ?>"
+						     style="width:30px;height:30px;object-fit:contain;margin-right:6px;">
+					<?php elseif (!empty($c['icon'])): ?>
+						<i class="<?php echo html_escape($c['icon']); ?>"
+						   title="<?php echo html_escape($c['name']); ?>"
+						   style="font-size:18px;margin-right:8px;opacity:.9;"></i>
+					<?php endif; ?>
+				<?php endforeach;
+			endif; ?>
+		</div>
+	</li>
+</ul>
+
+				</div>
+			</div>
+			<?php endforeach; ?>
+		</div>
+		<div class="container">
+			<div class="btn_home_align"><a class="btn_1 rounded" href="<?php echo site_url('home/listings'); ?>"><?php echo get_phrase('View_all'); ?></a></div>
+		</div>
+	</div>
+
+
 		
 		
 		<div class="call_section">

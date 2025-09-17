@@ -602,5 +602,12 @@
     "edit_form": "Formulario de edición",
     "certifications": "Certificaciones",
     "add_new_certification": "Agregar nueva certificación",
-    "certification_name": "Nombre de la certificación"
+    "certification_name": "Nombre de la certificación",
+    "icon_or_image": "Icon or image",
+    "update_certification": "Update certification",
+    "certification_title": "Certification title",
+    "provide_certification_name": "Provide certification name",
+    "image": "Image",
+    "upload_to_replace_leave_blank_to_keep": "Upload to replace leave blank to keep",
+    "certification_updated": "Certification updated"
 }
