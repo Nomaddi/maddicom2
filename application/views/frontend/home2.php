@@ -268,7 +268,7 @@
 				</div>
 				<div class="container">
 					<div class="btn_home_align">
-						<a class="btn_1 rounded" href="<?php echo site_url('home/listings'); ?>">
+						<a class="btn_1 rounded" style="background: #228e50 !important" href="<?php echo site_url('home/listings'); ?>">
 							<?php echo get_phrase('View_all'); ?>
 						</a>
 					</div>
