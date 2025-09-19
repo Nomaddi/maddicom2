@@ -2,245 +2,327 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="SPARKER - Premium directory and listings template by Ansonika.">
-    <meta name="author" content="Ansonika">
-    <title>SPARKER | Premium directory and listings template by Ansonika.</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="SPARKER - Premium directory and listings template by Ansonika.">
+	<meta name="author" content="Ansonika">
+	<title>SPARKER | Premium directory and listings template by Ansonika.</title>
 
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+	<!-- Favicons-->
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+		href="img/apple-touch-icon-114x114-precomposed.png">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+		href="img/apple-touch-icon-144x144-precomposed.png">
 
-    <!-- GOOGLE WEB FONT -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<!-- GOOGLE WEB FONT -->
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
 
-    <!-- BASE CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+	<!-- BASE CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 	<link href="css/vendors.css" rel="stylesheet">
 
-    <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css" rel="stylesheet">
+	<!-- YOUR CUSTOM CSS -->
+	<link href="css/custom.css" rel="stylesheet">
 
 </head>
 
-<body>	
+<body>
 	<div id="page">
-	<main>
-        <?php
-		$hero_settings = json_decode(get_frontend_settings('hero_settings'), true);
-		?>
-        <section class="hero_single version_2 version_4" style=" url(<?php echo base_url('uploads/system/home_banner.jpg'); ?>) center center no-repeat; background-size: cover;">
-	<div class="wrapper">
-		<div class="container">
-			<h3><?php echo get_frontend_settings('banner_title'); ?></h3>
-			<p><?php echo get_frontend_settings('slogan'); ?></p>
-			<form action="<?php echo site_url('home/filter_listings?'); ?>" method="get">
-			   <input type="hidden" name="category" value="">
-				<input type="hidden" name="amenity" value="">
-				<input type="hidden" name="city" value="">
-				<input type="hidden" name="price-range" value="0">
-				<input type="hidden" name="status" value="">
-				<input type="hidden" name="state" value="">
-				<div class="row no-gutters custom-search-input-2">
-					<div class="col-lg-4">
-						<div class="form-group">
-							<input class="form-control" type="text" name="search_string" placeholder="<?php echo get_phrase('what_are_you_looking_for'); ?>...">
-							<i class="icon_search"></i>
-						</div>
-					</div>
-					<?php
-					// ID de Acacías en tu BD
-					$ACACIAS_ID   = 3;
-					$ACACIAS_NAME = 'Acacías';
-					?>
+		<main>
+			<?php
+			$hero_settings = json_decode(get_frontend_settings('hero_settings'), true);
+			$banner_path = FCPATH . 'uploads/system/home_banner.jpg';
+			$banner_url = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path) ? '?v=' . filemtime($banner_path) : '');
+			?>
+			<section class="hero_single version_2 version_4"
+				style="background: linear-gradient(rgba(17,164,83,0.2), rgba(17,164,83,0.2)), url('<?= $banner_url ?>') center center / cover no-repeat;">
+				<div class="wrapper">
+					<div class="container">
+						<h3><?php echo get_frontend_settings('banner_title'); ?></h3>
+						<p><?php echo get_frontend_settings('slogan'); ?></p>
+						<form action="<?php echo site_url('home/filter_listings?'); ?>" method="get">
+							<input type="hidden" name="category" value="">
+							<input type="hidden" name="amenity" value="">
+							<input type="hidden" name="city" value="">
+							<input type="hidden" name="price-range" value="0">
+							<input type="hidden" name="status" value="">
+							<input type="hidden" name="state" value="">
+							<div class="row no-gutters custom-search-input-2">
+								<div class="col-lg-5">
+									<div class="form-group">
+										<input class="form-control" type="text" name="search_string"
+											placeholder="<?php echo get_phrase('what_are_you_looking_for'); ?>...">
+										<i class="icon_search"></i>
+									</div>
+								</div>
+								<?php
+								// ID de Acacías en tu BD
+								$ACACIAS_ID = 3;
+								$ACACIAS_NAME = 'Acacías';
+								?>
 
-					<!-- estos 2 sí se envían en la búsqueda -->
-					<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
-					<input type="hidden" name="state"             value="meta">
+								<!-- estos 2 sí se envían en la búsqueda -->
+								<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
+								<input type="hidden" name="state" value="meta">
 
-					<div class="col-lg-3">
-					<!-- solo visual, bloqueado -->
-					<select class="wide" disabled>
-						<option value="<?php echo $ACACIAS_ID; ?>" selected>
-						<?php echo $ACACIAS_NAME; ?>
-						</option>
-					</select>
-					</div>
 
-					<div class="col-lg-3">
-						<select class="wide" name="selected_category_id">
-							<option value=""><?php echo get_phrase('all_categories'); ?></option>
-							<?php
-							$categories = $this->crud_model->get_categories()->result_array();
-							foreach ($categories as $category):?>
-								<option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<div class="col-lg-2">
-						<input type="submit" value="<?= get_phrase('search'); ?>">
+								<div class="col-lg-4">
+									<select class="wide" name="selected_category_id">
+										<option value=""><?php echo get_phrase('all_categories'); ?></option>
+										<?php
+										$categories = $this->crud_model->get_categories()->result_array();
+										foreach ($categories as $category): ?>
+											<option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?>
+											</option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+								<div class="col-lg-3">
+									<input type="submit" value="<?= get_phrase('search'); ?>">
+								</div>
+							</div>
+							<!-- /row -->
+						</form>
+
 					</div>
 				</div>
-				<!-- /row -->
-			</form>
-				
-		</div>
-	</div>
-</section>
-<!-- /container -->
-		
-<div class="bg_color_1">
-			<div class="container margin_80_55">
+			</section>
+			<!-- /container -->
+
+			<div class="bg_color_1">
+				<div class="container margin_80_55">
+					<div class="main_title_2">
+						<span><em></em></span>
+						<h2>Categorías Populares</h2>
+						<p>Aquí encontrarás categorías seleccionadas que conectan con tendencias, herramientas y
+							oportunidades que impulsan el crecimiento empresarial.</p>
+					</div>
+					<div class="row justify-content-center">
+						<?php
+						$this->db->order_by('name', 'asc');
+						$categories = $this->db->get('category')->result_array();
+						$count = count($categories);
+						foreach ($categories as $key => $category): ?>
+							<?php if ($key < 4 || $key < 5 && $count <= 5): ?>
+								<div class="col-lg-3 col-md-6">
+									<a href="<?php echo site_url('home/search?search_string=&selected_city_id=&selected_category_id=' . $category['id']); ?>"
+										class="box_cat_home">
+										<i class="icon_menu-circle_alt"></i>
+										<span class="mb-3 remake_ico <?php echo $category['icon_class']; ?>"></span>
+										<style>
+											.remake_ico {
+												font-size: 65px;
+												color: #11a453
+											}
+										</style>
+										<h3><?php echo get_phrase($category['name']); ?></h3>
+
+									</a>
+								</div>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</div>
+				</div>
+			</div>
+			<!-- /hero_single -->
+
+			<style>
+				/* CSS para limitar el texto en las tarjetas */
+				.strip.grid .wrapper h3 {
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					line-height: 1.3;
+					height: calc(1.3em * 2);
+					margin-bottom: 10px;
+				}
+
+				.strip.grid .wrapper p {
+					display: -webkit-box;
+					-webkit-line-clamp: 3;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					line-height: 1.4;
+					height: calc(1.4em * 3);
+					margin-bottom: 10px;
+				}
+
+				.strip.grid {
+					height: 100%;
+					display: flex;
+					flex-direction: column;
+				}
+
+				.strip.grid .wrapper {
+					flex-grow: 1;
+					display: flex;
+					flex-direction: column;
+					padding: 15px;
+				}
+
+				.strip.grid ul {
+					margin-top: auto;
+				}
+
+				#reccomended .item {
+					height: auto;
+				}
+
+				#reccomended .strip.grid {
+					min-height: 420px;
+				}
+
+				/* Fallback para navegadores antiguos */
+				@supports not (-webkit-line-clamp: 1) {
+					.strip.grid .wrapper h3 {
+						max-height: calc(1.3em * 2);
+						overflow: hidden;
+					}
+
+					.strip.grid .wrapper p {
+						max-height: calc(1.4em * 3);
+						overflow: hidden;
+					}
+				}
+			</style>
+
+			<div class="container-fluid margin_80_55">
 				<div class="main_title_2">
 					<span><em></em></span>
-					<h2>Popular Categories</h2>
-					<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+					<h2><?php echo get_phrase('popular_listings'); ?></h2>
+					<p><?php echo get_phrase('the_popular_listings_are_progressively_below'); ?>.</p>
 				</div>
-				<div class="row justify-content-center">
-				<?php
-				$this->db->order_by('name', 'asc');
-				$categories = $this->db->get('category')->result_array();
-				$count = count($categories);
-				foreach ($categories as $key => $category):?>
-					<?php if($key < 4 || $key < 5 && $count <= 5): ?>
-					<div class="col-lg-3 col-md-6">				
-						<a href="<?php echo site_url('home/search?search_string=&selected_city_id=&selected_category_id='.$category['id']); ?>" class="box_cat_home">
-							<i class="icon_menu-circle_alt"></i>		
-							<span class="mb-3 remake_ico <?php echo $category['icon_class']; ?>" ></span>
-							<style> .remake_ico{font-size: 65px; color:#2A5082}</style>
-							<h3><?php echo get_phrase($category['name']); ?></h3>
-							
-						</a>						
-					</div>
-					<?php endif; ?>
+				<div id="reccomended" class="owl-carousel owl-theme">
+					<?php $listings = $this->frontend_model->get_top_listings_by_certs(8); ?>
+					<?php foreach ($listings as $key => $listing): ?>
+						<div class="item">
+							<div class="strip grid">
+								<figure <?php if ($listing['is_featured'] == 1)
+									echo 'featured-body'; ?>>
+									<a href="javascript::" class="wish_bt"
+										onclick="addToWishList(this, '<?php echo $listing['id']; ?>')">
+										<i
+											class=" <?php echo is_wishlisted($listing['id']) ? 'fas fa-heart' : 'far fa-heart'; ?> "></i>
+									</a>
+									<a href="<?php echo get_listing_url($listing['id']); ?>">
+										<img src="<?php echo base_url('uploads/listing_thumbnails/' . $listing['listing_thumbnail']); ?>"
+											class="img-fluid" alt="" width="400" height="266">
+										<div class="read_more"><span><?php echo get_phrase('read_more'); ?></span></div>
+									</a>
+									<small><?php echo $listing['listing_type'] == "" ? ucfirst(get_phrase('general')) : ucfirst(get_phrase($listing['listing_type'])); ?></small>
+								</figure>
+								<div class="wrapper">
+									<h3><a
+											href="<?php echo get_listing_url($listing['id']); ?>"><?php echo get_phrase($listing['name']); ?></a>
+									</h3>
+									<p><?php echo strip_tags($listing['description']); ?></p>
+									<?php if ($listing['latitude'] != "" && $listing['longitude'] != ""): ?>
+										<a class="address"
+											href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361:">Get
+											directions</a>
+									<?php endif; ?>
+								</div>
+								<ul class="<?php if ($listing['is_featured'] == 1)
+									echo 'featured-footer'; ?> mb-0">
+									<li>
+										<span
+											class="<?php echo get_now_open($listing['id']) == 'closed' ? 'loc_closed' : 'loc_open'; ?>">
+											<?php echo get_phrase(get_now_open($listing['id'])); ?>
+										</span>
+									</li>
+									<li>
+										<div class="certifications-list d-flex align-items-center">
+											<?php
+											$cert_ids = json_decode($listing['certifications'] ?? '[]', true);
+											if (is_array($cert_ids) && count($cert_ids) > 0):
+												foreach ($cert_ids as $cid):
+													$c = $this->crud_model->get_certification($cid)->row_array();
+													if (!$c)
+														continue;
+													if (!empty($c['image'])): ?>
+														<img src="<?php echo base_url('uploads/certifications/' . $c['image']); ?>"
+															alt="<?php echo html_escape($c['name']); ?>"
+															title="<?php echo html_escape($c['name']); ?>"
+															style="width:30px;height:30px;object-fit:contain;margin-right:6px;">
+													<?php elseif (!empty($c['icon'])): ?>
+														<i class="<?php echo html_escape($c['icon']); ?>"
+															title="<?php echo html_escape($c['name']); ?>"
+															style="font-size:18px;margin-right:8px;opacity:.9;"></i>
+													<?php endif; ?>
+												<?php endforeach;
+											endif; ?>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
 					<?php endforeach; ?>
 				</div>
-			</div>
-		</div>
-		<!-- /hero_single -->	
-
-	<div class="container-fluid margin_80_55">
-		<div class="main_title_2">
-			<span><em></em></span>
-			<h2><?php echo get_phrase('popular_listings'); ?></h2>
-			<p><?php echo get_phrase('the_popular_listings_are_progressively_below'); ?>.</p>
-		</div>
-		<div id="reccomended" class="owl-carousel owl-theme">
-			<?php $listings = $this->frontend_model->get_top_listings_by_certs(8); ?>
-			<?php foreach ($listings as $key => $listing): ?>
-			<div class="item">
-				<div class="strip grid">
-					<figure <?php if($listing['is_featured'] == 1) echo 'featured-body'; ?>>
-						<a href="javascript::" class="wish_bt" onclick="addToWishList(this, '<?php echo $listing['id']; ?>')">
-							<i class=" <?php echo is_wishlisted($listing['id']) ? 'fas fa-heart' : 'far fa-heart'; ?> "></i>
+				<div class="container">
+					<div class="btn_home_align">
+						<a class="btn_1 rounded" href="<?php echo site_url('home/listings'); ?>">
+							<?php echo get_phrase('View_all'); ?>
 						</a>
-						<a href="<?php echo get_listing_url($listing['id']); ?>">
-							<img src="<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>" class="img-fluid" alt="" width="400" height="266">
-							<div class="read_more"><span><?php echo get_phrase('read_more'); ?></span></div>
-						</a>
-						<small><?php echo $listing['listing_type'] == "" ? ucfirst(get_phrase('general')) : ucfirst(get_phrase($listing['listing_type'])) ; ?></small>
-					</figure>
-					<div class="wrapper">
-						<h3><a href="<?php echo get_listing_url($listing['id']); ?>"><?php echo get_phrase($listing['name']); ?></a></h3>
-						<p><?php echo $listing['description']; ?></p>
-						<?php if ($listing['latitude'] != "" && $listing['longitude'] != ""): ?>
-							<a class="address" href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361:">Get directions</a>
-						<?php endif; ?>
-					</div>
-					<ul class="<?php if($listing['is_featured'] == 1) echo 'featured-footer'; ?> mb-0">
-	<li>
-		<span class="<?php echo get_now_open($listing['id']) == 'closed' ? 'loc_closed' : 'loc_open'; ?>">
-			<?php echo get_phrase(get_now_open($listing['id'])); ?>
-		</span>
-	</li>
-
-	<li>
-		<div class="certifications-list d-flex align-items-center">
-			<?php 
-			$cert_ids = json_decode($listing['certifications'] ?? '[]', true);
-			if (is_array($cert_ids) && count($cert_ids) > 0):
-				foreach ($cert_ids as $cid):
-					$c = $this->crud_model->get_certification($cid)->row_array();
-					if (!$c) continue;
-
-					if (!empty($c['image'])): ?>
-						<img src="<?php echo base_url('uploads/certifications/'.$c['image']); ?>"
-						     alt="<?php echo html_escape($c['name']); ?>"
-						     title="<?php echo html_escape($c['name']); ?>"
-						     style="width:30px;height:30px;object-fit:contain;margin-right:6px;">
-					<?php elseif (!empty($c['icon'])): ?>
-						<i class="<?php echo html_escape($c['icon']); ?>"
-						   title="<?php echo html_escape($c['name']); ?>"
-						   style="font-size:18px;margin-right:8px;opacity:.9;"></i>
-					<?php endif; ?>
-				<?php endforeach;
-			endif; ?>
-		</div>
-	</li>
-</ul>
-
-				</div>
-			</div>
-			<?php endforeach; ?>
-		</div>
-		<div class="container">
-			<div class="btn_home_align"><a class="btn_1 rounded" href="<?php echo site_url('home/listings'); ?>"><?php echo get_phrase('View_all'); ?></a></div>
-		</div>
-	</div>
-
-
-		
-		
-		<div class="call_section">
-	<div class="wrapper">
-		<div class="container margin_80_55">
-			<div class="main_title_2">
-				<span><em></em></span>
-				<h2><?php echo $hero_settings['title']; ?></h2>
-				<p><?php echo $hero_settings['sub_title']; ?></p>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="box_how">
-						<i class="<?php echo $hero_settings['icon_picker_one']; ?>"></i>
-						<h3><?php echo $hero_settings['topic_one']; ?></h3>
-						<p><?php echo $hero_settings['sub_topic_one']; ?></p>
-						<span></span>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="box_how">
-						<i class="<?php echo $hero_settings['icon_picker_two']; ?>"></i>
-						<h3><?php echo $hero_settings['topic_two']; ?></h3>
-						<p><?php echo $hero_settings['sub_topic_two']; ?></p>
-						<span></span>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="box_how">
-						<i class="<?php echo $hero_settings['icon_picker_three']; ?>"></i>
-						<h3><?php echo $hero_settings['topic_three']; ?></h3>
-						<p><?php echo $hero_settings['sub_topic_three']; ?></p>
 					</div>
 				</div>
 			</div>
-			<!-- /row -->
-			<!-- <p class="text-center add_top_30 wow bounceIn" data-wow-delay="0.5s"><a id="sign_up" class="btn_1 rounded" href="<?php echo site_url('home/sign_up'); ?>"><?php echo get_phrase("register"); ?></a></p> -->
-		</div>
-		<canvas id="hero-canvas" width="1920" height="1080"></canvas>
-	</div>
-	<!-- /wrapper -->
-</div>
-		<!--/call_section-->
-	</main>
-	<!-- /main -->
 
-	<!-- <footer class="plus_border">
+
+
+
+			<div class="call_section" style="background-color: #29ffb6 !important">
+				<div class="wrapper">
+					<div class="container margin_80_55">
+						<div class="main_title_2">
+							<span><em></em></span>
+							<h2><?php echo $hero_settings['title']; ?></h2>
+							<p><?php echo $hero_settings['sub_title']; ?></p>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="box_how">
+									<i class="<?php echo $hero_settings['icon_picker_one']; ?>"></i>
+									<h3><?php echo $hero_settings['topic_one']; ?></h3>
+									<p><?php echo $hero_settings['sub_topic_one']; ?></p>
+									<span></span>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="box_how">
+									<i class="<?php echo $hero_settings['icon_picker_two']; ?>"></i>
+									<h3><?php echo $hero_settings['topic_two']; ?></h3>
+									<p><?php echo $hero_settings['sub_topic_two']; ?></p>
+									<span></span>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="box_how">
+									<i class="<?php echo $hero_settings['icon_picker_three']; ?>"></i>
+									<h3><?php echo $hero_settings['topic_three']; ?></h3>
+									<p><?php echo $hero_settings['sub_topic_three']; ?></p>
+								</div>
+							</div>
+						</div>
+						<!-- /row -->
+						<!-- <p class="text-center add_top_30 wow bounceIn" data-wow-delay="0.5s"><a id="sign_up" class="btn_1 rounded" href="<?php echo site_url('home/sign_up'); ?>"><?php echo get_phrase("register"); ?></a></p> -->
+					</div>
+					<canvas id="hero-canvas" width="1920" height="1080"></canvas>
+				</div>
+				<!-- /wrapper -->
+			</div>
+			<!--/call_section-->
+		</main>
+		<!-- /main -->
+
+		<!-- <footer class="plus_border">
 		<div class="container margin_60_35">
 			<div class="row">
 				<div class="col-lg-3 col-md-6 col-sm-6">
@@ -340,10 +422,10 @@
 			</div>
 		</div>
 	</footer> -->
-	<!--/footer-->
+		<!--/footer-->
 	</div>
 	<!-- page -->
-	
+
 	<!-- Sign In Popup -->
 	<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
 		<div class="small-dialog-header">
@@ -367,8 +449,8 @@
 				<div class="clearfix add_bottom_15">
 					<div class="checkboxes float-start">
 						<label class="container_check">Remember me
-						  <input type="checkbox">
-						  <span class="checkmark"></span>
+							<input type="checkbox">
+							<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="float-end mt-1"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
@@ -383,7 +465,8 @@
 						<input type="email" class="form-control" name="email_forgot" id="email_forgot">
 						<i class="icon_mail_alt"></i>
 					</div>
-					<p>You will receive an email containing a link allowing you to reset your password to a new preferred one.</p>
+					<p>You will receive an email containing a link allowing you to reset your password to a new
+						preferred one.</p>
 					<div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
 				</div>
 			</div>
@@ -391,35 +474,36 @@
 		<!--form -->
 	</div>
 	<!-- /Sign In Popup -->
-	
+
 	<div id="toTop"></div><!-- Back to top button -->
 	<script>
 		function addToWishList(elem, listing_id) {
-		var isLoggedIn = '<?php echo $this->session->userdata('is_logged_in'); ?>';
-		if (isLoggedIn === '1') {
-			$.ajax({
-				type : 'POST',
-				url : '<?php echo site_url('home/add_to_wishlist'); ?>',
-				data : {listing_id : listing_id},
-				success : function(response) {
-					if (response == 'added') {
-						$(elem).html('<i class="fas fa-heart"></i>');
-						toastr.success('<?php echo get_phrase('added_to_wishlist'); ?>');
-					}else {
-						$(elem).html('<i class="far fa-heart"></i>');
-						toastr.success('<?php echo get_phrase('removed_from_the_wishlist'); ?>');
+			var isLoggedIn = '<?php echo $this->session->userdata('is_logged_in'); ?>';
+			if (isLoggedIn === '1') {
+				$.ajax({
+					type: 'POST',
+					url: '<?php echo site_url('home/add_to_wishlist'); ?>',
+					data: { listing_id: listing_id },
+					success: function (response) {
+						if (response == 'added') {
+							$(elem).html('<i class="fas fa-heart"></i>');
+							toastr.success('<?php echo get_phrase('added_to_wishlist'); ?>');
+						} else {
+							$(elem).html('<i class="far fa-heart"></i>');
+							toastr.success('<?php echo get_phrase('removed_from_the_wishlist'); ?>');
+						}
 					}
-				}
-			});
-		}else {
-			loginAlert();
+				});
+			} else {
+				loginAlert();
+			}
 		}
-	}
 	</script>
 	<!-- COMMON SCRIPTS -->
-    <script src="js/common_scripts.js"></script>
+	<script src="js/common_scripts.js"></script>
 	<script src="js/functions.js"></script>
 	<script src="assets/validate.js"></script>
 
 </body>
+
 </html>

@@ -361,7 +361,7 @@
                     <span><i class="entypo-dot"></i> <?php echo get_phrase('map_settings'); ?></span>
                 </a>
             </li>
-            <li class="<?php if ($page_name == 'payment_settings') echo 'active'; ?> ">
+            <li id="payment_settings" class="<?php if ($page_name == 'payment_settings') echo 'active'; ?> ">
                 <a href="<?php echo site_url('admin/payment_settings'); ?>">
                     <span><i class="entypo-dot"></i> <?php echo get_phrase('payment_settings'); ?></span>
                 </a>
@@ -371,12 +371,12 @@
                     <span><i class="entypo-dot"></i> <?php echo get_phrase('language_settings'); ?></span>
                 </a>
             </li>
-            <li class="<?php if ($page_name == 'smtp_settings') echo 'active'; ?> ">
+            <li id="smtp_settings" class="<?php if ($page_name == 'smtp_settings') echo 'active'; ?> ">
                 <a href="<?php echo site_url('admin/smtp_settings'); ?>">
                     <span><i class="entypo-dot"></i> <?php echo get_phrase('smtp_settings'); ?></span>
                 </a>
             </li>
-            <li class="<?php if ($page_name == 'about') echo 'active'; ?> ">
+            <li id="about" class="<?php if ($page_name == 'about') echo 'active'; ?> ">
                 <a href="<?php echo site_url('admin/about'); ?>">
                     <span><i class="entypo-dot"></i> <?php echo get_phrase('about'); ?></span>
                 </a>

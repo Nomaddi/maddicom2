@@ -5,6 +5,9 @@
 #addons,
 #city_add,
 #rating,
-#panel{
+#panel,
+#payment_settings,
+#smtp_settings,
+#about{
     display: none !important;
 }

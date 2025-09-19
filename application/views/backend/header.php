@@ -76,5 +76,5 @@
 </div>
 
 <hr style="margin-top:0px;" />
-<link rel="stylesheet" href="/frontend/css/custom.css">
+<link rel="stylesheet" href="assets/frontend/css/custom.css">
 

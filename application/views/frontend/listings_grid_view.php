@@ -18,7 +18,7 @@
 	isset($selected_category_id) ? "": $selected_category_id = "";
 	isset($selected_state_id) ? "": $selected_state_id = "";
 ?>
-<div id="results">
+<div id="results" style="background: #228e50 !important">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3 col-md-4 col-10">

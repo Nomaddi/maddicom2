@@ -210,13 +210,13 @@ $hero_settings = json_decode(get_frontend_settings('hero_settings'), true);
                 
                 <form action="<?php echo site_url('admin/frontend_settings/hero_update'); ?>" method="post" enctype="multipart/form-data" role="form" class="form-horizontal form-groups-bordered">
                 <div class="col-sm-3"></div>
-                    <div class="form-group col-sm-7">  
+                    <!-- <div class="form-group col-sm-7">  
                         <label  for="home">Select your Home Page - </label>				
                         <select  name="home_page" id="mySelect" class="mb-3" style="cursor:pointer;">
                             <option value="1" <?php if(get_frontend_settings('home_page') == 1) echo 'selected'; ?>>Home-1</option>
                             <option value="2" <?php if(get_frontend_settings('home_page') == 2) echo 'selected'; ?>>Home-2</option>
                         </select>
-                    </div>
+                    </div> -->
                 
                     <div class="form-group">
                         <label for="title" class="col-sm-3 control-label"><?php echo get_phrase('title'); ?></label>
@@ -321,7 +321,10 @@ $hero_settings = json_decode(get_frontend_settings('hero_settings'), true);
 <!-- end row-->
 
 
-
+<?php
+$banner_path = FCPATH . 'uploads/system/home_banner.jpg';
+$banner_url  = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path) ? '?v=' . filemtime($banner_path) : '');
+?>
 
 
 <div class="row">
@@ -339,7 +342,7 @@ $hero_settings = json_decode(get_frontend_settings('hero_settings'), true);
                         <div class="col-md-12 text-center">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail" style="width: 200px; height: 200px; background-color: #E0E0E0;" data-trigger="fileinput">
-                                    <img src="<?php echo base_url('uploads/system/home_banner.jpg'); ?>" alt="...">
+                                    <img src="<?= $banner_url; ?>" alt="Banner">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>
                                 <div>

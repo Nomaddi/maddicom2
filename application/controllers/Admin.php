@@ -1147,4 +1147,5 @@ class Admin extends CI_Controller {
 		$this->session->set_flashdata('flash_message', get_phrase('listing imported succesfully'));
 		redirect(site_url('admin/listings'), 'refresh');
 	}
+	
 }

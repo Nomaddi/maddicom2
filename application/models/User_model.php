@@ -19,7 +19,7 @@ class User_model extends CI_Model {
     }
 
     public function get_users() {
-        $this->db->where('role_id', 2);
+        $this->db->where('role_id', 1);
         return $this->db->get('user');
     }
 
@@ -37,7 +37,7 @@ class User_model extends CI_Model {
             'linkedin' => sanitizer($this->input->post('linkedin')),
         );
         $data['social'] = json_encode($social_links);
-        $data['role_id'] = 2;
+        $data['role_id'] = 1;
         $data['wishlists'] = '[]';
         $verification_code =  md5(rand(100000000, 200000000));
         $data['verification_code'] = $verification_code;

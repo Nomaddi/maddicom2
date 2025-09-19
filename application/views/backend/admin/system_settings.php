@@ -1,6 +1,6 @@
 
 <div class="row">
-  <div class="col-lg-7">
+  <div class="col-lg-12">
     <div class="panel panel-primary" data-collapsed="0">
       <div class="panel-heading">
         <div class="panel-title">
@@ -104,12 +104,12 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="purchase_code" class="col-sm-3 control-label"><?php echo get_phrase('purchase_code'); ?></label>
-          <div class="col-sm-7">
-            <input type="text" class="form-control" name="purchase_code" id="purchase_code" placeholder="<?php echo get_phrase('purchase_code'); ?>" value="<?php echo get_settings('purchase_code');  ?>">
-          </div>
-        </div>
+          <div class="col-sm-7"> -->
+            <input type="hidden" class="form-control" name="purchase_code" id="purchase_code" placeholder="<?php echo get_phrase('purchase_code'); ?>" value="<?php echo get_settings('purchase_code');  ?>">
+          <!-- </div>
+        </div> -->
 
         <div class="form-group">
           <label for="footer_text" class="col-sm-3 control-label"><?php echo get_phrase('footer_text'); ?></label>
@@ -131,71 +131,5 @@
       </form>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-primary" data-collapsed="0">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <?php echo get_phrase('recaptcha_settings'); ?>
-                </div>
-            </div>
-            <div class="panel-body">
-                <form action="<?php echo site_url('admin/system_settings/recaptcha_update'); ?>" method="post" enctype="multipart/form-data" role="form" class="form-horizontal form-groups-bordered">
-                    <div class="form-group">
-                        <label for="site_key" class="col-sm-3 control-label"><?php echo get_phrase('recaptcha_status'); ?></label>
-                        <div class="col-sm-7 pt-2">
-                            <input type="radio" name="recaptcha_status" id="recaptcha_status_1" value="1" <?php if(get_settings('recaptcha_status') == 1)echo 'checked'; ?>>
-                            <label for="recaptcha_status_1"><?php echo get_phrase('active'); ?></label>
-
-                            <input type="radio" name="recaptcha_status" id="recaptcha_status_0" value="0" style="margin-left: 5px;" <?php if(get_settings('recaptcha_status') == 0)echo 'checked'; ?>>
-                            <label for="recaptcha_status_0"><?php echo get_phrase('inactive'); ?></label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="site_key" class="col-sm-3 control-label"><?php echo get_phrase('site_key'); ?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" name="recaptcha_sitekey" id="site_key" placeholder="<?php echo get_phrase('site_key'); ?>" value="<?php echo get_settings('recaptcha_sitekey'); ?>" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="secret_key" class="col-sm-3 control-label"><?php echo get_phrase('secret_key'); ?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" name="recaptcha_secretkey" id="secret_key" placeholder="<?php echo get_phrase('secret_key'); ?>" value="<?php echo get_settings('recaptcha_secretkey'); ?>" required>
-                        </div>
-                    </div>
-                    <div class="col-sm-offset-3 col-sm-5" style="padding-top: 10px;">
-                        <button type="submit" class="btn btn-info"><?php echo get_phrase('save'); ?></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div><!-- end col-->
-</div>
 </div><!-- end col-->
-<div class="col-lg-5">
-  <div class="panel panel-primary" data-collapsed="0">
-    <div class="panel-heading">
-      <div class="panel-title">
-        <?php echo get_phrase('update_product'); ?>
-      </div>
-    </div>
-    <div class="panel-body">
-      <form action="<?php echo site_url('updater/update'); ?>" method="post" enctype="multipart/form-data" role="form" class="form-horizontal form-groups-bordered">
-        <div class="form-group">
-          <label for="name" class="col-sm-3 control-label"><?php echo get_phrase('file'); ?></label>
-          <div class="col-sm-7">
-            <input type="file" class="form-control btn-primary" data-label="<i class='glyphicon glyphicon-file'></i> <?php echo get_phrase('browse'); ?>" id="file_name" name="file_name" />
-          </div>
-        </div>
-
-        <div class="col-sm-offset-3 col-sm-5" style="padding-top: 10px;">
-          <button type="submit" class="btn btn-info"><?php echo get_phrase('update_product'); ?></button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 </div>
