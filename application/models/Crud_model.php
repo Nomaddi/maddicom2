@@ -361,6 +361,12 @@ return $this->db->get('listing');
       $data['user_id'] = $this->session->userdata('user_id');
     }
     $data['name'] = sanitizer($this->input->post('title'));
+
+    // datos del representante comercial
+    $data['owner_name'] = sanitizer($this->input->post('owner_name'));
+    $data['owner_phone'] = sanitizer($this->input->post('owner_phone'));
+    $data['owner_email'] = sanitizer($this->input->post('owner_email'));
+
     $data['description'] = sanitizer($this->input->post('description'));
 
 
@@ -613,6 +619,12 @@ return $this->db->get('listing');
     }
 
     $data['name'] = sanitizer($this->input->post('title'));
+
+    //  Datos del representante comercial
+    $data['owner_name'] = sanitizer($this->input->post('owner_name'));
+    $data['owner_phone'] = sanitizer($this->input->post('owner_phone'));
+    $data['owner_email'] = sanitizer($this->input->post('owner_email'));
+
     $data['description'] = sanitizer($this->input->post('description'));
 
     // $value_check = $this->input->post('is_featured');

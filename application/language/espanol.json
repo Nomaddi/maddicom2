@@ -610,10 +610,9 @@
     "image": "Image",
     "upload_to_replace_leave_blank_to_keep": "Upload to replace leave blank to keep",
     "certification_updated": "Certification updated",
-    "owner_name": "Nombre del propietario",
-    "owner_address": "Dirección del propietario",
-    "owner_phone": "Teléfono del propietario",
-    "owner_email": "Correo del propietario",
+    "owner_name": "Nombre",
+    "owner_phone": "Teléfono",
+    "owner_email": "Correo",
     "business_representative_data": "Datos del representante comercial"
 
 }

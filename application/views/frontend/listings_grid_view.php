@@ -29,7 +29,7 @@
 				<form action="<?php echo site_url('home/filter_listings?'); ?>" method="GET">
 			
 					<div class="row no-gutters custom-search-input-2 inner">
-						<div class="col-lg-5">
+						<div class="col-lg-6">
 							<div class="form-group">
 								<input class="form-control" name="search_string" type="text" value="<?=$search_string?>" placeholder="<?php echo get_phrase('what_are_you_looking_for');?>">
 								<i class="icon_search"></i>
@@ -45,17 +45,10 @@
 					<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
 					<input type="hidden" name="state"           value="meta">
 
-					<div class="col-lg-3">
-					<!-- solo visual, bloqueado -->
-					<select class="wide" disabled>
-						<option value="<?php echo $ACACIAS_ID; ?>" selected>
-						<?php echo $ACACIAS_NAME; ?>
-						</option>
-					</select>
-					</div>
+					
 
 					
-						<div class="col-lg-3">
+						<div class="col-lg-4">
 							<select class="wide" name="category">
 								<option value=""><?php echo get_phrase('all_categories'); ?></option>
 								<?php
@@ -75,7 +68,7 @@
 						<input type="hidden" name="status" value="all">
 
 						
-						<div class="col-lg-1">
+						<div class="col-lg-2">
 							<input type="submit" value="Search">
 						</div>
 					</div>

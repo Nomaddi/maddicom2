@@ -10,6 +10,37 @@
   </div>
 </div>
 
+<fieldset style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+    <?php echo get_phrase('business_representative_data'); // Agrega esta clave al archivo de idioma ?>
+
+<div class="form-group">
+  <label for="owner_name" class="col-sm-3 control-label"><?php echo get_phrase('owner_name'); ?></label>
+  <div class="col-sm-7">
+    <input type="text" class="form-control" name="owner_name" id="owner_name" 
+           value="<?php echo isset($listing_details['owner_name']) ? $listing_details['owner_name'] : ''; ?>" 
+           placeholder="<?php echo get_phrase('owner_name'); ?>">
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="owner_phone" class="col-sm-3 control-label"><?php echo get_phrase('owner_phone'); ?></label>
+  <div class="col-sm-7">
+    <input type="text" class="form-control" name="owner_phone" id="owner_phone" 
+           value="<?php echo isset($listing_details['owner_phone']) ? $listing_details['owner_phone'] : ''; ?>" 
+           placeholder="<?php echo get_phrase('owner_phone'); ?>">
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="owner_email" class="col-sm-3 control-label"><?php echo get_phrase('owner_email'); ?></label>
+  <div class="col-sm-7">
+    <input type="email" class="form-control" name="owner_email" id="owner_email" 
+           value="<?php echo isset($listing_details['owner_email']) ? $listing_details['owner_email'] : ''; ?>" 
+           placeholder="<?php echo get_phrase('owner_email'); ?>">
+  </div>
+</div>
+</fieldset>
+
 <div class="form-group">
   <label for="title" class="col-sm-3 control-label"><?php echo get_phrase('title'); ?></label>
   <div class="col-sm-7">
