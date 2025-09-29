@@ -72,12 +72,12 @@ $all_users = $this->db->get('user')->result_array();
 								<span class="hidden-xs"><?php echo get_phrase('type'); ?></span>
 							</a>
 						</li>
-            <li>
+            <!-- <li>
               <a href="#ninth" data-toggle="tab">
                 <span class="visible-xs"><i class="entypo-cog"></i></span>
                 <span class="hidden-xs"><?php echo get_phrase('claim'); ?></span>
               </a>
-            </li>
+            </li> -->
 						<li>
 							<a href="#ten" data-toggle="tab">
 								<span class="visible-xs"><i class="entypo-cog"></i></span>

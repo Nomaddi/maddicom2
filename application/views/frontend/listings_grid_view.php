@@ -336,7 +336,14 @@
 							<?php if($listing['is_featured'] == 1){ ?>
 								<a href="javascript::" class="featured-tag-grid"><?php echo get_phrase('featured'); ?></a>
 							<?php } ?>
-							<a href="<?php echo get_listing_url($listing['id']); ?>"  id = "listing-banner-image-for-<?php echo $listing['code']; ?>"  class="d-block h-100 img" style="background-image:url('<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>')">
+							<?php 
+							// Detectar si listing_thumbnail es URL completa o nombre de archivo
+							$thumbnail = $listing['listing_thumbnail'];
+							$is_thumbnail_url = (strpos($thumbnail, 'http://') === 0 || strpos($thumbnail, 'https://') === 0);
+							$thumbnail_background = $is_thumbnail_url ? $thumbnail : base_url('uploads/listing_thumbnails/'.$thumbnail);
+							?>
+
+							<a href="<?php echo get_listing_url($listing['id']); ?>" id="listing-banner-image-for-<?php echo $listing['code']; ?>" class="d-block h-100 img" style="background-image:url('<?php echo $thumbnail_background; ?>')">
 								<!-- <img src="<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>" class="img-fluid" alt=""> -->
 								<div class="read_more"><span><?php echo get_phrase('watch_details'); ?></span></div>
 							</a>
@@ -360,6 +367,15 @@
 									echo $city['name'].','.$state['name'].','.$country['name'];
 								?>
 							</small>
+							<?php if (!empty($listing['google_rating']) && $listing['google_rating'] > 0): ?>
+								<span style="display: inline-block; margin-left: 10px; font-size: 0.8em; vertical-align: middle; color: #666;">
+									<span style="color: #ffa500; font-size: 1.4em;">★</span>
+									<strong style="color: #333;"><?php echo number_format($listing['google_rating'], 1); ?></strong>
+									<?php if (!empty($listing['google_user_ratings_total']) && $listing['google_user_ratings_total'] > 0): ?>
+										<span style="color: #999; font-size: 0.9em;">(<?php echo number_format($listing['google_user_ratings_total']); ?>)</span>
+									<?php endif; ?>
+								</span>
+							<?php endif; ?>
 							<p class="ellipsis">
 								<?php echo $listing['description']; ?>
 							</p>

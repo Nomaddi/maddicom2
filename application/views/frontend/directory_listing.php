@@ -1,4 +1,11 @@
-<div class="hero_in shop_detail" style="background: url(<?php echo base_url('uploads/listing_cover_photo/'.$listing_details['listing_cover']); ?>) center center no-repeat; background-size: cover;">
+<?php 
+// Limpiar barras escapadas del JSON y detectar tipo
+$cover = str_replace('\/', '/', $listing_details['listing_cover']);
+$is_cover_url = (strpos($cover, 'http://') === 0 || strpos($cover, 'https://') === 0);
+$cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_photo/'.$cover);
+?>
+
+<div class="hero_in shop_detail" style="background: url(<?php echo $cover_background; ?>) center center no-repeat; background-size: cover;">
 </div>
 <!--/hero_in-->
 
@@ -31,6 +38,16 @@
 						<?php if($claiming_status == 1): ?>
 							<span class="claimed_icon" data-toggle="tooltip" title="<?php echo get_phrase('this_listing_is_verified'); ?>">
 								<img src="<?php echo base_url('assets/frontend/images/verified.png'); ?>" width="30" />
+							</span>
+						<?php endif; ?>
+
+						<?php if (!empty($listing_details['google_rating']) && $listing_details['google_rating'] > 0): ?>
+							<span style="display: inline-block; margin-left: 10px; font-size: 0.6em; vertical-align: middle; color: #666;">
+								<span style="color: #ffa500; font-size: 1.2em;">★</span>
+								<strong style="color: #333;"><?php echo number_format($listing_details['google_rating'], 1); ?></strong>
+								<?php if (!empty($listing_details['google_user_ratings_total']) && $listing_details['google_user_ratings_total'] > 0): ?>
+									<span style="color: #999; font-size: 0.9em;">(<?php echo number_format($listing_details['google_user_ratings_total']); ?>)</span>
+								<?php endif; ?>
 							</span>
 						<?php endif; ?>
 					</h1>
@@ -73,15 +90,29 @@
 					<div class="grid-gallery">
 						<ul class="magnific-gallery">
 							<?php foreach (json_decode($listing_details['photos']) as $key => $photo): ?>
-								<?php if (file_exists('uploads/listing_images/'.$photo)): ?>
+								<?php 
+								// Verificar si la foto es una URL completa o solo un nombre de archivo
+								$is_full_url = (strpos($photo, 'http://') === 0 || strpos($photo, 'https://') === 0);
+								
+								if ($is_full_url) {
+									// Es una URL completa del microservicio
+									$photo_url = $photo;
+									$show_image = true;
+								} else {
+									// Es solo un nombre de archivo, verificar si existe localmente
+									$show_image = file_exists('uploads/listing_images/'.$photo);
+									$photo_url = base_url('uploads/listing_images/'.$photo);
+								}
+								?>
+								
+								<?php if ($show_image): ?>
 									<li>
-										<figure>
-											<img src="<?php echo base_url('uploads/listing_images/'.$photo); ?>" alt="">
+										<figure style="margin: 0; overflow: hidden; height: 200px; width: 100%;">
+											<img src="<?php echo $photo_url; ?>" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
 											<figcaption>
 												<div class="caption-content">
-													<a href="<?php echo base_url('uploads/listing_images/'.$photo); ?>" title="" data-effect="mfp-zoom-in">
+													<a href="<?php echo $photo_url; ?>" title="" data-effect="mfp-zoom-in">
 														<i class="pe-7s-plus"></i>
-
 													</a>
 												</div>
 											</figcaption>

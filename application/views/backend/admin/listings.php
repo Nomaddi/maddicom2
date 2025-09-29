@@ -118,6 +118,10 @@ if (!isset($user_id)) {
               <th width="80">
                 <div>#</div>
               </th>
+              <!-- id -->
+               <th>
+                <div><?php echo get_phrase('id'); ?></div>
+              </th>
               <th>
                 <div><?php echo get_phrase('title'); ?></div>
               </th>
@@ -150,6 +154,13 @@ if (!isset($user_id)) {
                       </label>
                     </div>
                   </div>
+                </td>
+                <td>
+                  <strong>
+                    <a >
+                      <?php echo $listing['id']; ?>
+                    </a>
+                  </strong>
                 </td>
                 <td>
                   <strong>
@@ -213,11 +224,6 @@ if (!isset($user_id)) {
                           <li><a href="javascript::" onclick="confirm_modal('<?php echo site_url('admin/listings/make_pending/' . $listing['id']); ?>', 'generic_confirmation');"><?php echo get_phrase('mark_as_pending'); ?></a></li>
                         <?php endif; ?>
 
-                        <?php if ($listing['is_featured'] == 1) : ?>
-                          <li><a href="javascript::" onclick="confirm_modal('<?php echo site_url('admin/listings/make_none_featured/' . $listing['id']); ?>', 'generic_confirmation');"><?php echo get_phrase('remove_from_featured'); ?></a></li>
-                        <?php elseif ($listing['is_featured'] == 0) : ?>
-                          <li><a href="javascript::" onclick="confirm_modal('<?php echo site_url('admin/listings/make_featured/' . $listing['id']); ?>', 'generic_confirmation');"><?php echo get_phrase('mark_as_featured'); ?></a></li>
-                        <?php endif; ?>
                         <?php if (get_addon_details('fb_messenger') != 0) : ?>
                           <li><a href="<?php echo site_url('addons/facebook_messenger/api_manager/' . $listing['id']); ?>"><?php echo get_phrase('facebook_chat_manager'); ?></a></li>
                         <?php endif; ?>

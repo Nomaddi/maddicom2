@@ -116,12 +116,12 @@
                         <span><i class="entypo-dot"></i> <?php echo get_phrase('add_new_directory'); ?></span>
                     </a>
                 </li>
-                <li class="<?php if ($page_name == 'claimed_listings') echo 'active'; ?> ">
+                <li id="claimed_listings" class="<?php if ($page_name == 'claimed_listings') echo 'active'; ?> ">
                     <a href="<?php echo site_url('admin/claimed_listings'); ?>">
                         <span><i class="entypo-dot"></i> <?php echo get_phrase('claimed_directory'); ?></span>
                     </a>
                 </li>
-                <li class="<?php if ($page_name == 'reported_listings') echo 'active'; ?> ">
+                <li id="reported_listings" class="<?php if ($page_name == 'reported_listings') echo 'active'; ?> ">
                     <a href="<?php echo site_url('admin/reported_listings'); ?>">
                         <span><i class="entypo-dot"></i> <?php echo get_phrase('reported_directory'); ?></span>
                     </a>

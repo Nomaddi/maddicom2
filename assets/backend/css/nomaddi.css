@@ -8,6 +8,8 @@
 #panel,
 #payment_settings,
 #smtp_settings,
-#about{
+#about,
+#claimed_listings,
+#reported_listings{
     display: none !important;
 }

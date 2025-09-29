@@ -314,10 +314,17 @@
 					<div class="row no-gutters">
 						<div class="col-4">
 							<figure>
-								<a href="<?php echo get_listing_url($listing['id']); ?>"  id = "listing-banner-image-for-<?php echo $listing['code']; ?>"  class="d-block h-100 img" style="background-image:url('<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>')">
-										<!-- <img src="<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>" class="img-fluid" alt=""> -->
-										<div class="read_more"><span><?php echo get_phrase('watch_details'); ?></span></div>
-									</a>
+								<?php 
+								// Detectar si listing_thumbnail es URL completa o nombre de archivo
+								$thumbnail = $listing['listing_thumbnail'];
+								$is_thumbnail_url = (strpos($thumbnail, 'http://') === 0 || strpos($thumbnail, 'https://') === 0);
+								$thumbnail_src = $is_thumbnail_url ? $thumbnail : base_url('uploads/listing_thumbnails/'.$thumbnail);
+								?>
+
+								<a href="<?php echo get_listing_url($listing['id']); ?>" id="listing-banner-image-for-<?php echo $listing['code']; ?>" class="d-block h-100 img" style="background-image:url('<?php echo $thumbnail_src; ?>')">
+									<img src="<?php echo $thumbnail_src; ?>" class="img-fluid" alt="">
+									<div class="read_more"><span><?php echo get_phrase('watch_details'); ?></span></div>
+								</a>
 									<small><?php echo $listing['listing_type'] == "" ? ucfirst(get_phrase('general')) : ucfirst(get_phrase($listing['listing_type'])) ; ?></small>
 									<?php if($listing['is_featured'] == 1): ?>
 										<small class="featured-tag-list"><?php echo get_phrase('featured'); ?></small>

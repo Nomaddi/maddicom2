@@ -6,7 +6,7 @@
         <label class="custom-control-label" for="general"><i class="fa fa-hotel" style="color: #636363;"></i> <?php echo get_phrase('general'); ?></label>
       </div>
     </div>
-
+<!-- 
     <div class="col-lg-12">
       <div class="custom-control custom-radio">
         <input type="radio" id="hotel" name="listing_type" class="custom-control-input listing-type-radio" value="hotel" onclick="showListingTypeForm('hotel')">
@@ -33,12 +33,12 @@
         <input type="radio" id="beauty" name="listing_type" class="custom-control-input listing-type-radio" value="beauty" onclick="showListingTypeForm('beauty')">
         <label class="custom-control-label" for="beauty"><i class="fa fa-hotel" style="color: #636363;"></i> <?php echo get_phrase('beauty'); ?></label>
       </div>
-    </div>
+    </div> -->
   </div>
 
-  <div class="col-sm-3 text-left">
+  <!-- <div class="col-sm-3 text-left">
     <a href="#" id = "demo-btn" class="btn btn-primary mt-4" onclick="showListingTypeWiseDemo($('.listing-type-radio').val())"> <i class="mdi mdi-eye"></i> <?php echo get_phrase('no_preview_available'); ?> </a>
-  </div>
+  </div> -->
 </div>
 
 <?php include 'special_offer_form.php'; ?>
