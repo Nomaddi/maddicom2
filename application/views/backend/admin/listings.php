@@ -6,25 +6,37 @@ if (!isset($user_id)) {
   $user_id = 'all';
 }
 ?>
-<div class="row ">
-  <div class="col-lg-12">
-    <a href="<?php echo site_url('admin/listing_form/add'); ?>" class="btn btn-primary alignToTitle"><i class="entypo-plus"></i><?php echo get_phrase('add_new_directory'); ?></a>
-  </div><!-- end col-->
+<?php
+// Obtener el link del microservicio desde settings
+$microservice_url = $this->db->get_where('settings', array('type' => 'microservice_url'))->row('description');
+?>
+
+<div class="row">
+  <div class="col-12">
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: flex-end;">
+      <!-- Botón 1: Add new directory -->
+      <a href="<?php echo site_url('admin/listing_form/add'); ?>" class="btn btn-primary">
+        <i class="entypo-plus"></i> <?php echo get_phrase('add_new_directory'); ?>
+      </a>
+
+      <!-- Botón 2: Open microservice -->
+      <?php if (!empty($microservice_url)): ?>
+        <a href="<?php echo $microservice_url; ?>" target="_blank" class="btn btn-info">
+          <i class="entypo-link"></i> <?php echo get_phrase('open_microservice'); ?>
+        </a>
+      <?php endif; ?>
+
+      <!-- Botón 3: Generate CSV -->
+      <a href="<?php echo base_url('assets/importCSV/demo/listings.generate.csv'); ?>" 
+         class="btn btn-success" download>
+        <i class="mdi mdi-download"></i> <?php echo get_phrase('generate_csv_file'); ?>
+      </a>
+    </div>
+  </div>
 </div>
 
 <div class="row ">
   <div class="col-lg-12">
-
-    <div class="row">
-      <div class="col-12">
-        <a href="<?php echo base_url('assets/importCSV/demo/listings.generate.csv'); ?>" class="btn btn-success btn-sm mb-1" download><?php echo get_phrase('generate_csv_file'); ?><i class="mdi mdi-download"></i></a>
-
-        <button href="#" class="btn btn-dark btn-sm mb-1 mdi mdi-eye-outline" onclick="largeModal('<?php echo site_url('modal/popup/csv_preview'); ?>', 'CSV Format');" data-toggle="tooltip" data-placement="top" title="<?php echo get_phrase('preview_csv_format'); ?>"><i class="fas fa-info-circle"></i></button>
-
-      </div>
-    </div>
-
-
     <form method="POST" class="col-md-12 ajaxForm" action="<?php echo site_url('admin/import_excel'); ?>" id="import_listing" enctype="multipart/form-data">
       <div class="row justify-content-md-center">
 
