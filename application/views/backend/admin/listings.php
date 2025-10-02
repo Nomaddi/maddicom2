@@ -17,7 +17,7 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
       <!-- Botón 1: Add new directory -->
       <a href="<?php echo site_url('admin/listing_form/add'); ?>" class="btn btn-primary">
         <i class="entypo-plus"></i> <?php echo get_phrase('add_new_directory'); ?>
-      </a>
+      </a>  
 
       <!-- Botón 2: Open microservice -->
       <?php if (!empty($microservice_url)): ?>

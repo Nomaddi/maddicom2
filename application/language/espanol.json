@@ -614,5 +614,6 @@
     "owner_phone": "Teléfono",
     "owner_email": "Correo",
     "business_representative_data": "Datos del representante comercial",
-    "open_microservice": "Abrir microservicio"
+    "open_microservice": "Abrir microservicio",
+    "id": "Id"
 }

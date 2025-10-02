@@ -9,7 +9,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 </div>
 <!--/hero_in-->
 
-<nav class="secondary_nav sticky_horizontal_2">
+<nav class="secondary_nav sticky_horizontal_2" style="background:#228e50 !important">
 	<div class="container">
 		<ul class="clearfix">
 			<li><a href="#description" class="active"><?php echo get_phrase('description'); ?></a></li>
