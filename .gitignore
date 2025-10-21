@@ -1,3 +1,6 @@
 # CodeIgniter DB config (no subir credenciales)
 application/config/database.php
 application/config/*/database.php   # también ignora configs por entorno (development/production)
+
+#language
+application/language/*.json
