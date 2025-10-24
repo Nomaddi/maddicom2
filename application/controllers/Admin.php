@@ -829,6 +829,7 @@ class Admin extends CI_Controller {
 		$page_data['status'] 	= $_GET['status'];
 		$page_data['user_id'] 		= $_GET['user_id'];
 		$page_data['verify_status'] 		= $_GET['verify_status'];
+		$page_data['keyword'] = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 		$page_data['listings'] = $this->crud_model->filter_listing_table($page_data)->result_array();
 		$page_data['page_name']  = 'listings';
 		$page_data['page_title'] = get_phrase('listings');
@@ -1141,11 +1142,51 @@ class Admin extends CI_Controller {
         
     }
 
-	public function import_excel()
-	{
-		$this->user_model->listing_import();
-		$this->session->set_flashdata('flash_message', get_phrase('listing imported succesfully'));
-		redirect(site_url('admin/listings'), 'refresh');
-	}
-	
+	// public function import_excel()
+	// {
+		// $this->user_model->listing_import();
+		// $this->session->set_flashdata('flash_message', get_phrase('Empresas importadas correctamente'));
+		// redirect(site_url('admin/listings'), 'refresh');
+	// }
+
+	public function import_excel() {
+    $res = $this->user_model->listing_import_v2(); // ['type' => 'success|error', 'msg' => '...']
+
+    // Si el submit viene por AJAX, responde JSON (sin tocar el mensaje)
+    if ($this->input->is_ajax_request()) {
+        $this->output->set_content_type('application/json')
+                     ->set_output(json_encode($res, JSON_UNESCAPED_UNICODE));
+        return;
+    }
+
+    // No-AJAX: sanitiza el mensaje para que sea seguro en JS dentro de comillas simples
+    $safe = $this->prepare_toast_message_for_single_quoted_js($res['msg']);
+
+    // Setea el flash esperado por tus vistas actuales
+    if ($res['type'] === 'success') {
+        $this->session->set_flashdata('flash_message', $safe);
+    } else {
+        $this->session->set_flashdata('error_message', $safe);
+    }
+
+    redirect(site_url('admin/listings'), 'refresh');
+}
+
+/**
+ * Convierte \r\n/\n a <br>, escapa comillas simples y backslashes,
+ * y evita romper </script>.
+ */
+private function prepare_toast_message_for_single_quoted_js($text) {
+    $text = (string)$text;
+    // 1) saltos de línea → <br>
+    $text = str_replace(["\r\n", "\n", "\r"], "<br>", $text);
+    // 2) escapar backslash y comilla simple para string '...'
+    $text = str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+    // 3) evitar cerrar el <script>
+    $text = str_replace("</script>", "<\/script>", $text);
+    return $text;
+}
+
+
+
 }

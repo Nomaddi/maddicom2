@@ -51,9 +51,18 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 							</span>
 						<?php endif; ?>
 					</h1>
-					<?php if ($listing_details['latitude'] != "" && $listing_details['longitude'] != ""): ?>
-						<a class="address" href="http://maps.google.com/maps?q=<?php echo $listing_details['latitude']; ?>,<?php echo $listing_details['longitude']; ?>" target="_blank"><?php echo $listing_details['address']; ?></a>
-					<?php endif; ?>
+					<?php if (!empty($listing_details['latitude']) && !empty($listing_details['longitude'])): 
+						$lat = $listing_details['latitude'];
+						$lng = $listing_details['longitude'];
+						$url = 'https://www.google.com/maps/dir/?api=1'
+							. '&destination=' . rawurlencode($lat . ',' . $lng)
+							. '&dir_action=navigate'
+							. '&travelmode=driving'; // walking | bicycling | transit
+					?>
+					<a class="address" href="<?= htmlspecialchars($url, ENT_QUOTES) ?>" target="_blank" rel="noopener">
+						<?= htmlspecialchars($listing_details['address']) ?>
+					</a>
+					<?php endif; ?>	
 				</div>
 
 				<div class="add_bottom_15">
@@ -84,6 +93,25 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 				<?php if (get_addon_details('shop')): ?>
 					<?php include 'shop.php'; ?>
 				<?php endif; ?>
+
+				<style>	
+					@media (min-width: 767px) {
+					.grid-gallery ul li {
+						margin: 0px !important;
+						width: 23% !important;
+					}
+					}
+
+					@media (max-width: 767px) {
+					.grid-gallery ul li {
+						margin: 0px !important;
+						width: 48% !important;
+						min-height: 48% !important;
+					}
+					}
+
+					
+				</style>
 				<!-- Photo Gallery -->
 				<?php if (count(json_decode($listing_details['photos'])) > 0): ?>
 					<h5 class="add_bottom_15"><?php echo get_phrase('photo_gallery'); ?></h5>
@@ -107,7 +135,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 								
 								<?php if ($show_image): ?>
 									<li>
-										<figure style="margin: 0; overflow: hidden; height: 200px; width: 100%;">
+										<figure style="margin: 0; overflow: hidden; height: 180px; width: 100%;">
 											<img src="<?php echo $photo_url; ?>" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
 											<figcaption>
 												<div class="caption-content">

@@ -19,22 +19,66 @@
   </div>
 </div>
 
-<div class="form-group">
-  <label class="col-sm-3 control-label" for="facebook"><?php echo get_phrase('facebook'); ?></label>
-  <div class="col-sm-7">
-    <input type="text" class="form-control" name="facebook" placeholder="www.facebook.com/xyz/" aria-label="facebook" aria-describedby="basic-addon-facebook" value="<?php echo $social_links['facebook']; ?>">
-  </div>
-</div>
+<?php 
+// Puedes mover esta lista a un archivo config o helper si prefieres
+$social_networks = array(
+    // Redes sociales principales
+    'facebook'     => 'Facebook',
+    'instagram'    => 'Instagram',
+    'x'            => 'X (antes Twitter)',
+    'linkedin'     => 'LinkedIn',
+    'youtube'      => 'YouTube',
+    'tiktok'       => 'TikTok',
+    'threads'      => 'Threads',
 
-<div class="form-group">
-  <label class="col-sm-3 control-label" for="twitter"><?php echo get_phrase('twitter'); ?></label>
-  <div class="col-sm-7">
-    <input type="text" class="form-control" name="twitter" placeholder="www.twitter.com/xyz/" aria-label="twitter" aria-describedby="basic-addon-twitter" value="<?php echo $social_links['twitter']; ?>">
+    // Comunicación directa
+    'whatsapp'     => 'WhatsApp',
+    'telegram'     => 'Telegram',
+    'messenger'    => 'Facebook Messenger',
+
+    // Geolocalización y mapas
+    'google_maps'  => 'Google Maps',
+    'waze'         => 'Waze',
+
+    // Contenido y streaming
+    'spotify'      => 'Spotify',
+    'soundcloud'   => 'SoundCloud',
+    'twitch'       => 'Twitch',
+
+    // Imagen, diseño y fotografía
+    'pinterest'    => 'Pinterest',
+    'behance'      => 'Behance',
+    'dribbble'     => 'Dribbble',
+
+    // Negocios y reseñas
+    'tripadvisor'  => 'Tripadvisor',
+    'trustpilot'   => 'Trustpilot',
+
+    // Desarrollo y comunidades tech
+    'github'       => 'GitHub',
+    'gitlab'       => 'GitLab',
+    'stackoverflow'=> 'Stack Overflow',
+
+    // Otros (redes de nicho o globales)
+    'snapchat'     => 'Snapchat',
+    'reddit'       => 'Reddit',
+    'medium'       => 'Medium',
+    'vimeo'        => 'Vimeo'
+);
+
+?>
+
+<?php foreach ($social_networks as $key => $label): ?>
+  <div class="form-group">
+    <label class="col-sm-3 control-label" for="<?php echo $key; ?>">
+      <?php echo $label; ?>
+    </label>
+    <div class="col-sm-7">
+      <input type="text" 
+             class="form-control" 
+             name="social[<?php echo $key; ?>]" 
+             placeholder="https://www.<?php echo strtolower($label); ?>.com/tu_pagina"
+             value="<?php echo isset($social_links[$key]) ? $social_links[$key] : ''; ?>">
+    </div>
   </div>
-</div>
-<div class="form-group">
-  <label class="col-sm-3 control-label" for="linkedin"><?php echo get_phrase('linkedin'); ?></label>
-  <div class="col-sm-7">
-    <input type="text" class="form-control" name="linkedin" placeholder="www.linkedin.com/xyz/" aria-label="linkedin" aria-describedby="basic-addon-linkedin" value="<?php echo $social_links['linkedin']; ?>">
-  </div>
-</div>
+<?php endforeach; ?>

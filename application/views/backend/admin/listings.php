@@ -75,6 +75,15 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
             <div class="col-md-3">
               <div class="form-group">
                 <div class="col-sm-12">
+                  <input type="text" name="keyword" id="keyword" class="form-control"
+                        placeholder="<?php echo get_phrase('search_by_name_or_id'); ?>"
+                        value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <div class="col-sm-12">
                   <select name="status" id="status_filter" class="select2 form-control" data-allow-clear="true" data-placeholder="<?php echo get_phrase('status_filter'); ?>">
                     <option value="<?php echo 'all'; ?>" <?php if ($status == 'all') : ?>selected<?php endif; ?>><?php echo get_phrase('all_status'); ?></option>
                     <option value="<?php echo 'pending'; ?>" <?php if ($status == 'pending') : ?>selected<?php endif; ?>><?php echo get_phrase('pending'); ?></option>
@@ -83,7 +92,7 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-group">
                 <div class="col-sm-12">
                   <select name="user_id" id="user_filter" class="select2 form-control" data-allow-clear="true" data-placeholder="<?php echo get_phrase('user_filter'); ?>">
@@ -113,7 +122,7 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-group">
                 <div class="col-sm-12">
                   <button type="submit" class="btn btn-info btn-block" style="height: 40px;"><i class="entypo-search"></i><?php echo get_phrase('filter'); ?></button>
@@ -298,7 +307,8 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
   $(document).ready(function() {
     $('table').dataTable({
       paging: false,
-      info: false
+      info: false,
+      searching: false,
     });
 
     $(".checkMark").click(function() {
@@ -339,3 +349,4 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
     });
   });
 </script>
+

@@ -53,23 +53,85 @@
 </div>
 
 <!-- VIDEO PROVIDER Y VIDEO URL (sin cambios) -->
+<!-- 🔹 FORMULARIO MULTIPLE DE VIDEOS -->
+<?php
+// Obtiene los videos almacenados en la tabla (JSON)
+$videos = [];
+if (!empty($listing_details['videos'])) {
+    $videos = json_decode($listing_details['videos'], true);
+}
+
+// Compatibilidad con registros antiguos (solo 1 video)
+if (empty($videos) && !empty($listing_details['video_url'])) {
+    $videos[] = [
+        'provider' => $listing_details['video_provider'],
+        'url' => $listing_details['video_url']
+    ];
+}
+?>
+
 <div class="form-group">
-  <label for="video_provider" class="col-sm-3 control-label"><?php echo get_phrase('video_provider'); ?></label>
+  <label class="col-sm-3 control-label"><?php echo get_phrase('videos'); ?></label>
   <div class="col-sm-7">
-    <select name="video_provider" id = "video_provider" class="select2" required>
-      <option value="youtube" <?php if($listing_details['video_provider'] == 'youtube'): ?> selected <?php endif; ?>>YouTube</option>
-      <option value="vimeo" <?php if($listing_details['video_provider'] == 'vimeo'): ?> selected <?php endif; ?>>Vimeo</option>
-      <option value="html5" <?php if($listing_details['video_provider'] == 'html5'): ?> selected <?php endif; ?>>HTML5</option>
-    </select>
+
+    <div id="video_container">
+      <?php if (!empty($videos)): ?>
+        <?php foreach ($videos as $video): ?>
+          <div class="video-group mb-2 d-flex align-items-center gap-2">
+            <select name="video_provider[]" class="form-control" style="width: 30%;">
+              <option value="youtube" <?php echo ($video['provider'] == 'youtube') ? 'selected' : ''; ?>>YouTube</option>
+              <option value="vimeo" <?php echo ($video['provider'] == 'vimeo') ? 'selected' : ''; ?>>Vimeo</option>
+              <option value="html5" <?php echo ($video['provider'] == 'html5') ? 'selected' : ''; ?>>HTML5</option>
+            </select>
+            <input type="text" name="video_url[]" value="<?php echo htmlspecialchars($video['url']); ?>" class="form-control" placeholder="<?php echo get_phrase('video_url'); ?>" style="width: 65%;">
+            <button type="button" class="btn btn-danger btn-sm remove-video"><i class="fa fa-trash"></i></button>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <!-- Campo vacío por defecto -->
+        <div class="video-group mb-2 d-flex align-items-center gap-2">
+          <select name="video_provider[]" class="form-control" style="width: 30%;">
+            <option value="youtube">YouTube</option>
+            <option value="vimeo">Vimeo</option>
+            <option value="html5">HTML5</option>
+          </select>
+          <input type="text" name="video_url[]" class="form-control" placeholder="<?php echo get_phrase('video_url'); ?>" style="width: 65%;">
+          <button type="button" class="btn btn-danger btn-sm remove-video"><i class="fa fa-trash"></i></button>
+        </div>
+      <?php endif; ?>
+    </div>
+
+    <button type="button" id="add_video" class="btn btn-success btn-sm mt-2">
+      <i class="fa fa-plus"></i> <?php echo get_phrase('add_another_video'); ?>
+    </button>
+
   </div>
 </div>
 
-<div class="form-group">
-  <label for="video_url" class="col-sm-3 control-label"><?php echo get_phrase('video_url'); ?></label>
-  <div class="col-sm-7">
-    <input type="text" class="form-control" id="video_url" name="video_url" placeholder="<?php echo get_phrase('you_can_provide_video_url'); ?>" value="<?php echo $listing_details['video_url']; ?>">
-  </div>
-</div>
+<script>
+  $(document).ready(function(){
+    // 🔹 Agregar nuevo grupo de video
+    $('#add_video').on('click', function(){
+      $('#video_container').append(`
+        <div class="video-group mb-2 d-flex align-items-center gap-2">
+          <select name="video_provider[]" class="form-control" style="width: 30%;">
+            <option value="youtube">YouTube</option>
+            <option value="vimeo">Vimeo</option>
+            <option value="html5">HTML5</option>
+          </select>
+          <input type="text" name="video_url[]" class="form-control" placeholder="<?php echo get_phrase('video_url'); ?>" style="width: 65%;">
+          <button type="button" class="btn btn-danger btn-sm remove-video"><i class="fa fa-trash"></i></button>
+        </div>
+      `);
+    });
+
+    // 🔹 Eliminar grupo
+    $(document).on('click', '.remove-video', function(){
+      $(this).closest('.video-group').remove();
+    });
+  });
+</script>
+
 
 <!-- LISTING GALLERY IMAGES -->
 <div class="form-group">

@@ -346,6 +346,14 @@ return $this->db->get('listing');
     if ($data['user_id'] != 'all')
       $this->db->where('user_id', $data['user_id']);
 
+    // 🔍 Filtro por palabra clave (nombre o ID)
+    if (!empty($data['keyword'])) {
+      $this->db->group_start()
+              ->like('name', $data['keyword'])
+              ->or_like('id', $data['keyword'])
+              ->group_end();
+    }
+
     $this->db->order_by('date_added', 'desc');
     // $this->db->where('date_added >=' , $data['timestamp_start']);
     // $this->db->where('date_added <=' , $data['timestamp_end']);
@@ -420,9 +428,22 @@ return $this->db->get('listing');
       $data['categories'] = json_encode(array());
     }
 
+    $video_providers = $this->input->post('video_provider');
+    $video_urls = $this->input->post('video_url');
+    $videos = [];
 
-    $data['video_provider'] = sanitizer($this->input->post('video_provider'));
-    $data['video_url'] = sanitizer($this->input->post('video_url'));
+    if (!empty($video_providers) && is_array($video_providers)) {
+      foreach ($video_providers as $i => $provider) {
+        if (!empty($video_urls[$i])) {
+          $videos[] = [
+            'provider' => sanitizer($provider),
+            'url' => sanitizer($video_urls[$i])
+          ];
+        }
+      }
+    }
+    $data['videos'] = json_encode($videos);
+
     $data['tags'] = sanitizer($this->input->post('tags'));
     $data['seo_meta_tags'] = sanitizer($this->input->post('seo_meta_tags'));
     $data['meta_description'] = sanitizer($this->input->post('meta_description'));
@@ -432,12 +453,18 @@ return $this->db->get('listing');
     $data['phone'] = sanitizer($this->input->post('phone'));
     $data['listing_type'] = sanitizer($this->input->post('listing_type'));
 
-    $social_links = array(
-      'facebook' => sanitizer($this->input->post('facebook')),
-      'twitter' => sanitizer($this->input->post('twitter')),
-      'linkedin' => sanitizer($this->input->post('linkedin')),
-    );
+    // Recibe todas las redes desde el array asociativo del formulario
+    $social_input = $this->input->post('social');
+
+    $social_links = array();
+    if (!empty($social_input) && is_array($social_input)) {
+        foreach ($social_input as $key => $value) {
+            $social_links[$key] = sanitizer($value);
+        }
+    }
+
     $data['social'] = json_encode($social_links);
+
     $data['date_added'] = strtotime(date('D, d-M-Y'));
     $time_config = array();
     $days = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
@@ -683,8 +710,22 @@ return $this->db->get('listing');
       $data['categories'] = json_encode(array());
     }
 
-    $data['video_provider'] = sanitizer($this->input->post('video_provider'));
-    $data['video_url'] = sanitizer($this->input->post('video_url'));
+    $video_providers = $this->input->post('video_provider');
+    $video_urls = $this->input->post('video_url');
+    $videos = [];
+
+    if (!empty($video_providers) && is_array($video_providers)) {
+      foreach ($video_providers as $i => $provider) {
+        if (!empty($video_urls[$i])) {
+          $videos[] = [
+            'provider' => sanitizer($provider),
+            'url' => sanitizer($video_urls[$i])
+          ];
+        }
+      }
+    }
+    $data['videos'] = json_encode($videos);
+
     $data['tags'] = sanitizer($this->input->post('tags'));
     $data['seo_meta_tags'] = sanitizer($this->input->post('seo_meta_tags'));
     $data['meta_description'] = sanitizer($this->input->post('meta_description'));
@@ -692,12 +733,18 @@ return $this->db->get('listing');
     $data['website'] = sanitizer($this->input->post('website'));
     $data['email'] = sanitizer($this->input->post('email'));
     $data['phone'] = sanitizer($this->input->post('phone'));
-    $social_links = array(
-      'facebook' => sanitizer($this->input->post('facebook')),
-      'twitter' => sanitizer($this->input->post('twitter')),
-      'linkedin' => sanitizer($this->input->post('linkedin')),
-    );
+    // Recibe todas las redes desde el array asociativo del formulario
+    $social_input = $this->input->post('social');
+
+    $social_links = array();
+    if (!empty($social_input) && is_array($social_input)) {
+        foreach ($social_input as $key => $value) {
+            $social_links[$key] = sanitizer($value);
+        }
+    }
+
     $data['social'] = json_encode($social_links);
+
     $data['date_modified'] = strtotime(date('D, d-M-Y'));
     $time_config = array();
     $days = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
