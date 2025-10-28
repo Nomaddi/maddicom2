@@ -1,8 +1,8 @@
 <header class="header menu_fixed">
 		<div id="logo">
 			<a href="<?php echo site_url('home'); ?>" title="<?php echo get_settings('system_title'); ?>">
-				<img src="<?php echo base_url();?>assets/global/light_logo.png" width="165" height="35" alt="" class="logo_normal">
-				<img src="<?php echo base_url();?>assets/global/dark_logo.png" width="165" height="35" alt="" class="logo_sticky">
+				<img src="<?php echo base_url();?>assets/global/light_logo.png" width="235" height="70" alt="" class="logo_normal">
+				<img src="<?php echo base_url();?>assets/global/dark_logo.png" width="235" height="70" alt="" class="logo_sticky">
 			</a>
 		</div>
 		<ul id="top_menu">
