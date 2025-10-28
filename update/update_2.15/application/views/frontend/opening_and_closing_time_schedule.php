@@ -1,7 +1,7 @@
 
 <div class="opening">
   <div class="ribbon">
-    <span class="<?php echo strtolower(get_now_open($listing_id)) == 'closed' ? 'closed' : 'open'; ?>"><?php echo strtolower(get_now_open($listing_id)) == 'closed' ? 'closed' : 'Open now'; ?></span>
+    <span class="<?php echo strtolower(get_now_open($listing_id)) == 'closed' ? 'closed' : 'open'; ?>"><?php echo strtolower(get_now_open($listing_id)) == 'closed' ? 'Cerrado' : 'Abierto'; ?></span>
   </div>
   <i class="icon_clock_alt"></i>
   <h4><?php echo get_phrase('opening_hours'); ?></h4>
