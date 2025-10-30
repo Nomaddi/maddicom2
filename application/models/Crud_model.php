@@ -634,6 +634,11 @@ return $this->db->get('listing');
     }
   }
 
+  private function is_remote_url($path) {
+    return (strpos($path, 'http://') === 0 || strpos($path, 'https://') === 0);
+  }
+
+
   function update_listing($listing_id = "")
   {
     $listing_details      = $this->crud_model->get_listings($listing_id)->row_array();
@@ -754,47 +759,66 @@ return $this->db->get('listing');
 
     // Thumbnail
     if (isset($_FILES['listing_thumbnail']) && $_FILES['listing_thumbnail']['name'] != "") {
-        $fileName = $listing_details['listing_thumbnail'];
-        if ($fileName == "thumbnail.png" || $fileName == "") {
-            $fileName = md5(rand(10000000, 20000000)) . '.jpg';
+        $current_thumb = $listing_details['listing_thumbnail'];
+        if (!$this->is_remote_url($current_thumb) && $current_thumb != "" && file_exists('uploads/listing_thumbnails/'.$current_thumb)) {
+            unlink('uploads/listing_thumbnails/'.$current_thumb);
         }
+        $fileName = md5(rand(10000000, 20000000)) . '.jpg';
         move_uploaded_file($_FILES['listing_thumbnail']['tmp_name'], 'uploads/listing_thumbnails/' . $fileName);
         $data['listing_thumbnail'] = $fileName;
+    } else {
+        // Mantener thumbnail anterior (local o remoto)
+        $data['listing_thumbnail'] = $listing_details['listing_thumbnail'];
     }
 
-        // Cover
+
+    // Cover
     if (isset($_FILES['listing_cover']) && $_FILES['listing_cover']['name'] != "") {
-        $fileName = $listing_details['listing_cover'];
-        if ($fileName == "thumbnail.png" || $fileName == "") {
-            $fileName = md5(rand(10000000, 20000000)) . '.jpg';
+        $current_cover = $listing_details['listing_cover'];
+        if (!$this->is_remote_url($current_cover) && $current_cover != "" && file_exists('uploads/listing_cover_photo/'.$current_cover)) {
+            unlink('uploads/listing_cover_photo/'.$current_cover);
         }
+        $fileName = md5(rand(10000000, 20000000)) . '.jpg';
         move_uploaded_file($_FILES['listing_cover']['tmp_name'], 'uploads/listing_cover_photo/' . $fileName);
         $data['listing_cover'] = $fileName;
+    } else {
+        // Mantener cover anterior (local o remoto)
+        $data['listing_cover'] = $listing_details['listing_cover'];
     }
 
-      // Gallery
+
+    // Gallery
     $old_listing_images   = json_decode($listing_details['photos']);
     $new_listing_images   = $this->input->post('new_listing_images') ?? [];
     $final_listing_images = [];
 
     if (isset($_FILES['listing_images']['tmp_name'])) {
         foreach ($_FILES['listing_images']['tmp_name'] as $key => $listing_image) {
-            // Si existe una imagen previa en el mismo índice
-            if (isset($new_listing_images[$key]) && in_array($new_listing_images[$key], $old_listing_images)) {
+            $current_image = $new_listing_images[$key] ?? '';
+
+            // Si hay una imagen previa
+            if ($current_image && in_array($current_image, $old_listing_images)) {
+
                 if ($listing_image != "") {
-                  if (file_exists('uploads/listing_images/'.$new_listing_images[$key])) {
-                      unlink('uploads/listing_images/'.$new_listing_images[$key]);
-                  }
-                    // Reemplaza la anterior
-                    $file_name = $new_listing_images[$key];
+                    // Si la anterior era local, borrarla
+                    if (!$this->is_remote_url($current_image) && file_exists('uploads/listing_images/'.$current_image)) {
+                        unlink('uploads/listing_images/'.$current_image);
+                    }
+
+                    // Si la anterior era remota, crear un nuevo archivo local
+                    $file_name = $this->is_remote_url($current_image)
+                        ? md5(rand(10000000, 20000000)) . '.jpg'
+                        : $current_image;
+
                     move_uploaded_file($listing_image, 'uploads/listing_images/' . $file_name);
                     $final_listing_images[] = $file_name;
                 } else {
-                    // Conserva la existente
-                    $final_listing_images[] = $new_listing_images[$key];
+                    // No se cambió, conservarla (sea URL o nombre)
+                    $final_listing_images[] = $current_image;
                 }
+
             } elseif ($listing_image != "") {
-                // Imagen nueva
+                // Nueva imagen local
                 $random_identifier = md5(rand(10000000, 20000000)) . '.jpg';
                 move_uploaded_file($listing_image, 'uploads/listing_images/' . $random_identifier);
                 $final_listing_images[] = $random_identifier;
@@ -802,12 +826,13 @@ return $this->db->get('listing');
         }
     }
 
-        // Si no se subió nada, conservar las imágenes viejas
+    // Si no se subió nada nuevo, mantener todas las imágenes anteriores
     if (empty($final_listing_images)) {
         $final_listing_images = $old_listing_images;
     }
 
     $data['photos'] = json_encode($final_listing_images);
+
     $this->db->where('id', $listing_id);
     $this->db->update('listing', $data);
 
