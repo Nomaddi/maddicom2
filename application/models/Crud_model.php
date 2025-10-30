@@ -752,52 +752,59 @@ return $this->db->get('listing');
       $time_config[$day] = sanitizer($this->input->post($day . '_opening')) . '-' . sanitizer($this->input->post($day . '_closing'));
     }
 
-    if ($_FILES['listing_thumbnail']['name'] != "") {
-      if ($listing_details['listing_thumbnail'] == "thumbnail.png" || $listing_details['listing_thumbnail'] == "") {
-        $data['listing_thumbnail'] = md5(rand(10000000, 20000000)) . '.jpg';
-        move_uploaded_file($_FILES['listing_thumbnail']['tmp_name'], 'uploads/listing_thumbnails/' . $data['listing_thumbnail']);
-      } else {
-        $data['listing_thumbnail'] = $listing_details['listing_thumbnail'];
-        move_uploaded_file($_FILES['listing_thumbnail']['tmp_name'], 'uploads/listing_thumbnails/' . $data['listing_thumbnail']);
-      }
+    // Thumbnail
+    if (isset($_FILES['listing_thumbnail']) && $_FILES['listing_thumbnail']['name'] != "") {
+        $fileName = $listing_details['listing_thumbnail'];
+        if ($fileName == "thumbnail.png" || $fileName == "") {
+            $fileName = md5(rand(10000000, 20000000)) . '.jpg';
+        }
+        move_uploaded_file($_FILES['listing_thumbnail']['tmp_name'], 'uploads/listing_thumbnails/' . $fileName);
+        $data['listing_thumbnail'] = $fileName;
     }
 
-    if ($_FILES['listing_cover']['name'] != "") {
-      if ($listing_details['listing_cover'] == "thumbnail.png") {
-        $data['listing_cover'] = md5(rand(10000000, 20000000)) . '.jpg';
-        move_uploaded_file($_FILES['listing_cover']['tmp_name'], 'uploads/listing_cover_photo/' . $data['listing_cover']);
-      } else {
-        $data['listing_cover'] = $listing_details['listing_cover'];
-        move_uploaded_file($_FILES['listing_cover']['tmp_name'], 'uploads/listing_cover_photo/' . $data['listing_cover']);
-      }
+        // Cover
+    if (isset($_FILES['listing_cover']) && $_FILES['listing_cover']['name'] != "") {
+        $fileName = $listing_details['listing_cover'];
+        if ($fileName == "thumbnail.png" || $fileName == "") {
+            $fileName = md5(rand(10000000, 20000000)) . '.jpg';
+        }
+        move_uploaded_file($_FILES['listing_cover']['tmp_name'], 'uploads/listing_cover_photo/' . $fileName);
+        $data['listing_cover'] = $fileName;
     }
 
+      // Gallery
     $old_listing_images   = json_decode($listing_details['photos']);
-    $new_listing_images   = $this->input->post('new_listing_images');
-    unset($new_listing_images[count($new_listing_images) - 1]);
-    $final_listing_images = array();
+    $new_listing_images   = $this->input->post('new_listing_images') ?? [];
+    $final_listing_images = [];
 
-    foreach ($_FILES['listing_images']['tmp_name'] as $key => $listing_image) {
-      if (array_key_exists($key, $new_listing_images) && in_array($new_listing_images[$key], $old_listing_images)) {
-        if ($listing_image != "") {
-          $random_identifier = $new_listing_images[$key];
-          move_uploaded_file($listing_image, 'uploads/listing_images/' . $random_identifier);
-          array_push($final_listing_images, $random_identifier);
-        } else {
-          $random_identifier = $new_listing_images[$key];
-          array_push($final_listing_images, $random_identifier);
+    if (isset($_FILES['listing_images']['tmp_name'])) {
+        foreach ($_FILES['listing_images']['tmp_name'] as $key => $listing_image) {
+            // Si existe una imagen previa en el mismo índice
+            if (isset($new_listing_images[$key]) && in_array($new_listing_images[$key], $old_listing_images)) {
+                if ($listing_image != "") {
+                  if (file_exists('uploads/listing_images/'.$new_listing_images[$key])) {
+                      unlink('uploads/listing_images/'.$new_listing_images[$key]);
+                  }
+                    // Reemplaza la anterior
+                    $file_name = $new_listing_images[$key];
+                    move_uploaded_file($listing_image, 'uploads/listing_images/' . $file_name);
+                    $final_listing_images[] = $file_name;
+                } else {
+                    // Conserva la existente
+                    $final_listing_images[] = $new_listing_images[$key];
+                }
+            } elseif ($listing_image != "") {
+                // Imagen nueva
+                $random_identifier = md5(rand(10000000, 20000000)) . '.jpg';
+                move_uploaded_file($listing_image, 'uploads/listing_images/' . $random_identifier);
+                $final_listing_images[] = $random_identifier;
+            }
         }
-      } else {
-        if ($listing_image != "") {
-          $random_identifier = md5(rand(10000000, 20000000)) . '.jpg';
-          //unlink('./uploads/listing_images/'.$new_listing_images[$key]);
+    }
 
-          move_uploaded_file($listing_image, 'uploads/listing_images/' . $random_identifier);
-          array_push($final_listing_images, $random_identifier);
-        } else {
-          //unlink('./uploads/listing_images/'.$new_listing_images[$key]);
-        }
-      }
+        // Si no se subió nada, conservar las imágenes viejas
+    if (empty($final_listing_images)) {
+        $final_listing_images = $old_listing_images;
     }
 
     $data['photos'] = json_encode($final_listing_images);

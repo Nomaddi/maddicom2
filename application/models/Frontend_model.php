@@ -120,6 +120,9 @@ class Frontend_model extends CI_Model
         $this->db->where('closed_minutes >=', $current_time_minutes);
       $this->db->group_end();
     }
+    // ✅ Agregar este filtro
+    $this->db->where('status !=', 'pending');
+
     return $this->db->get('listing')->result_array();
   }
 
@@ -206,6 +209,10 @@ class Frontend_model extends CI_Model
         $this->db->where('closed_minutes >=', $current_time_minutes);
       $this->db->group_end();
     }
+
+    // ✅ Excluir los pendientes
+    $this->db->where('status !=', 'pending');
+
     return $this->db->get('listing')->result_array();
   }
 

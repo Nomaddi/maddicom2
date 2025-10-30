@@ -31,6 +31,10 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
          class="btn btn-success" download>
         <i class="mdi mdi-download"></i> <?php echo get_phrase('generate_csv_file'); ?>
       </a>
+      <a href="<?= site_url('admin/clear_cache'); ?>" class="btn btn-warning">
+          <i class="fa fa-broom"></i> Borrar caché
+      </a>
+
     </div>
   </div>
 </div>

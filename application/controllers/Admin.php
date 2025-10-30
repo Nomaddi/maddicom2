@@ -1187,6 +1187,22 @@ private function prepare_toast_message_for_single_quoted_js($text) {
     return $text;
 }
 
+public function clear_cache()
+{
+    $path = APPPATH . 'cache/';
+    $files = glob($path . '*');
+
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            unlink($file);
+        }
+    }
+
+    $this->session->set_flashdata('flash_message', 'Caché de aplicación limpiada correctamente.');
+    redirect($_SERVER['HTTP_REFERER']);
+}
+
+
 
 
 }
