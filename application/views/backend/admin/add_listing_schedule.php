@@ -8,6 +8,7 @@
           <label><?php echo get_phrase($day.'_opening'); ?></label>
           <select class="form-control select2" name="<?php echo $day.'_opening'; ?>" id="<?php echo $day.'_opening'; ?>">
             <option value="closed"><?php echo get_phrase('closed'); ?></option>
+            <option value="open_24"><?php echo get_phrase('open_24_hours'); ?></option>
             <?php for($i = 0; $i < 24; $i++): ?>
               <option value="<?php echo $i; ?>"> <?php echo date('h a', strtotime("$i:00:00")) ?> </option>
               <option value="<?php echo $i.':30'; ?>"> <?php echo date('h:i a', strtotime("$i:30:00")) ?> </option>
@@ -18,6 +19,7 @@
           <label><?php echo get_phrase($day.'_closing'); ?></label>
           <select class="form-control select2" name="<?php echo $day.'_closing'; ?>" id="<?php echo $day.'_closing'; ?>">
             <option value="closed"><?php echo get_phrase('closed'); ?></option>
+            <option value="open_24"><?php echo get_phrase('open_24_hours'); ?></option>
             <?php for($i = 0; $i < 24; $i++): ?>
               <option value="<?php echo $i; ?>"><?php echo date('h a', strtotime("$i:00:00")) ?></option>
               <option value="<?php echo $i.':30'; ?>"> <?php echo date('h:i a', strtotime("$i:30:00")) ?> </option>

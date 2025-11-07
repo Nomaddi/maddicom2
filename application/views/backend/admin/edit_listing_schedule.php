@@ -17,6 +17,7 @@
 
                 <?php else: ?>
                   <option value="closed" <?php if($interval_array[0] == 'closed'): ?> selected <?php endif; ?> ><?php echo get_phrase('closed'); ?></option>
+                  <option value="open_24" <?php if($interval_array[0] == 'open_24'): ?> selected <?php endif; ?>><?php echo get_phrase('open_24_hours'); ?></option>
                 <?php endif; ?>
               <?php endfor; ?>
             </select>
@@ -33,6 +34,7 @@
                       
                   <?php else: ?>
                     <option value="closed" <?php if($interval_array[1] == 'closed'): ?> selected <?php endif; ?> ><?php echo get_phrase('closed'); ?></option>
+                    <option value="open_24" <?php if($interval_array[1] == 'open_24'): ?> selected <?php endif; ?>><?php echo get_phrase('open_24_hours'); ?></option>
                   <?php endif; ?>
                 <?php endfor; ?>
             </select>

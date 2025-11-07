@@ -16,9 +16,17 @@
           <span>
             <?php
              $time_interval = explode('-', $time_config['saturday']);
-             if ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
-               echo get_phrase('closed');
-             }else {
+             if (($time_interval[0] == 'open_24' && $time_interval[1] == 'closed') || 
+                  ($time_interval[0] == 'closed' && $time_interval[1] == 'open_24')) {
+                // 🟡 Mezcla de "Open 24" y "Closed" → caso confuso
+                echo '<span class="text-warning">'.get_phrase('configuration_inconsistent').'</span>';
+              } elseif ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
+                // 🔴 Cerrado
+                echo '<span class="text-danger">'.get_phrase('closed').'</span>';
+              } elseif ($time_interval[0] == 'open_24' || $time_interval[1] == 'open_24') {
+                // 🟢 24 horas
+                echo '<span class="text-success">'.get_phrase('open_24_hours').'</span>';
+              } else {
               if(strpos($time_interval[0],':') > 0) {
                 $time_interval_start = date('d M Y, '.$time_interval[0].":00");
               }else{
@@ -39,9 +47,17 @@
           <span>
             <?php
              $time_interval = explode('-', $time_config['sunday']);
-             if ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
-               echo get_phrase('closed');
-             }else {
+             if (($time_interval[0] == 'open_24' && $time_interval[1] == 'closed') || 
+                  ($time_interval[0] == 'closed' && $time_interval[1] == 'open_24')) {
+                // 🟡 Mezcla de "Open 24" y "Closed" → caso confuso
+                echo '<span class="text-warning">'.get_phrase('configuration_inconsistent').'</span>';
+              } elseif ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
+                // 🔴 Cerrado
+                echo '<span class="text-danger">'.get_phrase('closed').'</span>';
+              } elseif ($time_interval[0] == 'open_24' || $time_interval[1] == 'open_24') {
+                // 🟢 24 horas
+                echo '<span class="text-success">'.get_phrase('open_24_hours').'</span>';
+              } else {
               if(strpos($time_interval[0],':') > 0) {
                 $time_interval_start = date('d M Y, '.$time_interval[0].":00");
               }else{
@@ -62,9 +78,17 @@
           <span>
             <?php
              $time_interval = explode('-', $time_config['monday']);
-             if ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
-               echo get_phrase('closed');
-             }else {
+             if (($time_interval[0] == 'open_24' && $time_interval[1] == 'closed') || 
+                  ($time_interval[0] == 'closed' && $time_interval[1] == 'open_24')) {
+                // 🟡 Mezcla de "Open 24" y "Closed" → caso confuso
+                echo '<span class="text-warning">'.get_phrase('configuration_inconsistent').'</span>';
+              } elseif ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
+                // 🔴 Cerrado
+                echo '<span class="text-danger">'.get_phrase('closed').'</span>';
+              } elseif ($time_interval[0] == 'open_24' || $time_interval[1] == 'open_24') {
+                // 🟢 24 horas
+                echo '<span class="text-success">'.get_phrase('open_24_hours').'</span>';
+              } else {
               if(strpos($time_interval[0],':') > 0) {
                 $time_interval_start = date('d M Y, '.$time_interval[0].":00");
               }else{
@@ -85,9 +109,17 @@
           <span>
             <?php
              $time_interval = explode('-', $time_config['tuesday']);
-             if ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
-               echo get_phrase('closed');
-             }else {
+             if (($time_interval[0] == 'open_24' && $time_interval[1] == 'closed') || 
+                  ($time_interval[0] == 'closed' && $time_interval[1] == 'open_24')) {
+                // 🟡 Mezcla de "Open 24" y "Closed" → caso confuso
+                echo '<span class="text-warning">'.get_phrase('configuration_inconsistent').'</span>';
+              } elseif ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
+                // 🔴 Cerrado
+                echo '<span class="text-danger">'.get_phrase('closed').'</span>';
+              } elseif ($time_interval[0] == 'open_24' || $time_interval[1] == 'open_24') {
+                // 🟢 24 horas
+                echo '<span class="text-success">'.get_phrase('open_24_hours').'</span>';
+              } else {
               if(strpos($time_interval[0],':') > 0) {
                 $time_interval_start = date('d M Y, '.$time_interval[0].":00");
               }else{
@@ -112,9 +144,17 @@
           <span>
             <?php
              $time_interval = explode('-', $time_config['wednesday']);
-             if ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
-               echo get_phrase('closed');
-             }else {
+             if (($time_interval[0] == 'open_24' && $time_interval[1] == 'closed') || 
+                  ($time_interval[0] == 'closed' && $time_interval[1] == 'open_24')) {
+                // 🟡 Mezcla de "Open 24" y "Closed" → caso confuso
+                echo '<span class="text-warning">'.get_phrase('configuration_inconsistent').'</span>';
+              } elseif ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
+                // 🔴 Cerrado
+                echo '<span class="text-danger">'.get_phrase('closed').'</span>';
+              } elseif ($time_interval[0] == 'open_24' || $time_interval[1] == 'open_24') {
+                // 🟢 24 horas
+                echo '<span class="text-success">'.get_phrase('open_24_hours').'</span>';
+              } else {
               if(strpos($time_interval[0],':') > 0) {
                 $time_interval_start = date('d M Y, '.$time_interval[0].":00");
               }else{
@@ -135,9 +175,17 @@
           <span>
             <?php
              $time_interval = explode('-', $time_config['thursday']);
-             if ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
-               echo get_phrase('closed');
-             }else {
+             if (($time_interval[0] == 'open_24' && $time_interval[1] == 'closed') || 
+                  ($time_interval[0] == 'closed' && $time_interval[1] == 'open_24')) {
+                // 🟡 Mezcla de "Open 24" y "Closed" → caso confuso
+                echo '<span class="text-warning">'.get_phrase('configuration_inconsistent').'</span>';
+              } elseif ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
+                // 🔴 Cerrado
+                echo '<span class="text-danger">'.get_phrase('closed').'</span>';
+              } elseif ($time_interval[0] == 'open_24' || $time_interval[1] == 'open_24') {
+                // 🟢 24 horas
+                echo '<span class="text-success">'.get_phrase('open_24_hours').'</span>';
+              } else {
               if(strpos($time_interval[0],':') > 0) {
                 $time_interval_start = date('d M Y, '.$time_interval[0].":00");
               }else{
@@ -158,9 +206,17 @@
           <span>
             <?php
              $time_interval = explode('-', $time_config['friday']);
-             if ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
-               echo get_phrase('closed');
-             }else {
+             if (($time_interval[0] == 'open_24' && $time_interval[1] == 'closed') || 
+                  ($time_interval[0] == 'closed' && $time_interval[1] == 'open_24')) {
+                // 🟡 Mezcla de "Open 24" y "Closed" → caso confuso
+                echo '<span class="text-warning">'.get_phrase('configuration_inconsistent').'</span>';
+              } elseif ($time_interval[0] == 'closed' || $time_interval[1] == 'closed') {
+                // 🔴 Cerrado
+                echo '<span class="text-danger">'.get_phrase('closed').'</span>';
+              } elseif ($time_interval[0] == 'open_24' || $time_interval[1] == 'open_24') {
+                // 🟢 24 horas
+                echo '<span class="text-success">'.get_phrase('open_24_hours').'</span>';
+              } else {
               if(strpos($time_interval[0],':') > 0) {
                 $time_interval_start = date('d M Y, '.$time_interval[0].":00");
               }else{

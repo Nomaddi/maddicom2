@@ -13,7 +13,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 	<div class="container">
 		<ul class="clearfix">
 			<li><a href="#description" class="active"><?php echo get_phrase('description'); ?></a></li>
-			<li><a href="#reviews"><?php echo get_phrase('reviews'); ?></a></li>
+			<!-- <li><a href="#reviews"><?php echo get_phrase('reviews'); ?></a></li> -->
 		</ul>
 	</div>
 </nav>

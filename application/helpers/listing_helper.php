@@ -116,32 +116,42 @@ if (! function_exists('now_open')) {
   }
 }
 if (! function_exists('get_now_open')) {
-  function get_now_open($listing_id = '') {
-    $CI =&  get_instance();
-    $CI->load->database();
-    $time_configurations = $CI->db->get_where('time_configuration', array('listing_id' => $listing_id))->row_array();
-    $today = strtolower(date('l'));
-    $current_hour = date('H');
-    $time_configuration_for_today = explode('-', $time_configurations[$today]);
-    if ($time_configuration_for_today[0] == 'closed' || $time_configuration_for_today[1] == 'closed') {
-      return 'closed';
-    }else {
-      if(strpos($time_configuration_for_today[0],':') > 0) {
-        $listing_open_time = date('d M Y, '.$time_configuration_for_today[0]);
-      }else{
-        $listing_open_time = date('d M Y, '.$time_configuration_for_today[0].':00');
+    function get_now_open($listing_id = '') {
+      $CI =&  get_instance();
+      $CI->load->database();
+      $time_configurations = $CI->db->get_where('time_configuration', array('listing_id' => $listing_id))->row_array();
+      $today = strtolower(date('l'));
+      $current_hour = date('H');
+      $time_configuration_for_today = explode('-', $time_configurations[$today]);
+
+      // 🟢 NUEVO: manejar caso "Open 24 hours"
+      if ($time_configuration_for_today[0] == 'open_24' || $time_configuration_for_today[1] == 'open_24') {
+          return 'open';
       }
 
-      if(strpos($time_configuration_for_today[1],':') > 0) {
-        $listing_close_time = date('d M Y, '.$time_configuration_for_today[1]);
-      }else{
-        $listing_close_time = date('d M Y, '.$time_configuration_for_today[1].':00');
+      // 🔴 Caso cerrado
+      if ($time_configuration_for_today[0] == 'closed' || $time_configuration_for_today[1] == 'closed') {
+          return 'closed';
+      } else {
+          // ⏰ Cálculo de apertura/cierre normal
+          if(strpos($time_configuration_for_today[0], ':') > 0) {
+              $listing_open_time = date('d M Y, '.$time_configuration_for_today[0]);
+          } else {
+              $listing_open_time = date('d M Y, '.$time_configuration_for_today[0].':00');
+          }
+
+          if(strpos($time_configuration_for_today[1], ':') > 0) {
+              $listing_close_time = date('d M Y, '.$time_configuration_for_today[1]);
+          } else {
+              $listing_close_time = date('d M Y, '.$time_configuration_for_today[1].':00');
+          }
+
+          if (strtotime($listing_open_time) <= time() && strtotime($listing_close_time) >= time()) {
+              return 'open';
+          } else {
+              return 'closed';
+          }
       }
-      if( strtotime($listing_open_time) <= time() && strtotime($listing_close_time) >= time() )
-        return 'open';
-      else
-        return 'closed';
-    }
   }
 }
 
