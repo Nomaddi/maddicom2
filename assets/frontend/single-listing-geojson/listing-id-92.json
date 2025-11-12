@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.768009",
+                    "3.9916809"
+                ]
+            },
+            "properties": {
+                "id": "d052a809dbd39ccaf226303441956131",
+                "index": 0,
+                "isActive": true,
+                "logo": "https://negocios.nomaddi.com/storage/photos/2025/10/09/ix1DqXhAYmfL8EcyY5zA.jpg",
+                "image": "https://negocios.nomaddi.com/storage/photos/2025/10/09/ix1DqXhAYmfL8EcyY5zA.jpg",
+                "link": "http://maddicom2.test/general/cream-berry/92",
+                "url": "",
+                "name": "Cream berry",
+                "category": "general",
+                "email": "iadv261@hotmail.com",
+                "stars": "0.0",
+                "phone": "+57 300 3444884",
+                "address": "Pablo Sexto, Dg. 15 #26-74, Acacías, Meta",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}
