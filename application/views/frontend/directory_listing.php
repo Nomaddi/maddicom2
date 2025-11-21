@@ -218,45 +218,6 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 					</div>
 
 				</div>
-				<!-- Photo Gallery -->
-				<!-- <?php if (count(json_decode($listing_details['photos'])) > 0): ?>
-					<h5 class="add_bottom_15"><?php echo get_phrase('photo_gallery'); ?></h5>
-					<div class="grid-gallery">
-						<ul class="magnific-gallery">
-							<?php foreach (json_decode($listing_details['photos']) as $key => $photo): ?>
-								<?php 
-								// Verificar si la foto es una URL completa o solo un nombre de archivo
-								$is_full_url = (strpos($photo, 'http://') === 0 || strpos($photo, 'https://') === 0);
-								
-								if ($is_full_url) {
-									// Es una URL completa del microservicio
-									$photo_url = $photo;
-									$show_image = true;
-								} else {
-									// Es solo un nombre de archivo, verificar si existe localmente
-									$show_image = file_exists('uploads/listing_images/'.$photo);
-									$photo_url = base_url('uploads/listing_images/'.$photo);
-								}
-								?>
-								
-								<?php if ($show_image): ?>
-									<li>
-										<figure style="margin: 0; overflow: hidden; height: 180px; width: 100%;">
-											<img src="<?php echo $photo_url; ?>" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-											<figcaption>
-												<div class="caption-content">
-													<a href="<?php echo $photo_url; ?>" title="" data-effect="mfp-zoom-in">
-														<i class="pe-7s-plus"></i>
-													</a>
-												</div>
-											</figcaption>
-										</figure>
-									</li>
-								<?php endif; ?>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-				<?php endif; ?>-->
 
 				 <hr>
 				

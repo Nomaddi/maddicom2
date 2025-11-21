@@ -5,10 +5,8 @@
     <style>
         /* Tarjeta de Contacto - MODIFICADO */
         .contact-card {
-            /* background: #fff;  <-- SE ELIMINÓ EL FONDO BLANCO */
             background: transparent; /* Se vuelve transparente para mostrar el fondo de la página */
             border: none;
-            /* box-shadow: 0 10px 30px rgba(0,0,0,0.05); <-- SE ELIMINÓ LA SOMBRA para un look plano */
             padding: 25px 0; /* Quitamos padding lateral para que se alinee con el resto, mantenemos vertical */
         }
 
@@ -17,7 +15,6 @@
             font-weight: 700;
             margin-bottom: 20px;
             color: #333;
-            /* border-bottom: 2px solid #f0f0f0; <-- Opcional: quitar la línea si quieres que sea aún más limpio */
             padding-bottom: 10px;
         }
 
@@ -77,7 +74,7 @@
 
 
 <?php 
-    // --- 1. PREPARACIÓN DE DATOS ---
+    // --- 1. PREPARACIÓN DE DATOS --- 
     
     // Formatear teléfono para WhatsApp
     $phone_clean = preg_replace('/\D/', '', $listing_details['owner_phone'] ?? '');
@@ -106,7 +103,25 @@
         'youtube' => ['icon' => 'fa-youtube', 'color' => '#FF0000'],
         'tiktok' => ['icon' => 'fa-tiktok', 'color' => '#010101'],
         'whatsapp' => ['icon' => 'fa-whatsapp', 'color' => '#25D366'],
-        // ... puedes agregar el resto de tu lista aquí si los necesitas
+        'telegram' => ['icon' => 'fa-telegram', 'color' => '#0088cc'],
+        'messenger' => ['icon' => 'fa-facebook-messenger', 'color' => '#00B2FF'],
+        'google_maps' => ['icon' => 'fa-location-dot', 'color' => '#EA4335'],
+        'waze' => ['icon' => 'fa-location-arrow', 'color' => '#33CCFF'],
+        'spotify' => ['icon' => 'fa-spotify', 'color' => '#1DB954'],
+        'soundcloud' => ['icon' => 'fa-soundcloud', 'color' => '#FF5500'],
+        'twitch' => ['icon' => 'fa-twitch', 'color' => '#9146FF'],
+        'pinterest' => ['icon' => 'fa-pinterest', 'color' => '#E60023'],
+        'behance' => ['icon' => 'fa-behance', 'color' => '#1769FF'],
+        'dribbble' => ['icon' => 'fa-dribbble', 'color' => '#EA4C89'],
+        'tripadvisor' => ['icon' => 'fa-tripadvisor', 'color' => '#34E0A1'],
+        'trustpilot' => ['icon' => 'fa-star', 'color' => '#00B67A'],
+        'github' => ['icon' => 'fa-github', 'color' => '#24292E'],
+        'gitlab' => ['icon' => 'fa-gitlab', 'color' => '#FC6D26'],
+        'stackoverflow' => ['icon' => 'fa-stack-overflow', 'color' => '#F48024'],
+        'snapchat' => ['icon' => 'fa-snapchat-ghost', 'color' => '#FFFC00'],
+        'reddit' => ['icon' => 'fa-reddit-alien', 'color' => '#FF4500'],
+        'medium' => ['icon' => 'fa-medium', 'color' => '#12100E'],
+        'vimeo' => ['icon' => 'fa-vimeo-v', 'color' => '#1AB7EA']    
     ];
 ?>
 
