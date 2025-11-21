@@ -109,11 +109,117 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 						min-height: 48% !important;
 					}
 					}
-
 					
-				</style>
+					/* === Miniaturas === */
+					.thumbs-container {
+						max-height: 500px;
+						overflow-y: auto; 
+						padding-right: 5px;
+					}
+
+					/* Barra de scroll estilizada (Opcional, para que se vea moderna) */
+					.thumbs-container::-webkit-scrollbar { width: 5px; }
+					.thumbs-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; }
+
+					.thumb-item {
+						cursor: pointer;
+						border: 2px solid transparent; /* Borde invisible por defecto */
+						transition: all 0.3s;
+						opacity: 0.6; /* Un poco transparente cuando no está activa */
+						margin-bottom: 10px;
+					}
+
+					.thumb-item:hover, .thumb-item.active {
+						border-color: #ffc107; /* Borde de selección */
+						opacity: 1; /* Totalmente visible al seleccionar */
+					}
+
+					.thumb-img {
+						width: 100%;
+						height: 80px;
+						object-fit: cover;
+						border-radius: 4px;
+						display: block;
+					}
+
+					/* === Imagen Principal === */
+					.main-image-wrapper {
+						width: 100%;
+						height: 500px; /* Altura fija para mantener la estructura */
+						background-color: #f8f9fa; /* Fondo gris suave por si la imagen tarda en cargar */
+						border-radius: 8px;
+						overflow: hidden;
+						box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra suave para darle profundidad */
+					}
+
+					.main-img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover; /* Esto recorta la imagen para llenar el espacio. Si prefieres que se vea la imagen completa sin recortar (aunque queden espacios blancos), cambia 'cover' por 'contain' */
+						display: block;
+					}
+					
+					</style>
+
+				<!-- NEW GALLERY -->
+
+				<?php 
+				// --- Lógica de preparación de datos (Igual que antes) ---
+				$photos_data = [];
+				$raw_photos = json_decode($listing_details['photos']);
+
+				if (is_array($raw_photos) && count($raw_photos) > 0) {
+					foreach ($raw_photos as $photo) {
+						$is_full_url = (strpos($photo, 'http://') === 0 || strpos($photo, 'https://') === 0);
+						if ($is_full_url) {
+							$url = $photo;
+						} else {
+							if (file_exists('uploads/listing_images/'.$photo)) {
+								$url = base_url('uploads/listing_images/'.$photo);
+							} else {
+								continue; 
+							}
+						}
+						$photos_data[] = $url;
+					}
+				}
+
+				$main_photo = count($photos_data) > 0 ? $photos_data[0] : base_url('assets/img/placeholder.jpg');
+				?>
+
+				<div class="row mt-4">
+					
+					<div class="col-md-2">
+						<div class="thumbs-container">
+							<?php if (!empty($photos_data)): ?>
+								<?php foreach ($photos_data as $index => $url): ?>
+									<div class="thumb-item <?php echo ($index === 0) ? 'active' : ''; ?>" 
+										onclick="changeImage(this, '<?php echo $url; ?>')">
+										<img src="<?php echo $url; ?>" class="thumb-img" alt="Miniatura">
+									</div>
+								<?php endforeach; ?>
+							<?php else: ?>
+								<p class="text-muted text-center">Sin fotos</p>
+							<?php endif; ?>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="main-image-wrapper">
+							<img id="mainImageDisplay" src="<?php echo $main_photo; ?>" class="main-img" alt="Imagen Principal">
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="box_detail">
+							<h3>Información</h3>
+							<?php include 'contact_and_social.php'; ?>
+						</div>
+					</div>
+
+				</div>
 				<!-- Photo Gallery -->
-				<?php if (count(json_decode($listing_details['photos'])) > 0): ?>
+				<!-- <?php if (count(json_decode($listing_details['photos'])) > 0): ?>
 					<h5 class="add_bottom_15"><?php echo get_phrase('photo_gallery'); ?></h5>
 					<div class="grid-gallery">
 						<ul class="magnific-gallery">
@@ -150,10 +256,10 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 							<?php endforeach; ?>
 						</ul>
 					</div>
-				<?php endif; ?>
+				<?php endif; ?>-->
 
-				<hr>
-				<?php include 'contact_and_social.php'; ?>
+				 <hr>
+				
 
 				<?php
 				// Lee y normaliza
@@ -330,4 +436,15 @@ createListingsMap({
 
 
 //<!-- End Facebook Pixel Code -->
+</script>
+
+<script>
+function changeImage(element, src) {
+    // Cambia la fuente de la imagen grande
+    document.getElementById('mainImageDisplay').src = src;
+
+    // Gestiona la clase 'active' en las miniaturas
+    document.querySelectorAll('.thumb-item').forEach(thumb => thumb.classList.remove('active'));
+    element.classList.add('active');
+}
 </script>
