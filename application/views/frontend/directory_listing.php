@@ -158,6 +158,37 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 						object-fit: cover; /* Esto recorta la imagen para llenar el espacio. Si prefieres que se vea la imagen completa sin recortar (aunque queden espacios blancos), cambia 'cover' por 'contain' */
 						display: block;
 					}
+
+					/* === ESTILOS RESPONSIVOS PARA MÓVIL === */
+					@media (max-width: 767.98px) {
+						
+						/* Contenedor de miniaturas en horizontal */
+						.thumbs-container {
+							display: flex;       /* Pone los elementos en fila */
+							flex-direction: row; /* Dirección horizontal */
+							overflow-x: auto;    /* Permite scroll lateral */
+							overflow-y: hidden;  /* Quita scroll vertical */
+							white-space: nowrap; /* Evita que salten de línea */
+							width: 100%;
+							max-height: auto;    /* Quitamos la restricción de altura */
+							padding-bottom: 10px; /* Espacio para el dedo al hacer scroll */
+							margin-top: 10px;
+						}
+
+						/* Ajuste de cada miniatura en móvil */
+						.thumb-item {
+							flex: 0 0 auto;  /* No permite que se estiren ni encojan */
+							width: 80px;     /* Ancho fijo cuadrado */
+							margin-right: 10px; /* Espacio entre fotos */
+							margin-bottom: 0;   /* Quitamos margen inferior */
+						}
+
+						/* Reducir altura de la imagen principal en móvil */
+						/* 500px es mucho para un celular, mejor 300px o 350px */
+						.main-image-wrapper {
+							height: 300px; 
+						}
+					}
 					
 					</style>
 
@@ -189,7 +220,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 
 				<div class="row mt-4">
 					
-					<div class="col-md-2">
+					<div class="col-md-2 order-2 order-md-1">
 						<div class="thumbs-container">
 							<?php if (!empty($photos_data)): ?>
 								<?php foreach ($photos_data as $index => $url): ?>
@@ -204,13 +235,13 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 						</div>
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-6 order-1 order-md-2 mb-3 mb-md-0">
 						<div class="main-image-wrapper">
 							<img id="mainImageDisplay" src="<?php echo $main_photo; ?>" class="main-img" alt="Imagen Principal">
 						</div>
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-4 order-3 order-md-3">
 						<div class="box_detail">
 							<h3>Información</h3>
 							<?php include 'contact_and_social.php'; ?>
