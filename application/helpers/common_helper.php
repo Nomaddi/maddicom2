@@ -24,6 +24,19 @@ if (! function_exists('get_settings')) {
   }
 }
 
+if (!function_exists('image_version_url')) {
+    function image_version_url($path) {
+        $full_path = FCPATH . $path;
+        $url = base_url($path);
+        
+        if (file_exists($full_path)) {
+            $url .= '?v=' . filemtime($full_path);
+        }
+        
+        return $url;
+    }
+}
+
 if (! function_exists('get_frontend_settings')) {
   function get_frontend_settings($type = '') {
     $CI	=&	get_instance();

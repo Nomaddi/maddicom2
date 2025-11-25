@@ -1445,21 +1445,46 @@ return $this->db->get('listing');
 
   function website_images_uploader($image_type = "")
   {
-    if ($image_type == 'banner_image') {
-      move_uploaded_file($_FILES['banner_image']['tmp_name'], 'uploads/system/home_banner.jpg');
-    }
-    if ($image_type == 'light_logo') {
-      move_uploaded_file($_FILES['light_logo']['tmp_name'], 'assets/global/light_logo.png');
-    }
-    if ($image_type == 'dark_logo') {
-      move_uploaded_file($_FILES['dark_logo']['tmp_name'], 'assets/global/dark_logo.png');
-    }
-    if ($image_type == 'small_logo') {
-      move_uploaded_file($_FILES['small_logo']['tmp_name'], 'assets/global/logo-sm.png');
-    }
-    if ($image_type == 'favicon') {
-      move_uploaded_file($_FILES['favicon']['tmp_name'], 'assets/global/favicon.png');
-    }
+      $upload_path = '';
+      $filename = '';
+
+      if ($image_type == 'banner_image') {
+          $upload_path = 'uploads/system/';
+          $filename = 'home_banner.jpg';
+      }
+      if ($image_type == 'light_logo') {
+          $upload_path = 'assets/global/';
+          $filename = 'light_logo.png';
+      }
+      if ($image_type == 'dark_logo') {
+          $upload_path = 'assets/global/';
+          $filename = 'dark_logo.png';
+      }
+      if ($image_type == 'small_logo') {
+          $upload_path = 'assets/global/';
+          $filename = 'logo-sm.png';
+      }
+      if ($image_type == 'favicon') {
+          $upload_path = 'assets/global/';
+          $filename = 'favicon.png';
+      }
+
+      if ($upload_path && $filename && !empty($_FILES[$image_type]['name'])) {
+          $full_path = $upload_path . $filename;
+
+          // Eliminar el archivo anterior si existe (liberar bloqueo)
+          if (file_exists($full_path)) {
+              unlink($full_path);
+          }
+
+          // Mover el nuevo archivo
+          if (move_uploaded_file($_FILES[$image_type]['tmp_name'], $full_path)) {
+              // Forzar actualización del timestamp
+              touch($full_path);
+              return true;
+          }
+      }
+      return false;
   }
 
   // Listing cruds

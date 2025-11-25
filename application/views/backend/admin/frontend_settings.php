@@ -415,7 +415,7 @@ $banner_url = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path
                                 <div class="fileinput-new thumbnail"
                                     style="width: 200px; height: 200px; background-color: #E0E0E0;"
                                     data-trigger="fileinput">
-                                    <img src="<?= $banner_url; ?>" alt="Banner">
+                                    <img src="<?= image_version_url('uploads/system/home_banner.jpg'); ?>" alt="Banner">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                     style="max-width: 200px; max-height: 150px"></div>
@@ -457,7 +457,7 @@ $banner_url = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path
                                 <div class="fileinput-new thumbnail"
                                     style="width: 200px; height: 200px; background-color: #E0E0E0;"
                                     data-trigger="fileinput">
-                                    <img src="<?php echo base_url('assets/global/light_logo.png'); ?>" alt="...">
+                                    <img src="<?= image_version_url('assets/global/light_logo.png'); ?>" alt="Light Logo">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                     style="max-width: 200px; max-height: 150px"></div>
@@ -499,7 +499,7 @@ $banner_url = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path
                                 <div class="fileinput-new thumbnail"
                                     style="width: 200px; height: 200px; background-color: #E0E0E0;"
                                     data-trigger="fileinput">
-                                    <img src="<?php echo base_url('assets/global/dark_logo.png'); ?>" alt="...">
+                                    <img src="<?= image_version_url('assets/global/dark_logo.png'); ?>" alt="Dark Logo">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                     style="max-width: 200px; max-height: 150px"></div>
@@ -541,7 +541,7 @@ $banner_url = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path
                                 <div class="fileinput-new thumbnail"
                                     style="width: 200px; height: 200px; background-color: #E0E0E0;"
                                     data-trigger="fileinput">
-                                    <img src="<?php echo base_url('assets/global/logo-sm.png'); ?>" alt="...">
+                                    <img src="<?= image_version_url('assets/global/logo-sm.png'); ?>" alt="Small Logo">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                     style="max-width: 200px; max-height: 150px"></div>
@@ -583,7 +583,7 @@ $banner_url = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path
                                 <div class="fileinput-new thumbnail"
                                     style="width: 200px; height: 200px; background-color: #E0E0E0;"
                                     data-trigger="fileinput">
-                                    <img src="<?php echo base_url('assets/global/favicon.png'); ?>" alt="...">
+                                    <img src="<?= image_version_url('assets/global/favicon.png'); ?>" alt="Favicon">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                     style="max-width: 200px; max-height: 150px"></div>
