@@ -96,6 +96,7 @@
     
     // Array de iconos y colores (Tu configuración original)
     $social_config = [
+        'calificame' => ['icon' => 'fa-google', 'color' => '#FFFC00', 'label' => 'Califícame en Google'],
         'facebook' => ['icon' => 'fa-facebook-f', 'color' => '#1877F2'],
         'instagram' => ['icon' => 'fa-instagram', 'color' => 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)'],
         'x' => ['icon' => 'fa-x-twitter', 'color' => '#000000'],

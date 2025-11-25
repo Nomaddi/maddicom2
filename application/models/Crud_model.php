@@ -740,8 +740,60 @@ return $this->db->get('listing');
     $data['phone'] = sanitizer($this->input->post('phone'));
     // Recibe todas las redes desde el array asociativo del formulario
     $social_input = $this->input->post('social');
+    $social_data_string = isset($data['social']) ? $data['social'] : '';
+    $old_social_links = json_decode($social_data_string, true);
 
-    $social_links = array();
+    if (!is_array($old_social_links)) {
+    $old_social_links = [];
+  }
+    $estructura_base = [
+    'calificame'   => '',
+    'facebook'     => '',
+    'instagram'    => '',
+    'x'            => '',
+    'linkedin'     => '',
+    'youtube'      => '',
+    'tiktok'       => '',
+    'threads'      => '',
+
+    // Comunicación directa
+    'whatsapp'     => '',
+    'telegram'     => '',
+    'messenger'    => '',
+
+    // Geolocalización y mapas
+    'google_maps'  => '',
+    'waze'         => '',
+
+    // Contenido y streaming
+    'spotify'      => '',
+    'soundcloud'   => '',
+    'twitch'       => '',
+
+    // Imagen, diseño y fotografía
+    'pinterest'    => '',
+    'behance'      => '',
+    'dribbble'     => '',
+
+    // Negocios y reseñas
+    'tripadvisor'  => '',
+    'trustpilot'   => '',
+
+    // Desarrollo y comunidades tech
+    'github'       => '',
+    'gitlab'       => '',
+    'stackoverflow'=> '',
+
+    // Otros (redes de nicho o globales)
+    'snapchat'     => '',
+    'reddit'       => '',
+    'medium'       => '',
+    'vimeo'        => ''
+    ];
+
+    // $datos_completos = array_merge($estructura_base, $old_social_links);
+
+    $social_links = array_merge($estructura_base, $old_social_links);
     if (!empty($social_input) && is_array($social_input)) {
         foreach ($social_input as $key => $value) {
             $social_links[$key] = sanitizer($value);
