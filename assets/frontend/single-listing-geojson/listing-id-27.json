@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.4838899591886",
+                    "4.270945970138118"
+                ]
+            },
+            "properties": {
+                "id": "38234027526d6ba3590d0996176b43d0",
+                "index": 0,
+                "isActive": true,
+                "logo": "aa1b0573054b3ecf61496e6cc103b4fd.jpg",
+                "image": "aa1b0573054b3ecf61496e6cc103b4fd.jpg",
+                "link": "https://maddicom2.nomaddi.com/general/universidad-la-gran-colombia/27",
+                "url": "https://www.darasinatopu.in",
+                "name": "Universidad la Gran Colombia",
+                "category": "general",
+                "email": "bixybyjo@mailinator.com",
+                "stars": "0.0",
+                "phone": "3218163340",
+                "address": "Cl. 11 #15-39, Cumaral, Meta",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

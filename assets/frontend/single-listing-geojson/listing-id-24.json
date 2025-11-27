@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.48988024530054",
+                    "4.266882668475257"
+                ]
+            },
+            "properties": {
+                "id": "36b70f09beb901c40a869670dd5d72b3",
+                "index": 0,
+                "isActive": true,
+                "logo": "10e3fb65e4d59ca16793b82fb7934e29.jpg",
+                "image": "10e3fb65e4d59ca16793b82fb7934e29.jpg",
+                "link": "https://maddicom2.nomaddi.com/hotel/hotel-casa-blanca-cumaral/24",
+                "url": "",
+                "name": "Hotel Casa Blanca cumaral",
+                "category": "hotel",
+                "email": "",
+                "stars": "0.0",
+                "phone": "3124080726",
+                "address": "",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

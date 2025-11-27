@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.789895",
+                    "3.984632"
+                ]
+            },
+            "properties": {
+                "id": "bb325f2b699e00f52c99d8145ea63891",
+                "index": 0,
+                "isActive": true,
+                "logo": "thumbnail.png",
+                "image": "thumbnail.png",
+                "link": "http://maddicom2.test/general/el-regulador/220",
+                "url": "",
+                "name": "El Regulador ",
+                "category": "general",
+                "email": "",
+                "stars": "0.0",
+                "phone": "",
+                "address": "cbgbcb",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

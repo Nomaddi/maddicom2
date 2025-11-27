@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.7602365",
+                    "3.9857478"
+                ]
+            },
+            "properties": {
+                "id": "e932e4ec995b9d90f9bd463de250dcee",
+                "index": 0,
+                "isActive": true,
+                "logo": "https://negocios.nomaddi.com/storage/photos/2025/10/09/r819VnKvwfk95sgS8Hov.jpg",
+                "image": "https://negocios.nomaddi.com/storage/photos/2025/10/09/r819VnKvwfk95sgS8Hov.jpg",
+                "link": "http://maddicom2.test/general/hola-mobi/96",
+                "url": "",
+                "name": "hola MOBi",
+                "category": "general",
+                "email": "Dulcesylicoreskwikemart@gmail.com",
+                "stars": "0.0",
+                "phone": "+57 321 3110848",
+                "address": "Cl. 13 #16-78, Acacías, Meta, Colombia",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.77525280315932",
+                    "3.9886998975415664"
+                ]
+            },
+            "properties": {
+                "id": "c027f652c9010b4bba95a73877112438",
+                "index": 0,
+                "isActive": true,
+                "logo": "a86297c0531f71bcc377532d6723dcc8.jpg",
+                "image": "a86297c0531f71bcc377532d6723dcc8.jpg",
+                "link": "http://localhost/maddicom2/general/proteger-ips-acacias/21",
+                "url": "https://www.protegerips.com/",
+                "name": "PROTEGER IPS ACACIAS",
+                "category": "general",
+                "email": "gerente@protegerips.com",
+                "stars": "0.0",
+                "phone": "3209548778",
+                "address": "",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.769421",
+                    "3.985541"
+                ]
+            },
+            "properties": {
+                "id": "cee300dc9eacd1f8d3fe5e47bcf2d294",
+                "index": 0,
+                "isActive": true,
+                "logo": "3b1555af5dc55c7e18a707c895b5ea2d.jpg",
+                "image": "3b1555af5dc55c7e18a707c895b5ea2d.jpg",
+                "link": "http://localhost/maddicom2/beauty/nails-katherine/25",
+                "url": "https://www.nail.com",
+                "name": "Nails Katherine",
+                "category": "beauty",
+                "email": "zakyjowawu@mailinator.com",
+                "stars": "0.0",
+                "phone": "3222107780",
+                "address": "Carrera 12 # 8‑25, Barrio La Tizarn",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.75864699300654",
+                    "3.9871821214013226"
+                ]
+            },
+            "properties": {
+                "id": "a76901e6352a358e9c24b77157d09956",
+                "index": 0,
+                "isActive": true,
+                "logo": "153b22ec784f3add5e78a0c6b1458854.jpg",
+                "image": "153b22ec784f3add5e78a0c6b1458854.jpg",
+                "link": "http://localhost/maddicom2/beauty/studio-claudia-carranza/23",
+                "url": "",
+                "name": "Studio Claudia Carranza",
+                "category": "beauty",
+                "email": "",
+                "stars": "0.0",
+                "phone": "3132688188",
+                "address": "",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}
