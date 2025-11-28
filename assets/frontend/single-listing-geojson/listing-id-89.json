@@ -1,0 +1,32 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-73.7679252",
+                    "3.9956898"
+                ]
+            },
+            "properties": {
+                "id": "3bcd5b2a74fb501339030c0e46d28db7",
+                "index": 0,
+                "isActive": true,
+                "logo": "https://negocios.nomaddi.com/storage/photos/2025/10/09/jOp6GbtdtD12ZhG9pJnq.jpg",
+                "image": "https://negocios.nomaddi.com/storage/photos/2025/10/09/jOp6GbtdtD12ZhG9pJnq.jpg",
+                "link": "http://maddicom2.test/general/domicilios-bfc-acacías/89",
+                "url": "https://g.co/kgs/dGbGG2Q",
+                "name": "Domicilios BFC Acacías",
+                "category": "general",
+                "email": "lisneyvalenzuelaleon5@gmail.com",
+                "stars": "0.0",
+                "phone": "+57 305 3520037",
+                "address": "Cl. 17 #27-15, villa lucia, Acacías, Meta, Colombia",
+                "about": "about",
+                "tags": []
+            }
+        }
+    ]
+}

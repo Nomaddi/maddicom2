@@ -23,6 +23,7 @@
 // Puedes mover esta lista a un archivo config o helper si prefieres
 $social_networks = array(
     // Redes sociales principales
+    'calificame'   => 'Google Review',
     'facebook'     => 'Facebook',
     'instagram'    => 'Instagram',
     'x'            => 'X (antes Twitter)',
