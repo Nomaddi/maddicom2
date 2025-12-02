@@ -306,7 +306,7 @@
 		</aside>
 		<!-- /aside -->
 
-		<div class="col-lg-6 col-md-12 order-lg-1 order-2" id="listings">
+		<div class="col-lg-6 col-md-12 order-lg-1 order-1" id="listings">
 
 			<div class="row">
 
@@ -515,7 +515,7 @@
 
 
 		<!-- /col -->
-		<div class="col-lg-3 order-lg-2 order-1">
+		<div class="col-lg-3 order-lg-2 order-2">
 			<div class="stiky-map mb-5 mb-lg-0">
 				<div id="map" class="map-full map-layout"></div>
 			</div>
