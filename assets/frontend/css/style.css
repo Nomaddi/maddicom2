@@ -1496,6 +1496,26 @@ ul#additional_links li:after {
     font-size: 0.875rem;
   }
 }
+
+/* Para Tablets y Móviles (Pantallas menores a 768px) */
+@media (max-width: 767px) {
+  .hero_single.version_2 {
+    /* 1. Reducimos la altura drásticamente para móvil */
+    height: 360px !important; 
+    
+    /* 2. Opcional: Si la parte importante de tu foto está arriba (ej. caras),
+       cambia 'center center' por 'center top' */
+    background-position: center center !important;
+  }
+  
+  /* Ajuste para que el contenedor del texto se centre bien en la nueva altura */
+  .hero_single.version_2 .wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+}
 .hero_single.version_3 {
   height: 450px;
   background: #222 url(../images/home_section_1.jpg) center center no-repeat;
