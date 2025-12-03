@@ -4,3 +4,4 @@ application/config/*/database.php   # también ignora configs por entorno (devel
 
 #language
 application/language/*.json
+assets/frontend/single-listing-geojson/*.json

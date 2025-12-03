@@ -888,9 +888,15 @@ return $this->db->get('listing');
     $this->db->where('id', $listing_id);
     $this->db->update('listing', $data);
 
-
     $this->db->where('listing_id', $listing_id);
-    $this->db->update('time_configuration', $time_config);
+    $exist = $this->db->count_all_results('time_configuration', FALSE);
+    
+    if ($exist > 0) {
+      $this->db->update('time_configuration', $time_config);
+    }else {
+      $time_config['listing_id'] = $listing_id;
+      $this->db->insert('time_configuration', $time_config);
+    }
 
     // Update listing inner details data
     $this->update_listing_type_wise_details(sanitizer($this->input->post('listing_type')), $listing_id);
