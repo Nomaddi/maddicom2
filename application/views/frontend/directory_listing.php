@@ -12,7 +12,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 <nav class="secondary_nav sticky_horizontal_2" style="background:#228e50 !important">
 	<div class="container">
 		<ul class="clearfix">
-			<li><a href="#description" class="active"><?php echo get_phrase('description'); ?></a></li>
+			<!-- <li><a href="#description" class="active"><?php echo get_phrase('description'); ?></a></li> -->
 			<!-- <li><a href="#reviews"><?php echo get_phrase('reviews'); ?></a></li> -->
 		</ul>
 	</div>
@@ -84,7 +84,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 					?>
 				</div>
 
-				<h5><?php echo get_phrase('about'); ?></h5>
+				<h5><?php echo get_phrase('Description'); ?></h5>
 				<p>
 					<?php echo nl2br($listing_details['description']); ?>
 				</p>
@@ -122,6 +122,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 					.thumbs-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; }
 
 					.thumb-item {
+						position: relative;
 						cursor: pointer;
 						border: 2px solid transparent; /* Borde invisible por defecto */
 						transition: all 0.3s;
@@ -159,6 +160,31 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 						display: block;
 					}
 
+					.video-icon-overlay {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						color: white;
+						font-size: 24px;
+						text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+						pointer-events: none; /* Para que el clic pase al div padre */
+						z-index: 2;
+					}
+					/* Contenedor principal para Videos (oculto por defecto) */
+					#mainVideoContainer {
+						width: 100%;
+						height: 100%; /* Para llenar los 500px o 300px definidos antes */
+						display: none; /* Se muestra solo si es video */
+						background: #000;
+					}
+
+					/* Asegurar que Plyr llene el espacio */
+					.plyr {
+						height: 100%;
+						width: 100%;
+					}
+
 					/* === ESTILOS RESPONSIVOS PARA MÓVIL === */
 					@media (max-width: 767.98px) {
 						
@@ -194,7 +220,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 
 				<!-- NEW GALLERY -->
 
-				<?php 
+				<!-- <?php 
 				// --- Lógica de preparación de datos (Igual que antes) ---
 				$photos_data = [];
 				$raw_photos = json_decode($listing_details['photos']);
@@ -216,106 +242,184 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 				}
 
 				$main_photo = count($photos_data) > 0 ? $photos_data[0] : base_url('assets/img/placeholder.jpg');
+				?> -->
+
+				<?php 
+				// --- 1. PREPARACIÓN DE DATOS ---
+
+				$gallery_items = [];
+
+				// A. Procesar IMÁGENES
+				$raw_photos = json_decode($listing_details['photos']);
+				if (is_array($raw_photos)) {
+					foreach ($raw_photos as $photo) {
+						// Tu validación de URL existente...
+						$url = (strpos($photo, 'http') === 0) ? $photo : base_url('uploads/listing_images/'.$photo);
+						if (!file_exists('uploads/listing_images/'.$photo) && strpos($photo, 'http') !== 0) continue;
+
+						$gallery_items[] = [
+							'type'   => 'image',
+							'src'    => $url,
+							'thumb'  => $url // La misma imagen sirve de miniatura
+						];
+					}
+				}
+
+				// B. Procesar VIDEOS (Solo si tiene permisos)
+				if (has_package_feature('ability_to_add_video', $listing_details['user_id']) == 1) {
+					$raw_videos = !empty($listing_details['videos']) ? json_decode($listing_details['videos'], true) : [];
+					
+					// Compatibilidad videos antiguos
+					if (empty($raw_videos) && !empty($listing_details['video_url'])) {
+						$raw_videos[] = ['provider' => $listing_details['video_provider'], 'url' => $listing_details['video_url']];
+					}
+
+					foreach ($raw_videos as $video) {
+						$thumb = base_url('assets/img/video-placeholder.jpg'); // Miniatura por defecto
+						
+						// Intentar obtener miniatura real (especialmente para YouTube)
+						if ($video['provider'] == 'youtube') {
+							// Extraer ID de Youtube para obtener la miniatura
+							preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video['url'], $match);
+							if (isset($match[1])) {
+								$thumb = "https://img.youtube.com/vi/{$match[1]}/hqdefault.jpg";
+							}
+						}
+						// Para Vimeo es más complejo obtener thumbnail sin API, usamos placeholder o icono.
+
+						$gallery_items[] = [
+							'type'     => 'video',
+							'provider' => $video['provider'],
+							'src'      => $video['url'], // URL del video
+							'thumb'    => $thumb
+						];
+					}
+				}
+
+				// Elemento inicial
+				$first_item = !empty($gallery_items) ? $gallery_items[0] : null;
 				?>
+
+				<link rel="stylesheet" href="<?php echo base_url('assets/global/plyr/plyr.css'); ?>">
 
 				<div class="row mt-4">
-					
-					<div class="col-md-2 order-2 order-md-1">
-						<div class="thumbs-container">
-							<?php if (!empty($photos_data)): ?>
-								<?php foreach ($photos_data as $index => $url): ?>
-									<div class="thumb-item <?php echo ($index === 0) ? 'active' : ''; ?>" 
-										onclick="changeImage(this, '<?php echo $url; ?>')">
-										<img src="<?php echo $url; ?>" class="thumb-img" alt="Miniatura">
-									</div>
-								<?php endforeach; ?>
-							<?php else: ?>
-								<p class="text-muted text-center">Sin fotos</p>
-							<?php endif; ?>
-						</div>
-					</div>
+    
+				<div class="col-md-2 order-2 order-md-1">
+					<div class="thumbs-container">
+						<?php if (!empty($gallery_items)): ?>
+							<?php foreach ($gallery_items as $index => $item): ?>
+								
+								<div class="thumb-item <?php echo ($index === 0) ? 'active' : ''; ?>" 
+									onclick="changeMedia(this, '<?php echo $item['type']; ?>', '<?php echo $item['src']; ?>', '<?php echo $item['provider'] ?? ''; ?>')">
+									
+									<img src="<?php echo $item['thumb']; ?>" class="thumb-img" alt="Media">
+									
+									<?php if ($item['type'] === 'video'): ?>
+										<div class="video-icon-overlay">
+											<i class="fa-solid fa-play-circle"></i>
+										</div>
+									<?php endif; ?>
+									
+								</div>
 
-					<div class="col-md-6 order-1 order-md-2 mb-3 mb-md-0">
-						<div class="main-image-wrapper">
-							<img id="mainImageDisplay" src="<?php echo $main_photo; ?>" class="main-img" alt="Imagen Principal">
-						</div>
+							<?php endforeach; ?>
+						<?php else: ?>
+							<p class="text-muted text-center">Sin contenido</p>
+						<?php endif; ?>
 					</div>
-
-					<div class="col-md-4 order-3 order-md-3">
-						<div class="box_detail">
-							<h3>Información</h3>
-							<?php include 'contact_and_social.php'; ?>
-						</div>
-					</div>
-
 				</div>
 
-				 <hr>
+				<div class="col-md-6 order-1 order-md-2 mb-3 mb-md-0">
+					<div class="main-image-wrapper">
+						
+						<img id="mainImageDisplay" 
+							src="<?php echo ($first_item && $first_item['type'] == 'image') ? $first_item['src'] : ''; ?>" 
+							class="main-img" 
+							style="display: <?php echo ($first_item && $first_item['type'] == 'image') ? 'block' : 'none'; ?>;">
+
+						<div id="mainVideoContainer" 
+							style="display: <?php echo ($first_item && $first_item['type'] == 'video') ? 'block' : 'none'; ?>;">
+							</div>
+
+					</div>
+				</div>
+
+				<div class="col-md-4 order-3 order-md-3">
+					<div class="box_detail">
+						<h3>Información</h3>
+						<?php include 'contact_and_social.php'; ?>
+
+						<?php
+						// IDs de certificaciones guardados en el listing (JSON)
+						$cert_ids = json_decode($listing_details['certifications'] ?? '[]', true);
+
+						if (is_array($cert_ids) && !empty($cert_ids)): ?>
+						<h5 class="add_bottom_15"><?= get_phrase('certifications'); ?></h5>
+						<div class="row add_bottom_30">
+							<?php foreach ($cert_ids as $cert_id):
+							// Trae la fila completa de la certificación
+							$cert = $this->frontend_model->get_certification($cert_id)->row_array();
+							if (!$cert) continue;
+
+							// ¿Hay imagen física subida?
+							$has_image = !empty($cert['image']) && file_exists(FCPATH.'uploads/certifications/'.$cert['image']);
+							?>
+							<div class="col-md-4">
+								<ul class="mb-2">
+								<li>
+									<?php if ($has_image): ?>
+									<img
+										src="<?= base_url('uploads/certifications/'.$cert['image']); ?>"
+										alt="<?= html_escape($cert['name']); ?>"
+										style="height:60px;width:auto;vertical-align:middle;margin-right:6px;">
+									<?php elseif (!empty($cert['icon'])): ?>
+									<i class="<?= html_escape($cert['icon']); ?>" style="margin-right:6px;"></i>
+									<?php endif; ?>
+									<!-- <?= html_escape($cert['name']); ?> -->
+								</li>
+								</ul>
+							</div>
+							<?php endforeach; ?>
+						</div>
+						<?php endif; ?>
+					</div>
+				</div>
+
+			</div>
+			<hr>
 				
 
+			<?php
+			// Lee y normaliza
+			$amenities = json_decode($listing_details['amenities'], true);
+			$amenities = is_array($amenities) ? array_filter($amenities) : [];
+			?>
+
+			<?php if (count($amenities) > 0): ?>
+			<h5 class="add_bottom_15"><?php echo get_phrase('amenities'); ?></h5>
+			<div class="row add_bottom_30">
+				<?php foreach ($amenities as $amenity_id): ?>
 				<?php
-				// Lee y normaliza
-				$amenities = json_decode($listing_details['amenities'], true);
-				$amenities = is_array($amenities) ? array_filter($amenities) : [];
+					// Si tu método get_amenity requiere el campo, usa dos llamadas como ya hace el proyecto:
+					$icon = $this->frontend_model->get_amenity($amenity_id, 'icon')->row('icon');
+					$nameObj = $this->frontend_model->get_amenity($amenity_id, 'name')->row();
+					if (!$nameObj) continue; // por si hay IDs huérfanos
 				?>
-
-				<?php if (count($amenities) > 0): ?>
-				<h5 class="add_bottom_15"><?php echo get_phrase('amenities'); ?></h5>
-				<div class="row add_bottom_30">
-					<?php foreach ($amenities as $amenity_id): ?>
-					<?php
-						// Si tu método get_amenity requiere el campo, usa dos llamadas como ya hace el proyecto:
-						$icon = $this->frontend_model->get_amenity($amenity_id, 'icon')->row('icon');
-						$nameObj = $this->frontend_model->get_amenity($amenity_id, 'name')->row();
-						if (!$nameObj) continue; // por si hay IDs huérfanos
-					?>
-					<div class="col-md-4">
-						<ul>
-						<li>
-							<i class="<?php echo $icon; ?>"></i>
-							<?php echo $nameObj->name; ?>
-						</li>
-						</ul>
-					</div>
-					<?php endforeach; ?>
+				<div class="col-md-4">
+					<ul>
+					<li>
+						<i class="<?php echo $icon; ?>"></i>
+						<?php echo $nameObj->name; ?>
+					</li>
+					</ul>
 				</div>
-				<?php endif; ?>
+				<?php endforeach; ?>
+			</div>
+			<?php endif; ?>
 
-				<!-- /row -->
+			<!-- /row -->
 
-				<?php
-				// IDs de certificaciones guardados en el listing (JSON)
-				$cert_ids = json_decode($listing_details['certifications'] ?? '[]', true);
-
-				if (is_array($cert_ids) && !empty($cert_ids)): ?>
-				<h5 class="add_bottom_15"><?= get_phrase('certifications'); ?></h5>
-				<div class="row add_bottom_30">
-					<?php foreach ($cert_ids as $cert_id):
-					// Trae la fila completa de la certificación
-					$cert = $this->frontend_model->get_certification($cert_id)->row_array();
-					if (!$cert) continue;
-
-					// ¿Hay imagen física subida?
-					$has_image = !empty($cert['image']) && file_exists(FCPATH.'uploads/certifications/'.$cert['image']);
-					?>
-					<div class="col-md-4">
-						<ul class="mb-2">
-						<li>
-							<?php if ($has_image): ?>
-							<img
-								src="<?= base_url('uploads/certifications/'.$cert['image']); ?>"
-								alt="<?= html_escape($cert['name']); ?>"
-								style="height:60px;width:auto;vertical-align:middle;margin-right:6px;">
-							<?php elseif (!empty($cert['icon'])): ?>
-							<i class="<?= html_escape($cert['icon']); ?>" style="margin-right:6px;"></i>
-							<?php endif; ?>
-							<?= html_escape($cert['name']); ?>
-						</li>
-						</ul>
-					</div>
-					<?php endforeach; ?>
-				</div>
-				<?php endif; ?>
+			
 
 
 
@@ -339,7 +443,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 				<!-- /row -->
 
 				<!-- Video File Base On Package-->
-				<?php include 'video_player.php'; ?>
+				<!-- <?php include 'video_player.php'; ?> -->
 
 				<hr>
 				<h3><?= get_phrase('location'); ?></h3>
@@ -430,7 +534,7 @@ createListingsMap({
 //<!-- End Facebook Pixel Code -->
 </script>
 
-<script>
+<!-- <script>
 function changeImage(element, src) {
     // Cambia la fuente de la imagen grande
     document.getElementById('mainImageDisplay').src = src;
@@ -438,5 +542,103 @@ function changeImage(element, src) {
     // Gestiona la clase 'active' en las miniaturas
     document.querySelectorAll('.thumb-item').forEach(thumb => thumb.classList.remove('active'));
     element.classList.add('active');
+}
+</script> -->
+
+<script src="<?php echo base_url('assets/global/plyr/plyr.js'); ?>"></script>
+
+<script>
+// Variable global para guardar la instancia del reproductor
+let playerInstance = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Si el primer elemento al cargar es un video, inicializarlo
+    <?php if ($first_item && $first_item['type'] == 'video'): ?>
+        loadVideo('<?php echo $first_item['src']; ?>', '<?php echo $first_item['provider']; ?>');
+    <?php endif; ?>
+});
+
+function changeMedia(element, type, src, provider) {
+    // 1. Manejo de clases visuales en miniaturas
+    document.querySelectorAll('.thumb-item').forEach(thumb => thumb.classList.remove('active'));
+    element.classList.add('active');
+
+    const imgContainer = document.getElementById('mainImageDisplay');
+    const vidContainer = document.getElementById('mainVideoContainer');
+
+    if (type === 'image') {
+        // --- MODO IMAGEN ---
+        
+        // Detener video si existe
+        if (playerInstance) {
+            playerInstance.destroy(); // Destruye Plyr para parar audio/video
+            playerInstance = null;
+            vidContainer.innerHTML = ''; // Limpiar HTML
+        }
+
+        // Mostrar imagen, ocultar video
+        vidContainer.style.display = 'none';
+        imgContainer.style.display = 'block';
+        imgContainer.src = src;
+
+    } else if (type === 'video') {
+        // --- MODO VIDEO ---
+        
+        // Ocultar imagen, mostrar video
+        imgContainer.style.display = 'none';
+        vidContainer.style.display = 'block';
+
+        // Cargar el video
+        loadVideo(src, provider);
+    }
+}
+
+function loadVideo(url, provider) {
+    const vidContainer = document.getElementById('mainVideoContainer');
+    
+    // Limpiar reproductor anterior si existe
+    if (playerInstance) {
+        playerInstance.destroy();
+        playerInstance = null;
+    }
+
+    let html = '';
+
+    // Construir HTML según proveedor
+    if (provider === 'youtube') {
+        // Extraer ID simple para YouTube
+        let videoId = url.split('v=')[1];
+        if (!videoId && url.indexOf('youtu.be') > -1) {
+             videoId = url.split('/').pop();
+        }
+        const ampersandPosition = videoId ? videoId.indexOf('&') : -1;
+        if (ampersandPosition !== -1) {
+            videoId = videoId.substring(0, ampersandPosition);
+        }
+
+        html = `<div class="plyr__video-embed" id="player">
+                    <iframe src="https://www.youtube.com/embed/${videoId}?origin=<?php echo base_url(); ?>&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency allow="autoplay"></iframe>
+                </div>`;
+    } 
+    else if (provider === 'vimeo') {
+        // Necesitamos el ID de vimeo. Usualmente viene en la URL com vimeo.com/123456
+        let videoId = url.split('/').pop();
+        // Si tienes una función PHP para el ID, úsala en el loop, si no, intentamos extraerla así.
+        
+        html = `<div class="plyr__video-embed" id="player">
+                    <iframe src="https://player.vimeo.com/video/${videoId}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media" allowfullscreen allowtransparency allow="autoplay"></iframe>
+                </div>`;
+    } 
+    else {
+        // HTML5 Video
+        html = `<video id="player" playsinline controls>
+                    <source src="${url}" type="video/mp4" />
+                </video>`;
+    }
+
+    vidContainer.innerHTML = html;
+
+    // Inicializar Plyr
+    playerInstance = new Plyr('#player');
 }
 </script>

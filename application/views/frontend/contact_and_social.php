@@ -29,6 +29,7 @@
 
         /* MODIFICADO: Iconos de información un poco más oscuros */
         .info-icon {
+            flex-shrink: 0;
             width: 32px;
             height: 32px;
             display: flex;
@@ -127,18 +128,16 @@
 ?>
 
 <div class="contact-card">
-    <h5 class="contact-title">
-        <?php echo get_phrase('contact_information'); ?>
-    </h5>
+    
 
     <div class="info-list">
         
-        <?php if (!empty($listing_details['owner_name'])): ?>
+        <?php if (!empty($listing_details['address'])): ?>
         <div class="info-item">
-            <div class="info-icon"><i class="fa-solid fa-user"></i></div>
+            <div class="info-icon"><i class="fa-solid fa-home"></i></div>
             <div>
-                <small class="text-muted d-block" style="line-height: 1;"><?php echo get_phrase('name'); ?></small>
-                <strong><?php echo $listing_details['owner_name']; ?></strong>
+                <small class="text-muted d-block" style="line-height: 1;"><?php echo get_phrase('address'); ?></small>
+                <?php echo $listing_details['address']; ?>
             </div>
         </div>
         <?php endif; ?>
@@ -155,17 +154,6 @@
         </div>
         <?php endif; ?>
 
-        <?php if (!empty($listing_details['owner_email'])): ?>
-        <div class="info-item">
-            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
-            <div>
-                <small class="text-muted d-block" style="line-height: 1;"><?php echo get_phrase('email'); ?></small>
-                <a href="mailto:<?php echo $listing_details['owner_email']; ?>" class="text-dark text-decoration-none" style="word-break: break-all;">
-                    <?php echo $listing_details['owner_email']; ?>
-                </a>
-            </div>
-        </div>
-        <?php endif; ?>
     </div>
 
     <div class="social-grid">

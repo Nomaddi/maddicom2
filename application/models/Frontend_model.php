@@ -48,6 +48,7 @@ class Frontend_model extends CI_Model
         $this->db->like('name', $search_string);
         $this->db->or_like('description', $search_string);
         $this->db->or_like('listing_type', $search_string);
+        $this->db->or_like('seo_meta_tags', $search_string);
       $this->db->group_end();
     }
 
@@ -661,6 +662,7 @@ public function get_certification($id, $field = '')
     if ($search_string != "") {
       $this->db->like('name', $search_string);
       $this->db->or_like('description', $search_string);
+      $this->db->or_like('seo_meta_tags', $search_string);
     }
 
     if ($selected_city_id != "") {
