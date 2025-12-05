@@ -54,7 +54,7 @@
 			<div class="collapse show" id="collapse_ft_3">
 				<ul class="contacts">
 					<li><i class="ti-home"></i><?php echo get_settings('address'); ?></li>
-					<li><i class="ti-headphone-alt"></i><?php echo get_settings('phone'); ?></li>
+					<li><i class="fa-brands fa-whatsapp"></i><?php echo get_settings('phone'); ?></li>
 					<li><i class="ti-email"></i><a href="#0"><?php echo get_settings('system_email'); ?></a></li>
 				</ul>
 			</div>
@@ -65,8 +65,8 @@
 				<ul>
 					<li><a href="<?php echo $social_link_for_footer['facebook']; ?>"><i class="ti-facebook"></i></a></li>
 					<li><a href="<?php echo $social_link_for_footer['twitter']; ?>"><i class="ti-twitter-alt"></i></a></li>
-					<li><a href="<?php echo $social_link_for_footer['google']; ?>"><i class="ti-google"></i></a></li>
-					<li><a href="<?php echo $social_link_for_footer['pinterest']; ?>"><i class="ti-pinterest"></i></a></li>
+					<!-- <li><a href="<?php echo $social_link_for_footer['google']; ?>"><i class="ti-google"></i></a></li> -->
+					<!-- <li><a href="<?php echo $social_link_for_footer['pinterest']; ?>"><i class="ti-pinterest"></i></a></li> -->
 					<li><a href="<?php echo $social_link_for_footer['instagram']; ?>"><i class="ti-instagram"></i></a></li>
 				</ul>
 			</div>
