@@ -1406,6 +1406,8 @@ ul#additional_links li:after {
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
+  /* padding-bottom: 30px; */
+  padding-top: 50px;
 }
 .hero_single .wrapper h3 {
   color: #fff;
