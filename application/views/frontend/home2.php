@@ -43,8 +43,6 @@
 				style="background: linear-gradient(rgba(17,164,83,0.2), rgba(17,164,83,0.2)), url('<?= $banner_url ?>') center center / cover no-repeat;">
 				<div class="wrapper">
 					<div class="container">
-						<h3><?php echo get_frontend_settings('banner_title'); ?></h3>
-						<p><?php echo get_frontend_settings('slogan'); ?></p>
 						<form action="<?php echo site_url('home/filter_listings?'); ?>" method="get">
 							<input type="hidden" name="category" value="">
 							<input type="hidden" name="amenity" value="">
@@ -65,12 +63,12 @@
 								$ACACIAS_ID = 3;
 								$ACACIAS_NAME = 'Acacías';
 								?>
-
+	
 								<!-- estos 2 sí se envían en la búsqueda -->
 								<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
 								<input type="hidden" name="state" value="meta">
-
-
+	
+	
 								<div class="col-lg-4">
 									<select class="wide" name="selected_category_id">
 										<option value=""><?php echo get_phrase('all_categories'); ?></option>
@@ -88,12 +86,13 @@
 							</div>
 							<!-- /row -->
 						</form>
+						<h3><?php echo get_frontend_settings('banner_title'); ?></h3>
+						<p><?php echo get_frontend_settings('slogan'); ?></p>
 
 					</div>
 				</div>
 			</section>
 			<!-- /container -->
-
 			<div class="bg_color_1">
 				<div class="container margin_80_55">
 					<div class="main_title_2">
