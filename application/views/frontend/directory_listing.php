@@ -5,18 +5,18 @@ $is_cover_url = (strpos($cover, 'http://') === 0 || strpos($cover, 'https://') =
 $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_photo/'.$cover);
 ?>
 
-<div class="hero_in shop_detail" style="background: url(<?php echo $cover_background; ?>) center center no-repeat; background-size: cover;">
+<div class="hero_in shop_detail" style="background: url(<?php echo $cover_background; ?>) center center no-repeat; background-size: contain;">
 </div>
 <!--/hero_in-->
 
-<nav class="secondary_nav sticky_horizontal_2" style="background:#228e50 !important">
+<!-- <nav class="secondary_nav sticky_horizontal_2" style="background:#228e50 !important">
 	<div class="container">
-		<ul class="clearfix">
+		<ul class="clearfix"> -->
 			<!-- <li><a href="#description" class="active"><?php echo get_phrase('description'); ?></a></li> -->
 			<!-- <li><a href="#reviews"><?php echo get_phrase('reviews'); ?></a></li> -->
-		</ul>
+		<!-- </ul>
 	</div>
-</nav>
+</nav> -->
 
 <div class="container margin_60_35">
 	<div class="row">
