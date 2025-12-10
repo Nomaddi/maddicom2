@@ -1404,8 +1404,10 @@ ul#additional_links li:after {
 .hero_single .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   height: 100%;
+  /* padding-bottom: 30px; */
+  padding-top: 50px;
 }
 .hero_single .wrapper h3 {
   color: #fff;
@@ -1414,6 +1416,9 @@ ul#additional_links li:after {
   margin: 0;
   text-transform: uppercase;
   font-weight: 700;
+}
+.hero_single .wrapper .container {
+    text-align: center;
 }
 @media (max-width: 767px) {
   .hero_single .wrapper h3 {
