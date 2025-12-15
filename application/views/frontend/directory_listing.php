@@ -346,7 +346,7 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 
 				<div class="col-md-4 order-3 order-md-3">
 					<div class="box_detail">
-						<h3>Información</h3>
+						<!-- <h3>Información</h3> -->
 						<?php include 'contact_and_social.php'; ?>
 
 						<?php

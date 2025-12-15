@@ -29,7 +29,7 @@
 				<form action="<?php echo site_url('home/filter_listings?'); ?>" method="GET">
 			
 					<div class="row no-gutters custom-search-input-2 inner">
-						<div class="col-lg-6">
+						<div class="col-lg-8">
 							<div class="form-group">
 								<input class="form-control" name="search_string" type="text" value="<?=$search_string?>" placeholder="<?php echo get_phrase('what_are_you_looking_for');?>">
 								<i class="icon_search"></i>
@@ -48,7 +48,7 @@
 					
 
 					
-						<div class="col-lg-4">
+						<!-- <div class="col-lg-4">
 							<select class="wide" name="category">
 								<option value=""><?php echo get_phrase('all_categories'); ?></option>
 								<?php
@@ -57,7 +57,7 @@
 									<option value="<?php echo $category['slug']; ?>" <?php if($category_ids[0] == $category['id']) echo 'selected'; ?>><?php echo $category['name']; ?></option>
 								<?php endforeach; ?>
 							</select>
-						</div>
+						</div> -->
 
 						
 
@@ -68,7 +68,7 @@
 						<input type="hidden" name="status" value="all">
 
 						
-						<div class="col-lg-2">
+						<div class="col-lg-4">
 							<input type="submit" value="Search">
 						</div>
 					</div>
@@ -83,13 +83,13 @@
 					<input class="form-control" name = "search_string" type="text" placeholder="<?php echo get_phrase('what_are_you_looking_for') ?>...">
 					<i class="icon_search"></i>
 				</div>
-				<select class="wide" name="selected_category_id">
+				<!-- <select class="wide" name="selected_category_id">
 					<option><?php echo get_phrase('all_categories'); ?></option>
 					<?php $categories = $this->db->get('category')->result_array();
 					foreach ($categories as $key => $category):?>
 					<option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
 					<?php endforeach; ?>
-				</select>
+				</select> -->
 				<input type="submit" value="Search">
 			</form>
 			</div>

@@ -2,76 +2,77 @@
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        /* Tarjeta de Contacto - MODIFICADO */
-        .contact-card {
-            background: transparent; /* Se vuelve transparente para mostrar el fondo de la página */
-            border: none;
-            padding: 25px 0; /* Quitamos padding lateral para que se alinee con el resto, mantenemos vertical */
-        }
 
-        .contact-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #333;
-            padding-bottom: 10px;
-        }
+<style>
+    /* Tarjeta de Contacto - MODIFICADO */
+    .contact-card {
+        background: transparent; /* Se vuelve transparente para mostrar el fondo de la página */
+        border: none;
+        padding: 25px 0; /* Quitamos padding lateral para que se alinee con el resto, mantenemos vertical */
+    }
 
-        /* Items de información (Lista) */
-        .info-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px; /* Un poco más de espacio */
-            font-size: 14px;
-            color: #555;
-        }
+    .contact-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #333;
+        padding-bottom: 10px;
+    }
 
-        /* MODIFICADO: Iconos de información un poco más oscuros */
-        .info-icon {
-            flex-shrink: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #e9ecef; /* <-- SE CAMBIÓ A UN GRIS UN POCO MÁS OSCURO para contraste */
-            color: #666;
-            border-radius: 50%;
-            margin-right: 12px;
-            font-size: 14px;
-        }
+    /* Items de información (Lista) */
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px; /* Un poco más de espacio */
+        font-size: 14px;
+        color: #555;
+    }
 
-        /* Contenedor de Iconos Sociales */
-        .social-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0; /* Línea divisora sutil */
-        }
+    /* MODIFICADO: Iconos de información un poco más oscuros */
+    .info-icon {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #e9ecef; /* <-- SE CAMBIÓ A UN GRIS UN POCO MÁS OSCURO para contraste */
+        color: #666;
+        border-radius: 50%;
+        margin-right: 12px;
+        font-size: 14px;
+    }
 
-        /* Botones Sociales (Se mantienen igual, se ven bien sobre cualquier fondo) */
-        .social-btn {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            color: white !important;
-            font-size: 18px;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+    /* Contenedor de Iconos Sociales */
+    .social-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e0e0e0; /* Línea divisora sutil */
+    }
 
-        .social-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-    </style>
+    /* Botones Sociales (Se mantienen igual, se ven bien sobre cualquier fondo) */
+    .social-btn {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: white !important;
+        font-size: 18px;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .social-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+</style>
 
 
 <?php 
@@ -94,7 +95,25 @@
 
     // Decodificar redes sociales
     $social_links = json_decode($listing_details['social'], true);
+    $calificame = "";
+    $resenias = "";
     
+             if (!empty($social_links))
+                {
+                    foreach($social_links as $key => $url)
+                    {
+                        if (!empty($url) && $key == 'calificame')
+                        {
+                            $calificame = $url;
+                        }
+                        if (!empty($url) && $key == 'resenias')
+                        {
+                            $resenias = $url;
+                        }
+                    }
+                }
+             
+
     // Array de iconos y colores (Tu configuración original)
     $social_config = [
         'calificame' => ['icon' => 'fa-google', 'color' => '#FFFC00', 'label' => 'Califícame en Google'],
@@ -127,16 +146,17 @@
     ];
 ?>
 
-<div class="contact-card">
-    
 
+<div class="contact-card">
     <div class="info-list">
-        
+        <div class="ribbon">
+            <span class="<?php echo strtolower(get_now_open($listing_id)) == 'closed' ? 'closed' : 'open'; ?>"><?php echo strtolower(get_now_open($listing_id)) == 'closed' ? 'Cerrado' : 'Abierto'; ?></span>
+        </div>
         <?php if (!empty($listing_details['address'])): ?>
         <div class="info-item">
-            <div class="info-icon"><i class="fa-solid fa-home"></i></div>
+            <div class="info-icon social-btn" style="background-color: #EA4335;"><i class="fa-solid fa-location-dot"></i></div>
             <div>
-                <small class="text-muted d-block" style="line-height: 1;"><?php echo get_phrase('address'); ?></small>
+                <small class="text-muted d-block" style="line-height: 1;"><?php echo get_phrase('how to arrive?'); ?></small>
                 <?php echo $listing_details['address']; ?>
             </div>
         </div>
@@ -144,7 +164,7 @@
 
         <?php if (!empty($listing_details['owner_phone'])): ?>
         <div class="info-item">
-            <div class="info-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="info-icon social-btn" style="background-color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
             <div>
                 <small class="text-muted d-block" style="line-height: 1;">WhatsApp</small>
                 <a href="<?php echo $whatsapp_url; ?>" target="_blank" class="text-dark text-decoration-none">
@@ -153,7 +173,17 @@
             </div>
         </div>
         <?php endif; ?>
-
+        <?php if (!empty($calificame)): ?>
+        <div class="info-item">
+            <div class="info-icon social-btn" style="background-color: #FFFC00;"><i class="fa-brands fa-google"></i></div>
+            <div>
+                <small class="text-muted d-block" style="line-height: 1;">Puntuación</small>
+                <a href="<?php echo $calificame; ?>" target="_blank" class="text-dark text-decoration-none">
+                    Ir a Calificarnos
+                </a>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 
     <div class="social-grid">
@@ -164,17 +194,17 @@
             </a>
         <?php endif; ?>
 
-        <?php if (!empty($whatsapp_url)): ?>
+        <!-- <?php if (!empty($whatsapp_url)): ?>
             <a href="<?php echo $whatsapp_url; ?>" target="_blank" class="social-btn" style="background-color: #25D366;" title="WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
             </a>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
-        <?php if (!empty($mapsUrl)): ?>
+        <!-- <?php if (!empty($mapsUrl)): ?>
             <a href="<?php echo $mapsUrl; ?>" target="_blank" class="social-btn" style="background-color: #EA4335;" title="Google Maps">
                 <i class="fa-solid fa-location-dot"></i>
             </a>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
         <?php if (!empty($listing_details['website'])): ?>
             <a href="<?php echo $listing_details['website']; ?>" target="_blank" class="social-btn" style="background-color: #333;" title="Website">
@@ -184,7 +214,7 @@
 
         <?php if (!empty($social_links)): ?>
             <?php foreach ($social_links as $key => $url): ?>
-                <?php if (!empty($url)): 
+                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias'): 
                     // Obtener config del icono, o default
                     $conf = isset($social_config[$key]) ? $social_config[$key] : ['icon' => 'fa-link', 'color' => '#777'];
                     $bgStyle = (strpos($conf['color'], 'linear') === 0) ? "background: {$conf['color']}" : "background-color: {$conf['color']}";
