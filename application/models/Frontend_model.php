@@ -613,8 +613,10 @@ public function get_certification($id, $field = '')
     endif;
 
     $this->db->where('status', 'active');
+    $this->db->group_start();
     $this->db->where('package_expiry_date >', time());
     $this->db->or_where('package_expiry_date', 'admin');
+    $this->db->group_end();
 
     if ($search_string != "") {
       $this->db->group_start();

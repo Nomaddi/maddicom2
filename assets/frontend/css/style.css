@@ -3996,7 +3996,7 @@ a.btn_search_mobile.map_view {
 /*-------- 2.4 Detail page --------*/
 .hero_in {
   width: 100%;
-  height: 450px;
+  height: 415px;
   position: relative;
   overflow: hidden;
 }
@@ -4006,11 +4006,11 @@ a.btn_search_mobile.map_view {
   }
 }
 .hero_in.shop_detail {
-  height: 550px;
+  height: 415px;
 }
 @media (max-width: 767px) {
   .hero_in.shop_detail {
-    height: 350px;
+    height: 215px !important;
   }
 }
 .hero_in.shop_detail:before {

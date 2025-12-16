@@ -51,7 +51,7 @@
 							<input type="hidden" name="status" value="">
 							<input type="hidden" name="state" value="">
 							<div class="row no-gutters custom-search-input-2">
-								<div class="col-lg-5">
+								<div class="col-lg-8">
 									<div class="form-group">
 										<input class="form-control" type="text" name="search_string"
 											placeholder="<?php echo get_phrase('what_are_you_looking_for'); ?>...">
@@ -69,7 +69,7 @@
 								<input type="hidden" name="state" value="meta">
 	
 	
-								<div class="col-lg-4">
+								<!-- <div class="col-lg-4">
 									<select class="wide" name="selected_category_id">
 										<option value=""><?php echo get_phrase('all_categories'); ?></option>
 										<?php
@@ -79,8 +79,8 @@
 											</option>
 										<?php endforeach; ?>
 									</select>
-								</div>
-								<div class="col-lg-3">
+								</div> -->
+								<div class="col-lg-4">
 									<input type="submit" value="<?= get_phrase('search'); ?>">
 								</div>
 							</div>
