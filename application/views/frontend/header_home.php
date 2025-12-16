@@ -6,6 +6,9 @@
         <a href="<?php echo site_url('home'); ?>">
           <img src="<?php echo base_url();?>assets/global/dark_logo.png" width="180" height="50" alt="" class="logo_sticky">
         </a>
+        <a href="<?php echo site_url('home'); ?>">
+          <img src="<?php echo base_url();?>assets/global/office_logo.png" width="180" height="50" alt="" class="logo_sticky">
+        </a>
       </div>
     </div>
     <div class="col-lg-9 col-12">

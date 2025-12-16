@@ -523,6 +523,47 @@ $banner_url = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path
             </div>
         </div>
     </div><!-- end col-->
+    <div class="col-lg-4">
+        <div class="panel panel-primary" data-collapsed="0">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <?php echo get_phrase('update_office_logo'); ?> <small>( 330 X 70 )</small>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form action="<?php echo site_url('admin/frontend_settings/image_upload/office_logo'); ?>" method="post"
+                    enctype="multipart/form-data" role="form" class="form-horizontal form-groups-bordered">
+
+                    <div class="form-group">
+                        <div class="col-md-12 text-center">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail"
+                                    style="width: 200px; height: 200px; background-color: #E0E0E0;"
+                                    data-trigger="fileinput">
+                                    <img src="<?= image_version_url('assets/global/office_logo.png'); ?>" alt="Office Logo">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                    style="max-width: 200px; max-height: 150px"></div>
+                                <div>
+                                    <span class="btn btn-white btn-file">
+                                        <span class="fileinput-new"><?php echo get_phrase('select_image'); ?></span>
+                                        <span class="fileinput-exists"><?php echo get_phrase('change'); ?></span>
+                                        <input type="file" name="office_logo" accept="image/*">
+                                    </span>
+                                    <a href="#" class="btn btn-orange fileinput-exists"
+                                        data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-4 col-sm-4" style="padding-top: 10px;">
+                        <button type="submit"
+                            class="btn btn-info btn-block"><?php echo get_phrase('upload'); ?></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- end col-->
 
     <div class="col-lg-4">
         <div class="panel panel-primary" data-collapsed="0">

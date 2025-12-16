@@ -1518,6 +1518,10 @@ return $this->db->get('listing');
           $upload_path = 'assets/global/';
           $filename = 'dark_logo.png';
       }
+      if ($image_type == 'office_logo') {
+          $upload_path = 'assets/global/';
+          $filename = 'office_logo.png';
+      }
       if ($image_type == 'small_logo') {
           $upload_path = 'assets/global/';
           $filename = 'logo-sm.png';
