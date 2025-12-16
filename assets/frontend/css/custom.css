@@ -25,13 +25,14 @@ video {
 
 .hero_in.shop_detail {
   height:500px !important;
+  background-size: contain;
 }
 
 @media (max-width: 768px) {
     .hero_in.shop_detail {
         height: 200px !important;
         /* 'contain' obliga a que la imagen quepa entera sin cortarse */
-        background-size: cover !important; 
+        background-size: contain !important; 
         background-position: center center !important;
         /* Color de fondo para rellenar los espacios vacíos arriba/abajo */
         background-color: #f0f0f0; 

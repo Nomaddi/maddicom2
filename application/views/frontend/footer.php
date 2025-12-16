@@ -33,7 +33,7 @@
 						<?php $this->db->limit($limitation); ?>
 						<?php $categories = $this->db->get_where('category', array('parent' => 0))->result_array();
 						foreach ($categories as $key => $category):?>
-						<li><a href="<?php echo site_url('home/filter_listings?category='.$category['slug'].'&&amenity=&&video=0&&status=all'); ?>"><?php echo $category['name']; ?></a></li>
+						<li><a href="<?php echo site_url('home/search?selected_category_id='.$category['id']); ?>"><?php echo $category['name']; ?></a></li>
 					<?php endforeach; ?>
 					<div id="loader" style="display: none; opacity: .5;"><img src="<?php echo base_url('assets/frontend/images/loader.gif'); ?>" width="25"></div>
 					<?php $category_array_count = count($this->db->get_where('category', array('parent' => 0))->result_array()); ?>

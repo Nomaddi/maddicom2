@@ -156,7 +156,7 @@
         <div class="info-item">
             <div class="info-icon social-btn" style="background-color: #EA4335;"><i class="fa-solid fa-location-dot"></i></div>
             <div>
-                <small class="text-muted d-block" style="line-height: 1;"><?php echo get_phrase('how to arrive?'); ?></small>
+                <small class="text-muted d-block" style="line-height: 1;"><?php echo get_phrase('Cómo llegar?'); ?></small>
                 <?php echo $listing_details['address']; ?>
             </div>
         </div>

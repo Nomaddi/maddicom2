@@ -4007,16 +4007,18 @@ a.btn_search_mobile.map_view {
 }
 .hero_in.shop_detail {
   height: 415px;
+  background-size: contain;
 }
 @media (max-width: 767px) {
   .hero_in.shop_detail {
-    height: 215px !important;
+    height: 215px;
+    background-size: contain;
   }
 }
 .hero_in.shop_detail:before {
   -webkit-background-size: cover;
   -moz-background-size: cover;
-  -o-background-size: cover;
+  -o-background-size: contain;
   background-size: cover;
 }
 .hero_in.shop_detail .wrapper {
