@@ -1,14 +1,17 @@
 <header class="header_in is_sticky menu_fixed">
 <div class="container">
   <div class="row">
-    <div class="col-lg-3 col-12">
+    <div class="col-lg-6 col-12">
       <div id="logo">
         <a href="<?php echo site_url('home'); ?>">
           <img src="<?php echo base_url();?>assets/global/dark_logo.png" width="180" height="50" alt="" class="logo_sticky">
         </a>
+        <a href="<?php echo site_url('home'); ?>">
+          <img src="<?php echo base_url();?>assets/global/office_logo.png" width="180" height="50" alt="" class="logo_sticky">
+        </a>
       </div>
     </div>
-    <div class="col-lg-9 col-12">
+    <div class="col-lg-6 col-12">
       <ul id="top_menu">
         <?php if ($this->session->userdata('is_logged_in') != 1): ?>
   				<li><a href="<?php echo site_url('home/login'); ?>" class="login" title="Sign In"><?= get_phrase('sign_in'); ?></a></li>
