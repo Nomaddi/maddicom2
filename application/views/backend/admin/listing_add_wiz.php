@@ -287,9 +287,10 @@ function checkMinimumFieldRequired() {
 	var latitude = $('#latitude').val();
 	var longitude = $('#longitude').val();
 	if (title === "" || defaultCategory === "" || latitude === "" || longitude === "") {
-		error_notify('<?php echo get_phrase('listing_title').', '.get_phrase('listing_category').', '.get_phrase('location').' '.get_phrase('can_not_be_empty'); ?>');
+		return false;
 	}else {
-		$('.listing_add_form').submit();
+		// $('.listing_add_form').submit();
+		return true;
 	}
 }
 
@@ -327,4 +328,19 @@ function showListingTypeWiseDemo(param) {
 	// 		$("#ending_time").attr("max", ending_time);
 	// 	}
 	// }
+</script>
+
+<script>
+	function handleFormSubmission() {
+		var isFormValid = checkMinimumFieldRequired(); 
+		if (isFormValid) {
+			var btn = document.getElementById('submit-btn');
+			btn.disabled = true;
+			btn.value = "<?php echo get_phrase('processing'); ?>...";
+			$('.listing_add_form').submit();
+		}
+		else {
+			error_notify('<?php echo get_phrase('listing_title').', '.get_phrase('listing_category').', '.get_phrase('location').' '.get_phrase('can_not_be_empty'); ?>');
+		}
+	}
 </script>
