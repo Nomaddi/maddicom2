@@ -153,11 +153,22 @@
             <span class="<?php echo strtolower(get_now_open($listing_id)) == 'closed' ? 'closed' : 'open'; ?>"><?php echo strtolower(get_now_open($listing_id)) == 'closed' ? 'Cerrado' : 'Abierto'; ?></span>
         </div>
         <?php if (!empty($listing_details['address'])): ?>
+            <?php if (!empty($listing_details['latitude']) && !empty($listing_details['longitude'])): 
+                $lat = $listing_details['latitude'];
+                $lng = $listing_details['longitude'];
+                $url = 'https://www.google.com/maps/dir/?api=1'
+                    . '&destination=' . rawurlencode($lat . ',' . $lng)
+                    . '&dir_action=navigate'
+                    . '&travelmode=driving'; // walking | bicycling | transit
+            ?>
         <div class="info-item">
             <div class="info-icon social-btn" style="background-color: #EA4335;"><i class="fa-solid fa-location-dot"></i></div>
             <div>
                 <small class="text-muted d-block" style="line-height: 1;"><?php echo get_phrase('Cómo llegar?'); ?></small>
-                <?php echo $listing_details['address']; ?>
+                <a href="<?= htmlspecialchars($url, ENT_QUOTES) ?>" target="_blank" class="text-dark text-decoration-none">
+                    <?= htmlspecialchars($listing_details['address']) ?>
+                </a>
+                <?php endif; ?>
             </div>
         </div>
         <?php endif; ?>
@@ -179,7 +190,7 @@
             <div>
                 <small class="text-muted d-block" style="line-height: 1;">Puntuación</small>
                 <a href="<?php echo $calificame; ?>" target="_blank" class="text-dark text-decoration-none">
-                    Ir a Calificarnos
+                   <strong> <u>Ir a Calificarnos </u> </strong>
                 </a>
             </div>
         </div>
