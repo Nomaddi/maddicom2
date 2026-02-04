@@ -445,10 +445,10 @@ $cover_background = $is_cover_url ? $cover : base_url('uploads/listing_cover_pho
 				<!-- Video File Base On Package-->
 				<!-- <?php include 'video_player.php'; ?> -->
 
-				<hr>
-				<h3><?= get_phrase('location'); ?></h3>
+				<!-- <hr> -->
+				<!-- <h3><?= get_phrase('location'); ?></h3> -->
 				<!-- <div id="categorySideMap" class="map-full map-layout single-listing-map" style="z-index: 50;"></div> -->
-				<div id="map" class="map-full map-layout single-listing-map" style="z-index: 50;"></div>
+				<!-- <div id="map" class="map-full map-layout single-listing-map" style="z-index: 50;"></div> -->
 				<!-- End Map -->
 			</section>
 			<!-- /section -->
