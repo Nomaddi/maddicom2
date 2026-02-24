@@ -4,11 +4,11 @@
     <div class="col-lg-6 col-12">
       <div id="logo">
         <a href="<?php echo site_url('home'); ?>">
-          <img src="<?php echo base_url();?>assets/global/dark_logo.png" width="180" height="50" alt="" class="logo_sticky">
+          <img src="<?php echo base_url();?>assets/global/dark_logo.png" width="390" height="50" alt="" class="logo_sticky">
         </a>
-        <a href="<?php echo site_url('home'); ?>">
+        <!-- <a href="<?php echo site_url('home'); ?>">
           <img src="<?php echo base_url();?>assets/global/office_logo.png" width="180" height="50" alt="" class="logo_sticky">
-        </a>
+        </a> -->
       </div>
     </div>
     <div class="col-lg-6 col-12">
