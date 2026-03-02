@@ -613,10 +613,10 @@ public function get_certification($id, $field = '')
     endif;
 
     $this->db->where('status', 'active');
-    $this->db->group_start();
+    /* $this->db->group_start();
     $this->db->where('package_expiry_date >', time());
     $this->db->or_where('package_expiry_date', 'admin');
-    $this->db->group_end();
+    $this->db->group_end(); */
 
     if ($search_string != "") {
       $this->db->group_start();
@@ -628,11 +628,11 @@ public function get_certification($id, $field = '')
     }
 
     if ($selected_city_id != "") {
-      $this->db->like('city_id', "$selected_city_id");
+      $this->db->where('city_id', "$selected_city_id");
     }
 
     if ($selected_category_id != "") {
-      $this->db->like('categories', "$selected_category_id");
+      $this->db->where("JSON_CONTAINS(categories, '\"$selected_category_id\"')");
     }
     $this->db->order_by('is_featured', 'desc');
 
