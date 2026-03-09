@@ -1,4 +1,4 @@
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 <div class="container margin_60">
 	<div class="row justify-content-center">
 		<div class="col-xl-6 col-lg-6 col-md-8">
@@ -10,9 +10,9 @@
 						<div class="form-group">
 							<input type="email" class="form-control" name="email" id="email" placeholder="Email*">
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<div class="g-recaptcha" data-sitekey="<?php echo get_settings('recaptcha_sitekey'); ?>"></div>
-						</div>
+						</div> -->
 						<div class="clearfix add_bottom_15">
 							<div class="float-left"><a id="sign_up" href="<?php echo site_url('home/sign_up'); ?>"> <small><?php echo get_phrase("dont_have_an_account").'?'; ?></small> </a></div>
 							<div class="float-right"><a id="login" href="<?php echo site_url('home/login'); ?>"> <small><?php echo get_phrase('back_to_login'); ?>?</small> </a></div>

@@ -87,10 +87,12 @@ class Login extends CI_Controller {
     }
 
     function forgot_password($from = "") {
+        /*
         if(!$this->crud_model->check_rechaptcha() && get_settings('recaptcha_status') == 1){
             $this->session->set_flashdata('error_message', get_phrase('recaptcha_validation_failed'));
             redirect(site_url('home/forgot_password'), 'refresh');
         }
+        */
         $email = $this->input->post('email');
         $query = $this->db->get_where('user' , array('email' => $email, 'is_verified' => 1));
         if ($query->num_rows() > 0)

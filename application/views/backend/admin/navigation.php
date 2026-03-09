@@ -371,7 +371,7 @@
                     <span><i class="entypo-dot"></i> <?php echo get_phrase('language_settings'); ?></span>
                 </a>
             </li>
-            <li id="smtp_settings" class="<?php if ($page_name == 'smtp_settings') echo 'active'; ?> ">
+            <li id="" class="<?php if ($page_name == 'smtp_settings') echo 'active'; ?> ">
                 <a href="<?php echo site_url('admin/smtp_settings'); ?>">
                     <span><i class="entypo-dot"></i> <?php echo get_phrase('smtp_settings'); ?></span>
                 </a>

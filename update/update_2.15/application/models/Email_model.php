@@ -17,9 +17,7 @@ class Email_model extends CI_Model {
 			$email_sub	=	get_phrase('Password_Reset_Request');
 			$email_to	=	$email;
 
-			$this->send_smtp_mail($email_msg , $email_sub , $email_to);
-			//$this->sent_smtp_mail_with_php_mailer_library($email_msg , $email_sub , $email_to);
-			return true;
+			return $this->send_smtp_mail($email_msg , $email_sub , $email_to);			
 		}
 		else
 		{
@@ -182,8 +180,8 @@ class Email_model extends CI_Model {
 			return true;
 		}else{
 			return false;
-			// echo $this->email->print_debugger();
-			// die();
+			echo $this->email->print_debugger();
+			die();
 		}
 		
 	}
