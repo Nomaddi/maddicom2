@@ -541,3 +541,44 @@ video {
 .home .search-form .btn {
   flex: 0 0 15%; /* botón fijo */
 }
+
+
+/* Rotación del icono de flecha */
+.header-accordion[aria-expanded="true"] .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.arrow-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Efecto hover elegante para las subcategorías */
+.sub-item {
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sub-item:hover {
+    background-color: #f0fdf4 !important; /* Un verde muy suave */
+    border-left: 3px solid #17a453; /* Verde Acacías */
+    padding-left: 1.25rem !important;
+    color: #17a453 !important;
+}
+
+/* Evitar que las cards se vean de diferentes tamaños */
+.card {
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.info-icon {
+    flex-shrink: 0 !important; /* Evita que el texto largo aplaste el círculo */
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
