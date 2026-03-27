@@ -97,6 +97,19 @@
 				<div class="container margin_80_55">
 					<div class="main_title_2">
 						<span><em></em></span>
+						<h2>Haga parte del directorio comercial de Acacías</h2>
+						<p>Si su negocio está ubicado en Acacías, esta es su oportunidad de destacarse. 
+						   Únase a nuestro directorio comercial para conectar con clientes locales, aumentar su visibilidad y aprovechar las oportunidades de crecimiento en la comunidad de Acacías.
+						   ¡Regístrese hoy mismo y forme parte de esta red empresarial vibrante!</
+							</p>
+					</div>
+					<div class="row justify-content-center">
+						<a href="https://docs.google.com/forms/d/e/1FAIpQLSenZdj9cKV0F1kJFyRRhL7f0equ-4q8D1ZDVys2YYNmjkkgrw/viewform" target="_BLANK" class="btn btn-success"><?php echo get_phrase('Regístrese Ahora!'); ?></a>
+					</div>
+				</div>
+				<div class="container margin_80_55">
+					<div class="main_title_2">
+						<span><em></em></span>
 						<h2>Categorías Populares</h2>
 						<p>Aquí encontrarás categorías seleccionadas que conectan con tendencias, herramientas y
 							oportunidades que impulsan el crecimiento empresarial.</p>
