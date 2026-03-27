@@ -96,22 +96,22 @@
     // Decodificar redes sociales
     $social_links = json_decode($listing_details['social'], true);
     $calificame = "";
-    $resenias = "";
+    $my_business = "";
     
-             if (!empty($social_links))
-                {
-                    foreach($social_links as $key => $url)
-                    {
-                        if (!empty($url) && $key == 'calificame')
-                        {
-                            $calificame = $url;
-                        }
-                        if (!empty($url) && $key == 'resenias')
-                        {
-                            $resenias = $url;
-                        }
-                    }
-                }
+    if (!empty($social_links))
+    {
+        foreach($social_links as $key => $url)
+        {
+            if (!empty($url) && $key == 'calificame')
+            {
+                $calificame = $url;
+            }
+            if (!empty($url) && $key == 'google_maps')
+            {
+                $my_business = $url;
+            }
+        }
+    }
              
 
     // Array de iconos y colores (Tu configuración original)
@@ -126,7 +126,7 @@
         'whatsapp' => ['icon' => 'fa-whatsapp', 'color' => '#25D366'],
         'telegram' => ['icon' => 'fa-telegram', 'color' => '#0088cc'],
         'messenger' => ['icon' => 'fa-facebook-messenger', 'color' => '#00B2FF'],
-        'google_maps' => ['icon' => 'fa-location-dot', 'color' => '#EA4335'],
+        'google_maps' => ['icon' => 'assets\global\icons\my_business.png',],
         'waze' => ['icon' => 'fa-location-arrow', 'color' => '#33CCFF'],
         'spotify' => ['icon' => 'fa-spotify', 'color' => '#1DB954'],
         'soundcloud' => ['icon' => 'fa-soundcloud', 'color' => '#FF5500'],
@@ -195,6 +195,25 @@
             </div>
         </div>
         <?php endif; ?>
+        <?php if (!empty($my_business)): ?>
+        <div class="info-item d-flex align-items-center mb-3">
+            <div class="info-icon social-btn d-flex align-items-center justify-content-center" 
+                style="background-color: #ffffff; flex-shrink: 0; width: 45px; height: 45px; border-radius: 50%;">
+                
+                <img src="<?php echo base_url('assets/global/icons/my_business.png'); ?>" 
+                    alt="Google Business" 
+                    style="width: 25px; height: 25px; object-fit: contain;">
+                    
+            </div>
+            
+            <div class="ms-3">
+                <small class="text-muted d-block" style="line-height: 1;">Mi Negocio</small>
+                <a href="<?php echo $my_business; ?>" target="_blank" class="text-dark text-decoration-none">
+                    <strong><u>Ir a Google Mi Negocio</u></strong>
+                </a>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 
     <div class="social-grid">
@@ -225,7 +244,7 @@
 
         <?php if (!empty($social_links)): ?>
             <?php foreach ($social_links as $key => $url): ?>
-                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias'): 
+                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps'): 
                     // Obtener config del icono, o default
                     $conf = isset($social_config[$key]) ? $social_config[$key] : ['icon' => 'fa-link', 'color' => '#777'];
                     $bgStyle = (strpos($conf['color'], 'linear') === 0) ? "background: {$conf['color']}" : "background-color: {$conf['color']}";
