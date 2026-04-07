@@ -173,7 +173,10 @@
         </div>
         <?php endif; ?>
 
-        <?php if (!empty($listing_details['owner_phone'])): ?>
+        <?php if (!empty($listing_details['owner_phone'])): 
+            $mensaje_wa = "Hola, te encontré en el directorio comercial de Acacías, me podrías ayudar con  ";
+            $whatsapp_url = "https://wa.me/" . preg_replace('/^0/', '57', $listing_details['owner_phone']) . "?text=" . urlencode($mensaje_wa);
+        ?>
         <div class="info-item">
             <div class="info-icon social-btn" style="background-color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
             <div>
