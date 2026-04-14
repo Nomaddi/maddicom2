@@ -116,28 +116,28 @@
 					</div>
 					<div class="row justify-content-center">
 						<?php
-						$this->db->order_by('name', 'asc');
-						$categories = $this->db->get('category')->result_array();
-						$count = count($categories);
-						foreach ($categories as $key => $category): ?>
-							<?php if ($key < 4 || $key < 5 && $count <= 5): ?>
-								<div class="col-lg-3 col-md-6">
-									<a href="<?php echo site_url('home/search?search_string=&selected_city_id=&selected_category_id=' . $category['id']); ?>"
-										class="box_cat_home">
-										<i class="icon_menu-circle_alt"></i>
-										<span class="mb-3 remake_ico <?php echo $category['icon_class']; ?>"></span>
-										<style>
-											.remake_ico {
-												font-size: 65px;
-												color: #11a453
-											}
-										</style>
-										<h3><?php echo get_phrase($category['name']); ?></h3>
-
-									</a>
-								</div>
-							<?php endif; ?>
+						$this->db->order_by('id', 'RANDOM');
+						$this->db->where('parent', 0);
+						$categories = $this->db->get('category', 4)->result_array();
+						foreach ($categories as $category): ?>
+							<div class="col-lg-3 col-md-6">
+								<a href="<?php echo site_url('home/search?search_string=&selected_city_id=&selected_category_id=' . $category['id']); ?>"
+									class="box_cat_home">
+									<i class="icon_menu-circle_alt"></i>
+									<span class="mb-3 remake_ico <?php echo $category['icon_class']; ?>"></span>
+									
+									<h3><?php echo get_phrase($category['name']); ?></h3>
+								</a>
+							</div>
 						<?php endforeach; ?>
+
+					<style>
+						/* Es mejor sacar el estilo del foreach para que no se repita en el HTML */
+						.remake_ico {
+							font-size: 65px;
+							color: #11a453; /* Verde principal del directorio */
+						}
+					</style>
 					</div>
 				</div>
 			</div>
