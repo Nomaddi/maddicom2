@@ -78,20 +78,7 @@
 <?php 
     // --- 1. PREPARACIÓN DE DATOS --- 
     
-    // Formatear teléfono para WhatsApp
-    $phone_clean = preg_replace('/\D/', '', $listing_details['owner_phone'] ?? '');
-    if (!empty($phone_clean) && strpos($phone_clean, '57') !== 0) {
-        $phone_clean = '57' . $phone_clean;
-    }
-    $whatsapp_url = !empty($phone_clean) ? "https://wa.me/" . $phone_clean : "";
-
-    // Preparar URL de Google Maps
-    $mapsUrl = "";
-    if (!empty($listing_details['latitude']) && !empty($listing_details['longitude'])) {
-        $lat = $listing_details['latitude'];
-        $lng = $listing_details['longitude'];
-        $mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($lat . ',' . $lng);
-    }
+   
 
     // Decodificar redes sociales
     $social_links = json_decode($listing_details['social'], true);
@@ -110,7 +97,29 @@
             {
                 $my_business = $url;
             }
+
+            if (!empty($url) && $key == 'whatsapp')
+            {
+                $whatsapp = $url;
+            }
+            
         }
+    }
+
+     // Formatear teléfono para WhatsApp
+    $phone_clean = preg_replace('/\D/', '', $whatsapp ?? '');
+    if (!empty($phone_clean) && strpos($phone_clean, '57') !== 0) {
+        $phone_clean = '57' . $phone_clean;
+    }
+    $mensaje_wa = "Hola, te encontré en el directorio comercial de Acacías, me podrías ayudar con  ";
+    $whatsapp_url = "https://wa.me/" . preg_replace('/^0/', '57', $whatsapp) . "?text=" . urlencode($mensaje_wa);
+
+    // Preparar URL de Google Maps
+    $mapsUrl = "";
+    if (!empty($listing_details['latitude']) && !empty($listing_details['longitude'])) {
+        $lat = $listing_details['latitude'];
+        $lng = $listing_details['longitude'];
+        $mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($lat . ',' . $lng);
     }
              
 
@@ -173,17 +182,15 @@
         </div>
         <?php endif; ?>
 
-        <?php if (!empty($listing_details['owner_phone'])): 
-            $mensaje_wa = "Hola, te encontré en el directorio comercial de Acacías, me podrías ayudar con  ";
-            $whatsapp_url = "https://wa.me/" . preg_replace('/^0/', '57', $listing_details['owner_phone']) . "?text=" . urlencode($mensaje_wa);
+        <?php if (!empty($listing_details['phone'])): 
         ?>
         <div class="info-item">
-            <div class="info-icon social-btn" style="background-color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="info-icon social-btn" style="background-color: #444;"><i class="fa-solid fa-phone"></i></div>
             <div>
-                <small class="text-muted d-block" style="line-height: 1;">WhatsApp</small>
-                <a href="<?php echo $whatsapp_url; ?>" target="_blank" class="text-dark text-decoration-none">
-                    <?php echo $listing_details['owner_phone']; ?>
-                </a>
+                <small class="text-muted d-block" style="line-height: 1;">Teléfono</small>
+                <a href="tel:<?php echo $listing_details['phone']; ?>"><?php echo $listing_details['phone']; ?></a> 
+                
+            </a>
             </div>
         </div>
         <?php endif; ?>
@@ -221,17 +228,17 @@
 
     <div class="social-grid">
         
-        <?php if (!empty($listing_details['phone'])): ?>
+       <!--  <?php if (!empty($listing_details['phone'])): ?>
             <a href="tel:<?php echo $listing_details['phone']; ?>" class="social-btn" style="background-color: #444;" title="<?php echo get_phrase('call_now'); ?>">
                 <i class="fa-solid fa-phone"></i>
             </a>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
-        <!-- <?php if (!empty($whatsapp_url)): ?>
+        <?php if (!empty($whatsapp_url)): ?>
             <a href="<?php echo $whatsapp_url; ?>" target="_blank" class="social-btn" style="background-color: #25D366;" title="WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
             </a>
-        <?php endif; ?> -->
+        <?php endif; ?>
 
         <!-- <?php if (!empty($mapsUrl)): ?>
             <a href="<?php echo $mapsUrl; ?>" target="_blank" class="social-btn" style="background-color: #EA4335;" title="Google Maps">
@@ -247,7 +254,7 @@
 
         <?php if (!empty($social_links)): ?>
             <?php foreach ($social_links as $key => $url): ?>
-                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps'): 
+                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps' && $key != 'whatsapp'): 
                     // Obtener config del icono, o default
                     $conf = isset($social_config[$key]) ? $social_config[$key] : ['icon' => 'fa-link', 'color' => '#777'];
                     $bgStyle = (strpos($conf['color'], 'linear') === 0) ? "background: {$conf['color']}" : "background-color: {$conf['color']}";
