@@ -185,12 +185,32 @@ if (strpos($cover, 'http://') === 0 || strpos($cover, 'https://') === 0) {
 						pointer-events: none; /* Para que el clic pase al div padre */
 						z-index: 2;
 					}
-					/* Contenedor principal para Videos (oculto por defecto) */
+					/* Contenedor base */
 					#mainVideoContainer {
 						width: 100%;
-						height: 100%; /* Para llenar los 500px o 300px definidos antes */
-						display: none; /* Se muestra solo si es video */
+						margin: 0 auto;
 						background: #000;
+						border-radius: 12px;
+						transition: all 0.3s ease; /* Transición suave al cambiar de tamaño */
+						height: 100%; /* Altura fija para mantener la estructura */
+						display: flex;
+					}
+
+					/* Comportamiento para Videos Normales (16:9) */
+					.video-horizontal .plyr__video-embed {
+						aspect-ratio: 16 / 9;
+					}
+					.video-horizontal {
+						max-width: 800px; /* Más ancho para horizontal */
+					}
+
+					/* Comportamiento para Shorts (9:16) */
+					.video-vertical .plyr__video-embed {
+						/* aspect-ratio: 16 / 9; */
+						height: 100%; /* Limitar altura para que no ocupe toda la pantalla en PC */
+					}
+					.video-vertical {
+						max-width: 800px; /* Más estrecho para que no se vea gigante en PC */
 					}
 
 					/* Asegurar que Plyr llene el espacio */
@@ -626,6 +646,18 @@ function changeMedia(element, type, src, provider) {
 
 function loadVideo(url, provider) {
     const vidContainer = document.getElementById('mainVideoContainer');
+
+	// 1. Detectar automáticamente el formato
+    const isShort = url.includes('/shorts/');
+    
+    // 2. Asignar la clase correspondiente para el CSS
+    if (isShort) {
+        vidContainer.classList.remove('video-horizontal');
+        vidContainer.classList.add('video-vertical');
+    } else {
+        vidContainer.classList.remove('video-vertical');
+        vidContainer.classList.add('video-horizontal');
+    }
     
     // Limpiar reproductor anterior si existe
     if (playerInstance) {
@@ -647,9 +679,9 @@ function loadVideo(url, provider) {
             videoId = url.split('youtu.be/')[1].split(/[?&]/)[0];
         }
         html = `<div class="plyr__video-embed" id="player">
-                    <iframe src="https://www.youtube.com/embed/${videoId}?origin=${window.location.origin}&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" 
-                            allowfullscreen allowtransparency allow="autoplay"></iframe>
-                </div>`;
+            		<iframe src="https://www.youtube.com/embed/${videoId}?origin=${window.location.origin}&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;rel=0&amp;enablejsapi=1" 
+                    allowfullscreen allowtransparency allow="autoplay"></iframe>
+        		</div>`;
     }
     else if (provider === 'vimeo') {
         // Necesitamos el ID de vimeo. Usualmente viene en la URL com vimeo.com/123456
