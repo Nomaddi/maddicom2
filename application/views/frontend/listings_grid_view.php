@@ -336,12 +336,27 @@
 							<?php if($listing['is_featured'] == 1){ ?>
 								<a href="javascript::" class="featured-tag-grid"><?php echo get_phrase('featured'); ?></a>
 							<?php } ?>
-							<?php 
+							<!-- <?php 
 							// Detectar si listing_thumbnail es URL completa o nombre de archivo
 							$thumbnail = $listing['listing_thumbnail'];
 							$is_thumbnail_url = (strpos($thumbnail, 'http://') === 0 || strpos($thumbnail, 'https://') === 0);
 							$thumbnail_background = $is_thumbnail_url ? $thumbnail : base_url('uploads/listing_thumbnails/'.$thumbnail);
-							?>
+							?> -->
+
+							<?php 
+							$thumbnail = $listing['listing_thumbnail'];
+							
+							$default_thumb = 'default_thumbnail.jpeg'; 
+							$thumb_path = 'uploads/listing_thumbnails/' . $thumbnail;
+
+							if (strpos($thumbnail, 'http://') === 0 || strpos($thumbnail, 'https://') === 0) {
+								$thumbnail_background = $thumbnail;
+							} elseif (!empty($thumbnail) && file_exists(FCPATH . $thumb_path)) {
+								$thumbnail_background = base_url($thumb_path);
+							} else {
+								$thumbnail_background = base_url('uploads/listing_thumbnails/' . $default_thumb);
+							}
+						?>
 
 							<a href="<?php echo get_listing_url($listing['id']); ?>" id="listing-banner-image-for-<?php echo $listing['code']; ?>" class="d-block h-100 img" style="background-image:url('<?php echo $thumbnail_background; ?>')">
 								<!-- <img src="<?php echo base_url('uploads/listing_thumbnails/'.$listing['listing_thumbnail']); ?>" class="img-fluid" alt=""> -->

@@ -84,6 +84,7 @@
     $social_links = json_decode($listing_details['social'], true);
     $calificame = "";
     $my_business = "";
+    $whatsapp = "";
     
     if (!empty($social_links))
     {
@@ -234,7 +235,7 @@
             </a>
         <?php endif; ?> -->
 
-        <?php if (!empty($whatsapp_url)): ?>
+        <?php if (!empty($whatsapp)): ?>
             <a href="<?php echo $whatsapp_url; ?>" target="_blank" class="social-btn" style="background-color: #25D366;" title="WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
             </a>
