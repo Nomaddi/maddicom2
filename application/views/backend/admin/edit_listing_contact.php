@@ -42,29 +42,31 @@ $social_networks = array(
     'waze'         => 'Waze',
 
     // Contenido y streaming
-    'spotify'      => 'Spotify',
+   /*  'spotify'      => 'Spotify',
     'soundcloud'   => 'SoundCloud',
-    'twitch'       => 'Twitch',
+    'twitch'       => 'Twitch', */
 
     // Imagen, diseño y fotografía
-    'pinterest'    => 'Pinterest',
+  /*   'pinterest'    => 'Pinterest',
     'behance'      => 'Behance',
-    'dribbble'     => 'Dribbble',
+    'dribbble'     => 'Dribbble', */
 
     // Negocios y reseñas
     'tripadvisor'  => 'Tripadvisor',
-    'trustpilot'   => 'Trustpilot',
+    /* 'trustpilot'   => 'Trustpilot', */
+    'booking'       => 'Booking',
+    'airbnb'   => 'Airbnb',
 
     // Desarrollo y comunidades tech
-    'github'       => 'GitHub',
+    /* 'github'       => 'GitHub',
     'gitlab'       => 'GitLab',
-    'stackoverflow'=> 'Stack Overflow',
+    'stackoverflow'=> 'Stack Overflow', */
 
     // Otros (redes de nicho o globales)
-    'snapchat'     => 'Snapchat',
+    /* 'snapchat'     => 'Snapchat',
     'reddit'       => 'Reddit',
     'medium'       => 'Medium',
-    'vimeo'        => 'Vimeo'
+    'vimeo'        => 'Vimeo' */
 );
 
 ?>
