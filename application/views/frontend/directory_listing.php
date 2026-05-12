@@ -312,29 +312,22 @@ if (strpos($cover, 'http://') === 0 || strpos($cover, 'https://') === 0) {
 						$thumb = base_url('assets/img/video-placeholder.jpg'); // Miniatura por defecto
 						
 						// obtener miniatura real (YouTube)
-						/* if ($video['provider'] == 'youtube') {
-							// Extraer ID de Youtube para obtener la miniatura
-							preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video['url'], $match);
+
+						if ($video['provider'] == 'youtube') {
+							// Expresión regular actualizada para incluir /shorts/
+							$pattern = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?|shorts)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
+							
+							preg_match($pattern, $video['url'], $match);
+
 							if (isset($match[1])) {
-								$thumb = "https://img.youtube.com/vi/{$match[1]}/hqdefault.jpg";
+								$video_id = $match[1];
+								// Usamos hqdefault para asegurar buena calidad en la galería
+								$thumb = "https://img.youtube.com/vi/{$video_id}/hqdefault.jpg";
+							} else {
+								// Opcional: Miniatura por defecto si falla la extracción
+								$thumb = base_url('uploads/listing_thumbnails/default_video_thumb.png');
 							}
-						} */
-
-							if ($video['provider'] == 'youtube') {
-								// Expresión regular actualizada para incluir /shorts/
-								$pattern = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?|shorts)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
-								
-								preg_match($pattern, $video['url'], $match);
-
-								if (isset($match[1])) {
-									$video_id = $match[1];
-									// Usamos hqdefault para asegurar buena calidad en la galería
-									$thumb = "https://img.youtube.com/vi/{$video_id}/hqdefault.jpg";
-								} else {
-									// Opcional: Miniatura por defecto si falla la extracción
-									$thumb = base_url('uploads/listing_thumbnails/default_video_thumb.png');
-								}
-							}
+						}
 						
 
 						$gallery_items[] = [
