@@ -81,7 +81,7 @@ if (empty($videos) && !empty($listing_details['video_url'])) {
             <select name="video_provider[]" class="form-control" style="width: 30%;">
               <option value="youtube" <?php echo ($video['provider'] == 'youtube') ? 'selected' : ''; ?>>YouTube</option>
               <option value="vimeo" <?php echo ($video['provider'] == 'vimeo') ? 'selected' : ''; ?>>Vimeo</option>
-              <option value="html5" <?php echo ($video['provider'] == 'html5') ? 'selected' : ''; ?>>HTML5</option>
+              <option value="tiktok" <?php echo ($video['provider'] == 'tiktok') ? 'selected' : ''; ?>>TikTok</option>
             </select>
             <input type="text" name="video_url[]" value="<?php echo htmlspecialchars($video['url']); ?>" class="form-control" placeholder="<?php echo get_phrase('video_url'); ?>" style="width: 65%;">
             <button type="button" class="btn btn-danger btn-sm remove-video"><i class="fa fa-trash"></i></button>
@@ -93,7 +93,7 @@ if (empty($videos) && !empty($listing_details['video_url'])) {
           <select name="video_provider[]" class="form-control" style="width: 30%;">
             <option value="youtube">YouTube</option>
             <option value="vimeo">Vimeo</option>
-            <option value="html5">HTML5</option>
+            <option value="tiktok">TikTok</option>
           </select>
           <input type="text" name="video_url[]" class="form-control" placeholder="<?php echo get_phrase('video_url'); ?>" style="width: 65%;">
           <button type="button" class="btn btn-danger btn-sm remove-video"><i class="fa fa-trash"></i></button>
@@ -117,7 +117,7 @@ if (empty($videos) && !empty($listing_details['video_url'])) {
           <select name="video_provider[]" class="form-control" style="width: 30%;">
             <option value="youtube">YouTube</option>
             <option value="vimeo">Vimeo</option>
-            <option value="html5">HTML5</option>
+            <option value="tiktok">TikTok</option>
           </select>
           <input type="text" name="video_url[]" class="form-control" placeholder="<?php echo get_phrase('video_url'); ?>" style="width: 65%;">
           <button type="button" class="btn btn-danger btn-sm remove-video"><i class="fa fa-trash"></i></button>

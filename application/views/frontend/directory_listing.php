@@ -328,6 +328,16 @@ if (strpos($cover, 'http://') === 0 || strpos($cover, 'https://') === 0) {
 								$thumb = base_url('uploads/listing_thumbnails/default_video_thumb.png');
 							}
 						}
+
+						if ($video['provider'] == 'tiktok') {
+							$pattern = '/(?:https?:\/\/)?(?:www\.)?(?:tiktok\.com\/@[\w.]+\/video\/|v\.tiktok\.com\/|vt\.tiktok\.com\/)(\d+|[a-zA-Z0-9]+)/';
+							preg_match($pattern, $video['url'], $match);
+							if (isset($match[1])) {
+								$video_id = $match[1];
+								// Se recomienda usar una imagen de marca o permitir que el usuario suba una.
+								$thumb = base_url('uploads/default-tiktok.png'); 
+							}
+						}
 						
 
 						$gallery_items[] = [
@@ -685,6 +695,24 @@ function loadVideo(url, provider) {
                     <iframe src="https://player.vimeo.com/video/${videoId}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media" allowfullscreen allowtransparency allow="autoplay"></iframe>
                 </div>`;
     } 
+	else if (provider === 'tiktok') {
+    // Extraemos el ID del video desde la URL de TikTok
+    const videoId = url.split('/video/')[1]?.split(/[?&]/)[0];
+    
+    if (videoId) {
+        html = `
+            <div class="tiktok-wrapper" style="height: 100%; width: 100%;">
+                <iframe 
+                    src="https://www.tiktok.com/embed/v2/${videoId}" 
+                    style="width: 100%; height: 100%; border: none;" 
+                    allowfullscreen 
+                    allow="autoplay; encrypted-media">
+                </iframe>
+            </div>`;
+    } else {
+        html = `<div class="p-4 text-center">Error al cargar el video de TikTok</div>`;
+    }
+}
     else {
         // HTML5 Video
         html = `<video id="player" playsinline controls>
