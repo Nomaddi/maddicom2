@@ -2,6 +2,7 @@
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
 
 <style>
     /* Tarjeta de Contacto - MODIFICADO */
@@ -84,6 +85,7 @@
     $social_links = json_decode($listing_details['social'], true);
     $calificame = "";
     $my_business = "";
+    $whatsapp = "";
     
     if (!empty($social_links))
     {
@@ -151,7 +153,9 @@
         'snapchat' => ['icon' => 'fa-snapchat-ghost', 'color' => '#FFFC00'],
         'reddit' => ['icon' => 'fa-reddit-alien', 'color' => '#FF4500'],
         'medium' => ['icon' => 'fa-medium', 'color' => '#12100E'],
-        'vimeo' => ['icon' => 'fa-vimeo-v', 'color' => '#1AB7EA']    
+        'vimeo' => ['icon' => 'fa-vimeo-v', 'color' => '#1AB7EA'],
+        'booking' => ['icon' => 'assets\global\icons\booking-icon.png'],
+        'tripadvisor' => ['icon' => 'fa-tripadvisor', 'color' => '#34E0A1'],
     ];
 ?>
 
@@ -234,7 +238,7 @@
             </a>
         <?php endif; ?> -->
 
-        <?php if (!empty($whatsapp_url)): ?>
+        <?php if (!empty($whatsapp)): ?>
             <a href="<?php echo $whatsapp_url; ?>" target="_blank" class="social-btn" style="background-color: #25D366;" title="WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
             </a>
@@ -254,7 +258,7 @@
 
         <?php if (!empty($social_links)): ?>
             <?php foreach ($social_links as $key => $url): ?>
-                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps' && $key != 'whatsapp'): 
+                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps' && $key != 'whatsapp' && $key != 'booking' && $key != 'airbnb'): // Ya los mostramos arriba 
                     // Obtener config del icono, o default
                     $conf = isset($social_config[$key]) ? $social_config[$key] : ['icon' => 'fa-link', 'color' => '#777'];
                     $bgStyle = (strpos($conf['color'], 'linear') === 0) ? "background: {$conf['color']}" : "background-color: {$conf['color']}";
@@ -262,6 +266,18 @@
                     <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="<?php echo $bgStyle; ?>" title="<?php echo ucfirst($key); ?>">
                         <i class="fa-brands <?php echo $conf['icon']; ?>"></i>
                     </a>
+                    <?php elseif (!empty($url) && $key == 'booking'): ?>
+                        <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="background-color: #fff;" title="Booking">
+                            <img src="<?php echo base_url('assets/global/icons/booking-icon.png'); ?>" 
+                            alt="Google Business" 
+                            style="width: 25px; height: 25px; object-fit: contain;">
+                        </a>
+                    <?php elseif (!empty($url) && $key == 'airbnb'): ?>
+                        <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="background-color: #fff;" title="Airbnb">
+                            <img src="<?php echo base_url('assets/global/icons/airbnb-icon.png'); ?>" 
+                            alt="Google Business" 
+                            style="width: 25px; height: 25px; object-fit: contain;">
+                        </a>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
