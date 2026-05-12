@@ -48,7 +48,7 @@
         <select name="video_provider[]" class="form-control" style="width: 30%;">
           <option value="youtube">YouTube</option>
           <option value="vimeo">Vimeo</option>
-          <option value="html5">HTML5</option>
+          <option value="tiktok">TikTok</option>
         </select>
         <input type="text" name="video_url[]" class="form-control" placeholder="<?php echo get_phrase('video_url'); ?>" style="width: 65%;">
         <button type="button" class="btn btn-danger btn-sm remove-video"><i class="fa fa-trash"></i></button>
@@ -71,7 +71,7 @@
           <select name="video_provider[]" class="form-control" style="width: 30%;">
             <option value="youtube">YouTube</option>
             <option value="vimeo">Vimeo</option>
-            <option value="html5">HTML5</option>
+            <option value="tiktok">TikTok</option>
           </select>
           <input type="text" name="video_url[]" class="form-control" placeholder="<?php echo get_phrase('video_url'); ?>" style="width: 65%;">
           <button type="button" class="btn btn-danger btn-sm remove-video"><i class="fa fa-trash"></i></button>
