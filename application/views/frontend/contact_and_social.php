@@ -155,7 +155,7 @@
         'medium' => ['icon' => 'fa-medium', 'color' => '#12100E'],
         'vimeo' => ['icon' => 'fa-vimeo-v', 'color' => '#1AB7EA'],
         'booking' => ['icon' => 'assets\global\icons\booking-icon.png'],
-        'tripadvisor' => ['icon' => 'fa-tripadvisor', 'color' => '#34E0A1'],
+        'airbnb' => ['icon' => 'fa-airbnb', 'color' => '#FF5A5F'],
     ];
 ?>
 
@@ -258,7 +258,7 @@
 
         <?php if (!empty($social_links)): ?>
             <?php foreach ($social_links as $key => $url): ?>
-                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps' && $key != 'whatsapp' && $key != 'booking' && $key != 'airbnb'): // Ya los mostramos arriba 
+                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps' && $key != 'whatsapp' && $key != 'booking' && $key != 'airbnb' && $key != 'tripadvisor'): // Ya los mostramos arriba 
                     // Obtener config del icono, o default
                     $conf = isset($social_config[$key]) ? $social_config[$key] : ['icon' => 'fa-link', 'color' => '#777'];
                     $bgStyle = (strpos($conf['color'], 'linear') === 0) ? "background: {$conf['color']}" : "background-color: {$conf['color']}";
@@ -269,13 +269,19 @@
                     <?php elseif (!empty($url) && $key == 'booking'): ?>
                         <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="background-color: #fff;" title="Booking">
                             <img src="<?php echo base_url('assets/global/icons/booking-icon.png'); ?>" 
-                            alt="Google Business" 
+                            alt="Booking" 
                             style="width: 25px; height: 25px; object-fit: contain;">
                         </a>
                     <?php elseif (!empty($url) && $key == 'airbnb'): ?>
                         <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="background-color: #fff;" title="Airbnb">
                             <img src="<?php echo base_url('assets/global/icons/airbnb-icon.png'); ?>" 
-                            alt="Google Business" 
+                            alt="Airbnb" 
+                            style="width: 25px; height: 25px; object-fit: contain;">
+                        </a>
+                    <?php elseif (!empty($url) && $key == 'tripadvisor'): ?>
+                        <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="background-color: #fff;" title="TripAdvisor">
+                            <img src="<?php echo base_url('assets/global/icons/tripadvisor-icon.png'); ?>" 
+                            alt="TripAdvisor" 
                             style="width: 25px; height: 25px; object-fit: contain;">
                         </a>
                 <?php endif; ?>
