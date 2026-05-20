@@ -127,35 +127,36 @@
 
     // Array de iconos y colores (Tu configuración original)
     $social_config = [
-        'calificame' => ['icon' => 'fa-google', 'color' => '#FFFC00', 'label' => 'Califícame en Google'],
-        'facebook' => ['icon' => 'fa-facebook-f', 'color' => '#1877F2'],
-        'instagram' => ['icon' => 'fa-instagram', 'color' => 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)'],
-        'x' => ['icon' => 'fa-x-twitter', 'color' => '#000000'],
-        'linkedin' => ['icon' => 'fa-linkedin-in', 'color' => '#0077B5'],
-        'youtube' => ['icon' => 'fa-youtube', 'color' => '#FF0000'],
-        'tiktok' => ['icon' => 'fa-tiktok', 'color' => '#010101'],
-        'whatsapp' => ['icon' => 'fa-whatsapp', 'color' => '#25D366'],
-        'telegram' => ['icon' => 'fa-telegram', 'color' => '#0088cc'],
-        'messenger' => ['icon' => 'fa-facebook-messenger', 'color' => '#00B2FF'],
-        'google_maps' => ['icon' => 'assets\global\icons\my_business.png',],
-        'waze' => ['icon' => 'fa-location-arrow', 'color' => '#33CCFF'],
-        'spotify' => ['icon' => 'fa-spotify', 'color' => '#1DB954'],
-        'soundcloud' => ['icon' => 'fa-soundcloud', 'color' => '#FF5500'],
-        'twitch' => ['icon' => 'fa-twitch', 'color' => '#9146FF'],
-        'pinterest' => ['icon' => 'fa-pinterest', 'color' => '#E60023'],
-        'behance' => ['icon' => 'fa-behance', 'color' => '#1769FF'],
-        'dribbble' => ['icon' => 'fa-dribbble', 'color' => '#EA4C89'],
-        'tripadvisor' => ['icon' => 'fa-tripadvisor', 'color' => '#34E0A1'],
-        'trustpilot' => ['icon' => 'fa-star', 'color' => '#00B67A'],
-        'github' => ['icon' => 'fa-github', 'color' => '#24292E'],
-        'gitlab' => ['icon' => 'fa-gitlab', 'color' => '#FC6D26'],
-        'stackoverflow' => ['icon' => 'fa-stack-overflow', 'color' => '#F48024'],
-        'snapchat' => ['icon' => 'fa-snapchat-ghost', 'color' => '#FFFC00'],
-        'reddit' => ['icon' => 'fa-reddit-alien', 'color' => '#FF4500'],
-        'medium' => ['icon' => 'fa-medium', 'color' => '#12100E'],
-        'vimeo' => ['icon' => 'fa-vimeo-v', 'color' => '#1AB7EA'],
-        'booking' => ['icon' => 'assets\global\icons\booking-icon.png'],
-        'airbnb' => ['icon' => 'fa-airbnb', 'color' => '#FF5A5F'],
+        'calificame' => ['icon' => 'fa-brands fa-google',  'color' => '#FFFC00', 'label' => 'Califícame en Google'],
+        'facebook' => ['icon' => 'fa-brands fa-facebook-f', 'color' => '#1877F2'],
+        'instagram' => ['icon' => 'fa-brands fa-instagram', 'color' => 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)'],
+        'x' => ['icon' => 'fa-brands fa-x-twitter', 'color' => '#000000'],
+        'linkedin' => ['icon' => 'fa-brands fa-linkedin-in', 'color' => '#0077B5'],
+        'youtube' => ['icon' => 'fa-brands fa-youtube', 'color' => '#FF0000'],
+        'threads' => ['icon' => 'fa-brands fa-threads', 'color' => '#010101'],
+        'tiktok' => ['icon' => 'fa-brands fa-tiktok', 'color' => '#010101'],
+        'whatsapp' => ['icon' => 'fa-brands fa-whatsapp', 'color' => '#25D366'],
+        'telegram' => ['icon' => 'fa-brands fa-telegram', 'color' => '#0088cc'],
+        'messenger' => ['icon' => 'fa-brands fa-facebook-messenger', 'color' => '#00B2FF'],
+        'google_maps' => ['icon' => 'assets\global\icons\my_business.png', 'type' => 'image', 'value' => 'Google Maps'],
+        'waze' => ['icon' => 'assets\global\icons\waze-icon.png', 'type' => 'image', 'value' => 'Waze'],
+        'spotify' => ['icon' => 'fa-brands fa-spotify', 'color' => '#1DB954'],
+        'soundcloud' => ['icon' => 'fa-brands fa-soundcloud', 'color' => '#FF5500'],
+        'twitch' => ['icon' => 'fa-brands fa-twitch', 'color' => '#9146FF'],
+        'pinterest' => ['icon' => 'fa-brands fa-pinterest', 'color' => '#E60023'],
+        'behance' => ['icon' => 'fa-brands fa-behance', 'color' => '#1769FF'],
+        'dribbble' => ['icon' => 'fa-brands fa-dribbble', 'color' => '#EA4C89'],
+        'tripadvisor' => ['icon' => 'assets\global\icons\tripadvisor-icon.png', 'type' => 'image', 'value' => 'TripAdvisor'],
+        'trustpilot' => ['icon' => 'fa-brands fa-star', 'color' => '#00B67A'],
+        'github' => ['icon' => 'fa-brands fa-github', 'color' => '#24292E'],
+        'gitlab' => ['icon' => 'fa-brands fa-gitlab', 'color' => '#FC6D26'],
+        'stackoverflow' => ['icon' => 'fa-brands fa-stack-overflow', 'color' => '#F48024'],
+        'snapchat' => ['icon' => 'fa-brands fa-snapchat-ghost', 'color' => '#FFFC00'],
+        'reddit' => ['icon' => 'fa-brands fa-reddit-alien', 'color' => '#FF4500'],
+        'medium' => ['icon' => 'fa-brands fa-medium', 'color' => '#12100E'],
+        'vimeo' => ['icon' => 'fa-brands fa-vimeo-v', 'color' => '#1AB7EA'],
+        'booking' => ['icon' => 'assets\global\icons\booking-icon.png', 'type' => 'image', 'value' => 'Booking'],
+        'airbnb' => ['icon' => 'assets\global\icons\airbnb-icon.png', 'type' => 'image' , 'value' => 'Airbnb'],
     ];
 ?>
 
@@ -258,32 +259,24 @@
 
         <?php if (!empty($social_links)): ?>
             <?php foreach ($social_links as $key => $url): ?>
-                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps' && $key != 'whatsapp' && $key != 'booking' && $key != 'airbnb' && $key != 'tripadvisor'): // Ya los mostramos arriba 
+                <?php if (!empty($url) && $key != 'calificame' && $key != 'resenias' && $key != 'google_maps' && $key != 'whatsapp'): // Ya los mostramos arriba 
                     // Obtener config del icono, o default
                     $conf = isset($social_config[$key]) ? $social_config[$key] : ['icon' => 'fa-link', 'color' => '#777'];
                     $bgStyle = (strpos($conf['color'], 'linear') === 0) ? "background: {$conf['color']}" : "background-color: {$conf['color']}";
                 ?>
                     <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="<?php echo $bgStyle; ?>" title="<?php echo ucfirst($key); ?>">
-                        <i class="fa-brands <?php echo $conf['icon']; ?>"></i>
+                        
+                        <?php if ($conf['type'] === 'image'): ?>
+                            <img src="<?php echo base_url($conf['icon']); ?>" 
+                                alt="<?php echo $conf['value']; ?>" 
+                                style="width: 25px; height: 25px; object-fit: contain;">
+                                
+                        <?php else: ?>
+                            <i class="<?php echo $conf['icon']; ?> social-btn" style="vertical-align: middle;"></i>
+                        <?php endif; ?>
                     </a>
-                    <?php elseif (!empty($url) && $key == 'booking'): ?>
-                        <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="background-color: #fff;" title="Booking">
-                            <img src="<?php echo base_url('assets/global/icons/booking-icon.png'); ?>" 
-                            alt="Booking" 
-                            style="width: 25px; height: 25px; object-fit: contain;">
-                        </a>
-                    <?php elseif (!empty($url) && $key == 'airbnb'): ?>
-                        <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="background-color: #fff;" title="Airbnb">
-                            <img src="<?php echo base_url('assets/global/icons/airbnb-icon.png'); ?>" 
-                            alt="Airbnb" 
-                            style="width: 25px; height: 25px; object-fit: contain;">
-                        </a>
-                    <?php elseif (!empty($url) && $key == 'tripadvisor'): ?>
-                        <a href="<?php echo $url; ?>" target="_blank" class="social-btn" style="background-color: #fff;" title="TripAdvisor">
-                            <img src="<?php echo base_url('assets/global/icons/tripadvisor-icon.png'); ?>" 
-                            alt="TripAdvisor" 
-                            style="width: 25px; height: 25px; object-fit: contain;">
-                        </a>
+                    
+                   
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
