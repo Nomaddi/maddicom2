@@ -150,7 +150,7 @@
 
 <div class="container-fluid margin_60_35">
 	<div class="row justify-content-md-center">
-		<aside class="col-lg-3 order-0" id="sidebar">
+		<aside class="col-lg-3 order-1" id="sidebar">
 			<div id="filters_col">
 				<a data-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt"><?php echo get_phrase('filters'); ?> </a>
 				<!-- Filter form starts-->
@@ -202,98 +202,7 @@
 						</a>
 					</div>
 
-						<div class="filter_type">
-							<h6><?php echo get_phrase('category'); ?></h6>
-							<ul class="">
-								<?php
-								 $counter = 0;
-								 $categories = $this->db->get('category')->result_array();
-								foreach ($categories as $key => $category):
-									if($category['parent'] > 0)
-										continue;
-										$counter++;
-									?>
-									<li class="<?php if($counter > $number_of_visible_categories) echo 'hidden-categories hidden'; ?>">
-										<label class="container_check"> <i class="<?php echo $category['icon_class']; ?>"></i> <?php echo $category['name']; ?> <small></small> <!-- Here will be the number of the total listing -->
-											<input type="checkbox" name="category[]" class="categories" value="<?php echo $category['slug']; ?>" onclick="filter(this, '<?php echo 'parent_id'.$category['id'] ?>')" <?php if(in_array($category['id'], $category_ids)) echo 'checked'; ?>>
-											<span class="checkmark"></span>
-										</label>
-									</li>
-									<?php foreach ($this->crud_model->get_sub_categories($category['id'])->result_array() as $sub_category):
-											$counter++;
-										?>
-										<li class="ml-3 <?php if($counter > $number_of_visible_categories) echo 'hidden-categories hidden'; ?>">
-											<label class="container_check"> <?php echo $sub_category['name']; ?> <small></small> <!-- Here will be the number of the total listing -->
-												<input type="checkbox" name="category[]" class="categories <?php echo 'parent_id'.$category['id'] ?>" value="<?php echo $sub_category['slug']; ?>" onclick="filter(this)" <?php if(in_array($sub_category['id'], $category_ids)) echo 'checked'; ?>>
-												<span class="checkmark"></span>
-											</label>
-										</li>
-									<?php endforeach; ?>
-								<?php endforeach; ?>
-							</ul>
-							<a href="javascript::" id = "category-toggle-btn" onclick="showToggle(this, 'hidden-categories')"><?php echo count($categories) > $number_of_visible_categories ? get_phrase('show_more') : ""; ?></a>
-						</div>
-
 						
-						<input type="hidden" id="search_string_1" name="search_string_1" value="<?=$search_string?>">
-
-						<div class="filter_type">
-							<h6><?php echo get_phrase('amenities'); ?></h6>
-							<ul>
-								<?php
-								$counter = 0;
-								$amenities = $this->crud_model->get_amenities()->result_array();
-								foreach ($amenities as $amenity):
-									$counter++;
-								?>
-								<?php if ($counter <= $number_of_visible_amenities): ?>
-									<div class="">
-										<li>
-											<label class="container_check"> <i class="<?php echo $amenity['icon']; ?>"></i> <?php echo $amenity['name']; ?>
-												<input type="checkbox" class="amenities" name="amenity[]" value="<?php echo $amenity['slug']; ?>" onclick="filter(this)" <?php if(in_array($amenity['id'], $amenity_ids)) echo 'checked'; ?>>
-												<span class="checkmark"></span>
-											</label>
-										</li>
-									</div>
-								<?php else: ?>
-									<div class="hidden-amenities hidden">
-										<li>
-											<label class="container_check"> <i class="<?php echo $amenity['icon']; ?>"></i> <?php echo $amenity['name']; ?>
-												<input type="checkbox" class="amenities" name="amenity[]" value="<?php echo $amenity['slug']; ?>" onclick="filter(this)" <?php if(in_array($amenity['id'], $amenity_ids)) echo 'checked'; ?>>
-												<span class="checkmark"></span>
-											</label>
-										</li>
-									</div>
-								<?php endif; ?>
-								<?php endforeach; ?>
-							</ul>
-							<a href="javascript::" id = "amenity-toggle-btn" onclick="showToggle(this, 'hidden-amenities')"><?php echo count($amenities) > $number_of_visible_amenities ? get_phrase('show_more') : ""; ?></a>
-						</div>
-						
-
-						<div class="filter_type">
-							<h6><?php echo get_phrase('opening_status'); ?></h6>
-							<ul>
-								<li>
-									<label class="container_check"> <i class=""></i> <?php echo get_phrase('open_now'); ?>
-										<input type="checkbox" class="openingStatus" name="with_open" value="open" onclick="filter(this)" <?php if($with_open == 'open') echo 'checked'; ?>>
-										<span class="checkmark"></span>
-									</label>
-								</li>
-							</ul>
-						</div>
-
-						<div class="filter_type">
-							<h6><?php echo get_phrase('video'); ?></h6>
-							<ul>
-								<li>
-									<label class="container_check"> <i class=""></i> <?php echo get_phrase('with_video'); ?>
-										<input type="checkbox" class="video_availability" name="with_video" value="1" onclick="filter(this)" <?php if($with_video == 1) echo 'checked'; ?>>
-										<span class="checkmark"></span>
-									</label>
-								</li>
-							</ul>
-						</div>
 					</div>
 					<!--/collapse -->
 				</form>
@@ -303,7 +212,7 @@
 		</aside>
 		<!-- /aside -->
 
-		<div class="col-lg-9 col-md-12 order-lg-1 order-2" id="listings">
+		<div class="col-lg-9 col-md-12 order-lg-1 order-0" id="listings">
 
 			<?php
 				foreach($listings as $listing):
