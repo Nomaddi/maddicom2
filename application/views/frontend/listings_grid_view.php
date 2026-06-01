@@ -152,7 +152,7 @@
 
 <div class="container-fluid margin_60_35 order-2">
 	<div class="row justify-content-md-center">
-		<aside class="col-lg-3 order-0" id="sidebar">
+		<aside class="col-lg-3 order-1" id="sidebar">
 			<div id="filters_col">
 				<a data-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt"><?php echo get_phrase('filters'); ?> </a>
 				<!-- Filter form starts-->
@@ -215,7 +215,7 @@
 		</aside>
 		<!-- /aside -->
 
-		<div class="col-lg-9 col-md-12 order-lg-1 order-1" id="listings">
+		<div class="col-lg-9 col-md-12 order-lg-1 order-0" id="listings">
 
 			<div class="row">
 
