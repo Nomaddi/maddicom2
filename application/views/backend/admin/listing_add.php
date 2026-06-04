@@ -1,6 +1,6 @@
 <?php
 $countries  = $this->db->get('country')->result_array();
-$categories = $this->db->get('category')->result_array();
+$categories = $this->db->where('parent_id', 0)->result_array();
 ?>
 <div class="row ">
     <div class="col-xl-12">
