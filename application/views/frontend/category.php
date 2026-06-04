@@ -23,9 +23,9 @@
 						$sub_categories = $this->crud_model->get_sub_categories($category['id']);
 						$subs = is_array($sub_categories) ? $sub_categories : $sub_categories->result_array();
 						?>
-						<a href="<?php echo site_url('home/search?selected_category_id='.$category['id']); ?>" class="list-group-item list-group-item-action">
+						<!-- <a href="<?php echo site_url('home/search?selected_category_id='.$category['id']); ?>" class="list-group-item list-group-item-action">
 								<?php echo $category['name']; ?>
-						</a>
+						</a> -->
 						<?php	
 						foreach ($subs as $sub): ?>
 							<a href="<?php echo site_url('home/search?selected_category_id='.$sub['id']); ?>" class="list-group-item list-group-item-action">

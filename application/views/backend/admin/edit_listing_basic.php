@@ -80,8 +80,12 @@
                 <div class="col-sm-7 pr-0">
                     <select class="form-control select2" data-toggle="select2" name="categories[]" id = "category_default" required>
                         <option value=""><?php echo get_phrase('select_category'); ?></option>
-                        <?php foreach ($categories as $category): ?>
+                        <?php foreach ($categories as $category): 
+                          $sub_categories = $this->crud_model->get_sub_categories($category['id'])->result_array();?>
                             <option value="<?php echo $category['id']; ?>" <?php if ($category['id'] == $listing_category): ?> selected <?php endif; ?>><?php echo $category['name']; ?></option>
+                            <?php foreach ($sub_categories as $sub_category): ?>
+                                <option value="<?php echo $sub_category['id']; ?>" <?php if ($sub_category['id'] == $listing_category): ?> selected <?php endif; ?>>&nbsp;&nbsp; - <?php echo $sub_category['name']; ?></option>
+                            <?php endforeach; ?>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -95,8 +99,12 @@
                     <div class="col-sm-7 pr-0">
                         <select class="form-control select2" name="categories[]">
                             <option value=""><?php echo get_phrase('select_category'); ?></option>
-                            <?php foreach ($categories as $category): ?>
+                            <?php foreach ($categories as $category): 
+                              $sub_categories = $this->crud_model->get_sub_categories($category['id'])->result_array();?>
                                 <option value="<?php echo $category['id']; ?>" <?php if ($category['id'] == $listing_category): ?> selected <?php endif; ?>><?php echo $category['name']; ?></option>
+                                <?php foreach ($sub_categories as $sub_category): ?>
+                                    <option value="<?php echo $sub_category['id']; ?>" <?php if ($sub_category['id'] == $listing_category): ?> selected <?php endif; ?>>&nbsp;&nbsp; - <?php echo $sub_category['name']; ?></option>
+                                <?php endforeach; ?>
                             <?php endforeach; ?>
                         </select>
                     </div>
