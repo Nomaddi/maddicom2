@@ -19,7 +19,7 @@
 <!-- font awesome 5 -->
 <link href="<?php echo base_url('assets/backend/css/fontawesome-all.min.css') ?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url('assets/backend/css/font-awesome-icon-picker/fontawesome-iconpicker.min.css') ?>" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="<?php echo base_url('assets/backend/css/bootstrap-tagsinput.css');?>" type="text/css"/>
 <link rel="stylesheet" href="<?php echo base_url('assets/backend/js/select2/select2.min.css');?>" type="text/css"/>
 <link href="<?php echo base_url('assets/backend/css/main.css') ?>" rel="stylesheet" type="text/css" />
 
@@ -31,6 +31,6 @@
 <?php endif; ?>
 <script src="<?php echo base_url('assets/backend/js/jquery-2.2.4.min.js'); ?>" charset="utf-8"></script>
 <!-- AM Chart resources -->
-<script src="https://www.amcharts.com/lib/4/core.js"></script>
-<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="<?php echo base_url('assets/backend/js/amcharts/core.js'); ?>"></script>
+<script src="<?php echo base_url('assets/backend/js/amcharts/charts.js'); ?>"></script>
+<script src="<?php echo base_url('assets/backend/js/amcharts/themes/animated.js'); ?>"></script>
