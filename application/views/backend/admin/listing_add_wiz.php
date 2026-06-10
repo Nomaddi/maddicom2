@@ -1,6 +1,6 @@
 <?php
 $countries  = $this->db->get('country')->result_array();
-$categories = $this->db->get('category')->result_array();
+$categories = $this->db->where('parent', 0)->get('category')->result_array();
 $all_users = $this->db->get('user')->result_array();
 ?>
 <div class="row">
