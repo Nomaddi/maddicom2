@@ -346,10 +346,10 @@ class Admin extends CI_Controller {
 
 
 	public function listings($param1 = '', $param2 = '') {
-		if ($this->session->userdata('admin_login') != true) {
+		/* if ($this->session->userdata('admin_login') != true) {
 			redirect(site_url('login'), 'refresh');
-		}
-
+		} */
+		$this->check_access([1, 3]);
 
 		if ($param1 == 'add') {
 			$this->crud_model->add_listing();
@@ -415,9 +415,10 @@ class Admin extends CI_Controller {
 	}
 
 	public function listing_form($param1 = '', $param2 = '') {
-		if ($this->session->userdata('admin_login') != true) {
+		/* if ($this->session->userdata('admin_login') != true) {
 			redirect(site_url('login'), 'refresh');
-		}
+		} */
+		$this->check_access([1, 3]);
 		if ($param1 == 'add') {
 			$page_data['page_name']  = 'listing_add_wiz';
 			$page_data['page_title'] = get_phrase('add_new_listing');
@@ -1202,6 +1203,18 @@ public function clear_cache()
     redirect($_SERVER['HTTP_REFERER']);
 }
 
+private function check_access($allowed_role_ids = []) {
+    if ($this->session->userdata('admin_login') != 1) {
+        redirect(site_url('home/login'), 'refresh');
+    }
+
+    $current_role_id = $this->session->userdata('role_id');
+
+    if (!in_array($current_role_id, $allowed_role_ids)) {
+        $this->session->set_flashdata('error_message', 'No tienes permisos para acceder a esta acción.');
+        redirect(site_url('admin/listings'), 'refresh');
+    }
+}
 
 
 
