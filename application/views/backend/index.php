@@ -19,7 +19,13 @@ $logged_in_user_role = strtolower($this->session->userdata('role'));
 <body class="page-body" >
   <div class="page-container <?php if ($text_align == 'right-to-left') echo 'right-sidebar';?>" >
     <!-- SIDEBAR -->
-    <?php include $logged_in_user_role.'/'.'navigation.php' ?>
+    <?php 
+    if ($logged_in_user_role == 'mapeador') {
+        include 'admin/navigation.php';
+    } else {
+        include $logged_in_user_role.'/'.'navigation.php';
+    }
+    ?>
     <div class="main-content">
 
       <!-- Topbar Start -->
@@ -31,7 +37,13 @@ $logged_in_user_role = strtolower($this->session->userdata('role'));
       </h3>
 
       <!-- Start Content-->
-      <?php include $logged_in_user_role.'/'.$page_name.'.php';?>
+      <?php
+      if ($logged_in_user_role == 'mapeador') {
+          include 'admin/'.$page_name.'.php';
+      } else {
+          include $logged_in_user_role.'/'.$page_name.'.php';
+      }
+        ?>
       <!-- Footer starts here -->
       <?php include 'footer.php'; ?>
     </div>

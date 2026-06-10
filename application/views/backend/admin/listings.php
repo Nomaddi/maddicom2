@@ -25,22 +25,23 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
           <i class="entypo-link"></i> <?php echo get_phrase('open_microservice'); ?>
         </a>
       <?php endif; ?>
-
+      <?php if ($this->session->userdata('role_id') == 1): ?>
       <!-- Botón 3: Generate CSV -->
       <a href="<?php echo base_url('assets/importCSV/demo/listings.generate.csv'); ?>" 
          class="btn btn-success" download>
         <i class="mdi mdi-download"></i> <?php echo get_phrase('generate_csv_file'); ?>
       </a>
       <a href="<?= site_url('admin/clear_cache'); ?>" class="btn btn-warning">
-          <i class="fa fa-broom"></i> Borrar caché
+        <i class="fa fa-broom"></i> Borrar caché
       </a>
+      <?php endif; ?>
 
     </div>
   </div>
 </div>
-
 <div class="row ">
   <div class="col-lg-12">
+    <?php if ($this->session->userdata('role_id') == 1): ?>
     <form method="POST" class="col-md-12 ajaxForm" action="<?php echo site_url('admin/import_excel'); ?>" id="import_listing" enctype="multipart/form-data">
       <div class="row justify-content-md-center">
 
@@ -60,9 +61,9 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
       </div>
     </form>
 
+    <?php endif; ?>
   </div><!-- end col-->
 </div>
-
 
 
 <div class="row">
@@ -252,9 +253,11 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
                         <?php if (get_addon_details('fb_messenger') != 0) : ?>
                           <li><a href="<?php echo site_url('addons/facebook_messenger/api_manager/' . $listing['id']); ?>"><?php echo get_phrase('facebook_chat_manager'); ?></a></li>
                         <?php endif; ?>
+                        <?php if ($this->session->userdata('role_id') == 1): ?>
                         <li class="divider"></li>
                         <li><a href="javascript::" onclick="confirm_modal('<?php echo site_url('admin/listings/delete/' . $listing['id']); ?>');"><?php echo get_phrase('delete'); ?></a>
                         </li>
+                        <?php endif; ?>
                       </ul>
                     </div>
                   </div>

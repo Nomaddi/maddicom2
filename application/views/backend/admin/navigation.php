@@ -35,6 +35,7 @@
             </a>
         </li>
         <!-- Category -->
+         <?php if ($this->session->userdata('role_id') == 1): ?>
         <li class="<?php if ($page_name == 'categories' || $page_name == 'sub_categories' || $page_name == 'category_add' || $page_name == 'category_edit') echo 'opened active has-sub'; ?>">
             <a href="#">
                 <i class="fa fa-globe"></i>
@@ -96,7 +97,7 @@
                 </li>
             </ul>
         </li>
-
+        <?php endif; ?>
 
         <!-- Listings -->
         <li class="<?php if ($page_name == 'listings' || $page_name == 'listing_add_wiz' || $page_name == 'listing_edit_wiz' || $page_name == 'reported_listings' || $page_name == 'claimed_listings') echo 'opened active has-sub'; ?>">
@@ -157,7 +158,7 @@
                 </ul>
             </li>
         <?php endif; ?>
-
+        <?php if ($this->session->userdata('role_id') == 1): ?>
         <!-- Blogs -->
         <li class="<?php if ($page_name == 'blogs' || $page_name == 'add_blog_form' || $page_name == 'edit_blog_form') echo 'opened has-sub'; ?>">
             <a href="#">
@@ -299,6 +300,7 @@
         </li>
 
         <!-- Users -->
+         
         <li class="<?php if ($page_name == 'agents' || $page_name == 'users' || $page_name == 'user_add' || $page_name == 'user_edit') echo 'opened active has-sub'; ?>">
             <a href="#">
                 <i class="fa fa-users"></i>
@@ -383,5 +385,6 @@
             </li>
         </ul>
     </li>
+    <?php endif; ?>
 </ul>
 </div>
