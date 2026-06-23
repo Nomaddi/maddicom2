@@ -53,7 +53,7 @@ class Login extends CI_Controller {
                 $this->session->set_userdata('user_login', '1');
                 redirect(site_url('user/listings'), 'refresh');
             }else if ($row->role_id == 3) {
-                $this->session->set_userdata('mapeador_login', '1'); 
+                // $this->session->set_userdata('mapeador_login', '1'); 
                 $this->session->set_userdata('admin_login', '1'); 
                 redirect(site_url('admin/listings'), 'refresh');
             }
