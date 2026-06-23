@@ -300,7 +300,7 @@ return $this->db->get('listing');
 
   function get_listings($listing_id = 0)
   {
-    if (strtolower($this->session->userdata('role')) != 'admin') {
+    if (strtolower($this->session->userdata('role')) != 'admin' && strtolower($this->session->userdata('role')) != 'mapeador') {
       $this->db->where('user_id', $this->session->userdata('user_id'));
     }
     if ($listing_id > 0) {
@@ -378,7 +378,7 @@ return $this->db->get('listing');
     $data['description'] = sanitizer($this->input->post('description'));
 
 
-    if ($this->session->userdata('user_login') == '1' || $this->session->userdata('user_id') != $data['user_id']) {
+    if ($this->session->userdata('user_login') == '1' || $this->session->userdata('user_id') != $data['user_id'] || $this->session->userdata('user_login') == '3') {
       $package_id = has_package($this->session->userdata('user_id'), 'package_id');
       $featured_status = $this->db->get_where('package')->row('featured');
       if ($featured_status == 0) {
@@ -496,7 +496,7 @@ return $this->db->get('listing');
     $data['photos'] = json_encode($photo_gallery);
     $data['code'] = md5(rand(10000000, 20000000));
 
-    if (strtolower($this->session->userdata('role')) == 'admin') {
+    if (strtolower($this->session->userdata('role')) == 'admin' || strtolower($this->session->userdata('role')) == 'mapeador') {
       $data['status'] = 'active';
     } else {
       $data['status'] = 'pending';
@@ -507,7 +507,7 @@ return $this->db->get('listing');
 
     $user_type = $this->db->get_where('user', array('id' => $this->session->userdata('user_id')))->row('role_id');
 
-    if ($total_listing > $submited_listing || $user_type == '1') {
+    if ($total_listing > $submited_listing || ($user_type == '1' || $user_type == '3')) {
       $this->db->insert('listing', $data);
       $listing_id = $this->db->insert_id();
       $time_config['listing_id'] = $listing_id;
@@ -665,7 +665,7 @@ return $this->db->get('listing');
     // }else{
     //   $data['is_featured'] = sanitizer(0);
     // }
-    if ($this->session->userdata('user_login') == '1' || $this->session->userdata('user_id') != $data['user_id']) {
+    if ($this->session->userdata('user_login') == '1' || $this->session->userdata('user_id') != $data['user_id'] || $this->session->userdata('user_login') == '3') {
       $package_id = has_package($this->session->userdata('user_id'), 'package_id');
       $featured_status = $this->db->get_where('package')->row('featured');
       if ($featured_status == 0) {
@@ -745,7 +745,7 @@ return $this->db->get('listing');
 
     if (!is_array($old_social_links)) {
     $old_social_links = [];
-  }
+    }
     $estructura_base = [
     'calificame'   => '',
     'facebook'     => '',

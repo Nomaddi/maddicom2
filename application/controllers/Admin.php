@@ -346,10 +346,10 @@ class Admin extends CI_Controller {
 
 
 	public function listings($param1 = '', $param2 = '') {
-		/* if ($this->session->userdata('admin_login') != true) {
+		if ($this->session->userdata('admin_login') != true) {
 			redirect(site_url('login'), 'refresh');
-		} */
-		$this->check_access([1, 3]);
+		}
+		// $this->check_access([1, 3]);
 
 		if ($param1 == 'add') {
 			$this->crud_model->add_listing();
@@ -415,10 +415,10 @@ class Admin extends CI_Controller {
 	}
 
 	public function listing_form($param1 = '', $param2 = '') {
-		/* if ($this->session->userdata('admin_login') != true) {
+		if ($this->session->userdata('admin_login') != true) {
 			redirect(site_url('login'), 'refresh');
-		} */
-		$this->check_access([1, 3]);
+		}
+		// $this->check_access([1, 3]);
 		if ($param1 == 'add') {
 			$page_data['page_name']  = 'listing_add_wiz';
 			$page_data['page_title'] = get_phrase('add_new_listing');

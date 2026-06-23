@@ -19,7 +19,7 @@ class User_model extends CI_Model {
     }
 
     public function get_users() {
-        $this->db->where('role_id', 1);
+        $this->db->where('role_id', 1)->or_where('role_id', 3);
         return $this->db->get('user');
     }
 
