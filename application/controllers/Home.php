@@ -107,10 +107,10 @@ class Home extends CI_Controller
         $this->db->where('status', 'active');
         $this->db->group_end();
 
-        $this->db->group_start();
+        /* $this->db->group_start();
         $this->db->where('package_expiry_date >', time());
         $this->db->or_where('package_expiry_date', 'admin');
-        $this->db->group_end();
+        $this->db->group_end(); */
         
         $this->db->order_by('is_featured', 'desc');
         $listings = $this->db->get('listing', $config['per_page'], $this->uri->segment(3))->result_array();
