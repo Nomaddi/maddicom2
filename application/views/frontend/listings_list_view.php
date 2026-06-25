@@ -216,8 +216,9 @@
 
 			<?php
 				foreach($listings as $listing):
-					if(!has_package($listing['user_id']) > 0)
-						continue; ?>
+					/* if(!has_package($listing['user_id']) > 0)
+						continue;  */
+					?>
 
 				<div class="strip map_view <?php if($listing['is_featured'] == 1) echo 'featured-tag-border'; ?>" id = "<?php echo $listing['code']; ?>" >
 					<div class="row no-gutters">

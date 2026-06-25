@@ -221,8 +221,9 @@
 
 				<?php
 				foreach($listings as $listing):
-					if(!has_package($listing['user_id']) > 0)
-						continue; ?>
+					/* if(!has_package($listing['user_id']) > 0)
+						continue;  */
+					?>
 
 					<?php
 						// $active_package = has_package($listing['user_id']);
