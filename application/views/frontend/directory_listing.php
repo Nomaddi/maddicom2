@@ -300,7 +300,7 @@ if (strpos($cover, 'http://') === 0 || strpos($cover, 'https://') === 0) {
 				}
 
 				// B. Procesar VIDEOS (Solo si tiene permisos)
-				if (has_package_feature('ability_to_add_video', $listing_details['user_id']) == 1) {
+				// if (has_package_feature('ability_to_add_video', $listing_details['user_id']) == 1) {
 					$raw_videos = !empty($listing_details['videos']) ? json_decode($listing_details['videos'], true) : [];
 					
 					// Compatibilidad videos antiguos
@@ -348,7 +348,7 @@ if (strpos($cover, 'http://') === 0 || strpos($cover, 'https://') === 0) {
 						];
 
 					}
-				}
+				// }
 
 				// Elemento inicial
 				$first_item = !empty($gallery_items) ? $gallery_items[0] : null;

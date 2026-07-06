@@ -55,6 +55,15 @@
   </div>
 </div>
 <div class="form-group">
+  <label for="gotReview" class="col-sm-3 control-label"><?php echo get_phrase('Tiene review?'); ?></label>
+  <div class="col-lg-4" style="margin-bottom: 10px;">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" name="got_review" id="got_review" value="1" <?php echo isset($listing_details['got_review']) && $listing_details['got_review'] == 1 ? 'checked' : ''; ?>>
+        <label class="custom-control-label" for="got_review"><?php echo get_phrase('Tiene Review?'); ?></label>
+      </div>
+    </div>
+</div>
+<div class="form-group">
   <label for="featured_type" class="col-sm-3 control-label"><?php echo get_phrase('featured_type'); ?></label>
   <div class="col-sm-7">
     <select name="is_featured" id = "featured_type" class="select2" required>

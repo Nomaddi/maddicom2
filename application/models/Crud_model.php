@@ -376,7 +376,7 @@ return $this->db->get('listing');
     $data['owner_email'] = sanitizer($this->input->post('owner_email'));
 
     $data['description'] = sanitizer($this->input->post('description'));
-
+    $data['got_review'] = $this->input->post('got_review') ? 1 : 0;
 
     if ($this->session->userdata('user_login') == '1' || $this->session->userdata('user_id') != $data['user_id'] || $this->session->userdata('user_login') == '3') {
       $package_id = has_package($this->session->userdata('user_id'), 'package_id');
@@ -658,7 +658,7 @@ return $this->db->get('listing');
     $data['owner_email'] = sanitizer($this->input->post('owner_email'));
 
     $data['description'] = sanitizer($this->input->post('description'));
-
+    $data['got_review'] = $this->input->post('got_review') ? 1 : 0;
     // $value_check = $this->input->post('is_featured');
     // if(isset($value_check)){
     //   $data['is_featured'] = sanitizer($this->input->post('is_featured'));
