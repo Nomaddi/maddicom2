@@ -1173,6 +1173,210 @@ class Admin extends CI_Controller {
     redirect(site_url('admin/listings'), 'refresh');
 }
 
+public function export_listings_xlsx()
+{
+    if ($this->session->userdata('admin_login') != 1) {
+        redirect(site_url('login'), 'refresh');
+    }
+
+    // --- Lookups para resolver IDs a nombres (una sola consulta por tabla) ---
+    $categories = [];
+    foreach ($this->db->get('category')->result_array() as $c) {
+        $categories[$c['id']] = $c['name'];
+    }
+
+    $amenities = [];
+    foreach ($this->db->get('amenities')->result_array() as $a) {
+        $amenities[$a['id']] = $a['name'];
+    }
+
+    $cities = [];
+    foreach ($this->db->get('city')->result_array() as $c) {
+        $cities[$c['id']] = $c['name'];
+    }
+
+	$certifications = [];
+	foreach ($this->db->get('certifications')->result_array() as $cert) {
+		$certifications[$cert['id']] = $cert['name'];
+	}
+
+    $states = [];
+    foreach ($this->db->get('state')->result_array() as $s) {
+        $states[$s['id']] = $s['name'];
+    }
+
+    $countries = [];
+    foreach ($this->db->get('country')->result_array() as $c) {
+        $countries[$c['id']] = $c['name'];
+    }
+
+    $owners = [];
+    foreach ($this->db->get('user')->result_array() as $u) {
+        $owners[$u['id']] = ['name' => $u['name'], 'email' => $u['email']];
+    }
+
+    $listings = $this->db->get('listing')->result_array();
+
+    $headers = [
+		'Nombre', 'Email', 'Telefono', 'Website', 'Direccion', 'Descripcion',
+		'Categorias', 'Amenidades', 'Certificaciones', 'Tipo de negocio', 'Status', 'Destacado',
+		'Ciudad', 'Departamento', 'Pais', 'Latitud', 'Longitud', 'Tags',
+		'Video URL',
+		'Representante legal (nombre)', 'Representante legal (telefono)', 'Representante legal (email)',
+		'Registrado por (nombre)', 'Registrado por (email)',
+		'Fecha creacion', 'Vigencia paquete', 'Rango de precio', 'Hora apertura', 'Hora cierre',
+	];
+
+    $rows = [];
+    foreach ($listings as $l) {
+        $cat_ids = json_decode($l['categories'], true) ?: [];
+        $cat_names = array_values(array_filter(array_map(function ($id) use ($categories) {
+            return isset($categories[$id]) ? $categories[$id] : null;
+        }, $cat_ids)));
+
+        $amn_ids = json_decode($l['amenities'], true) ?: [];
+        $amn_names = array_values(array_filter(array_map(function ($id) use ($amenities) {
+            return isset($amenities[$id]) ? $amenities[$id] : null;
+        }, $amn_ids)));
+
+		$cert_ids = json_decode($l['certifications'], true) ?: [];
+		$cert_names = array_values(array_filter(array_map(function ($id) use ($certifications) {
+			return isset($certifications[$id]) ? $certifications[$id] : null;
+		}, $cert_ids)));
+
+        $owner = isset($owners[$l['user_id']]) ? $owners[$l['user_id']] : ['name' => '', 'email' => ''];
+
+        $rows[] = [
+			$l['name'],
+			$l['email'],
+			$l['phone'],
+			$l['website'],
+			$l['address'],
+			strip_tags((string)$l['description']),
+			implode(', ', $cat_names),
+			implode(', ', $amn_names),
+			implode(', ', $cert_names),
+			$l['listing_type'],
+			$l['status'],
+			$l['is_featured'] ? 'Si' : 'No',
+			isset($cities[$l['city_id']]) ? $cities[$l['city_id']] : '',
+			isset($states[$l['state_id']]) ? $states[$l['state_id']] : '',
+			isset($countries[$l['country_id']]) ? $countries[$l['country_id']] : '',
+			$l['latitude'],
+			$l['longitude'],
+			$l['tags'],
+			$l['video_url'],
+			$l['owner_name'],
+			$l['owner_phone'],
+			$l['owner_email'],
+			$owner['name'],
+			$owner['email'],
+			(!empty($l['date_added']) && is_numeric($l['date_added'])) ? date('Y-m-d H:i', $l['date_added']) : $l['date_added'],
+			$l['package_expiry_date'],
+			$l['price_range'],
+			$l['opened_minutes'],
+			$l['closed_minutes'],
+		];
+    }
+
+    $filename = 'listings_export_' . date('Y-m-d_His') . '.xlsx';
+    $this->_stream_xlsx($filename, $headers, $rows);
+}
+
+private function _stream_xlsx($filename, array $headers, array $rows)
+{
+    $tmpFile = tempnam(sys_get_temp_dir(), 'xlsx_');
+
+    $zip = new ZipArchive();
+    $zip->open($tmpFile, ZipArchive::OVERWRITE | ZipArchive::CREATE);
+
+    $zip->addFromString('[Content_Types].xml',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+        . '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+        . '<Default Extension="xml" ContentType="application/xml"/>'
+        . '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'
+        . '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'
+        . '</Types>'
+    );
+
+    $zip->addFromString('_rels/.rels',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        . '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>'
+        . '</Relationships>'
+    );
+
+    $zip->addFromString('xl/_rels/workbook.xml.rels',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        . '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>'
+        . '</Relationships>'
+    );
+
+    $zip->addFromString('xl/workbook.xml',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
+        . '<sheets><sheet name="Listings" sheetId="1" r:id="rId1"/></sheets>'
+        . '</workbook>'
+    );
+
+    $xmlRows = '';
+    $rowIndex = 1;
+    $xmlRows .= $this->_xlsx_row($rowIndex++, $headers);
+    foreach ($rows as $row) {
+        $xmlRows .= $this->_xlsx_row($rowIndex++, $row);
+    }
+
+    $sheetXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+        . '<sheetData>' . $xmlRows . '</sheetData>'
+        . '</worksheet>';
+
+    $zip->addFromString('xl/worksheets/sheet1.xml', $sheetXml);
+    $zip->close();
+
+    // --- Defensa: limpiar cualquier salida previa (BOM, whitespace, profiler de CI, etc.) ---
+    if (function_exists('apache_setenv')) { @apache_setenv('no-gzip', 1); }
+    @ini_set('zlib.output_compression', 'Off');
+    while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
+
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Content-Length: ' . filesize($tmpFile));
+    header('Cache-Control: max-age=0');
+    header('Pragma: public');
+
+    readfile($tmpFile);
+    unlink($tmpFile);
+    exit;
+}
+
+private function _xlsx_col_letter($index)
+{
+    $letter = '';
+    $index++;
+    while ($index > 0) {
+        $mod = ($index - 1) % 26;
+        $letter = chr(65 + $mod) . $letter;
+        $index = (int)(($index - $mod) / 26);
+    }
+    return $letter;
+}
+
+private function _xlsx_row($rowIndex, array $values)
+{
+    $cells = '';
+    foreach ($values as $colIndex => $value) {
+        $ref = $this->_xlsx_col_letter($colIndex) . $rowIndex;
+        $safe = htmlspecialchars((string)$value, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+        $cells .= '<c r="' . $ref . '" t="inlineStr"><is><t xml:space="preserve">' . $safe . '</t></is></c>';
+    }
+    return '<row r="' . $rowIndex . '">' . $cells . '</row>';
+}
+
 /**
  * Convierte \r\n/\n a <br>, escapa comillas simples y backslashes,
  * y evita romper </script>.

@@ -27,8 +27,8 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
       <?php endif; ?>
       <?php if ($this->session->userdata('role_id') == 1): ?>
       <!-- Botón 3: Generate CSV -->
-      <a href="<?php echo base_url('assets/importCSV/demo/listings.generate.csv'); ?>" 
-         class="btn btn-success" download>
+      <a href="<?php echo site_url('admin/export_listings_xlsx'); ?>" 
+        class="btn btn-success" download>
         <i class="mdi mdi-download"></i> <?php echo get_phrase('generate_csv_file'); ?>
       </a>
       <a href="<?= site_url('admin/clear_cache'); ?>" class="btn btn-warning">
