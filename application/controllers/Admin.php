@@ -1218,13 +1218,9 @@ public function export_listings_xlsx()
     $listings = $this->db->get('listing')->result_array();
 
     $headers = [
-		'Nombre', 'Email', 'Telefono', 'Website', 'Direccion', 'Descripcion',
-		'Categorias', 'Amenidades', 'Certificaciones', 'Tipo de negocio', 'Status', 'Destacado',
-		'Ciudad', 'Departamento', 'Pais', 'Latitud', 'Longitud', 'Tags',
-		'Video URL',
-		'Representante legal (nombre)', 'Representante legal (telefono)', 'Representante legal (email)',
-		'Registrado por (nombre)', 'Registrado por (email)',
-		'Fecha creacion', 'Vigencia paquete', 'Rango de precio', 'Hora apertura', 'Hora cierre',
+		'Id', 'Padrino', 'Email del padrino', 'Fecha creacion', 'Review Si/No', 'Link en Directorio', 'Nombre del Negocio', 'Direccion', 'Telefono', 'Descripcion',
+		'Fecha modificacion', 'Video URL',  'Videos', 'Video Provider', 'Website', 'Status', 'Logo', 'Portada', 'Palabras Meta', 'Descripción Meta',
+		'Destacado', 'Representante legal (nombre)', 'Representante legal (telefono)', 'Representante legal (email)', 'Categorias', 'Servicios', 'Certificaciones', 'Influencer',
 	];
 
     $rows = [];
@@ -1245,37 +1241,36 @@ public function export_listings_xlsx()
 		}, $cert_ids)));
 
         $owner = isset($owners[$l['user_id']]) ? $owners[$l['user_id']] : ['name' => '', 'email' => ''];
-
+		$url =  get_listing_url($l['id']);
         $rows[] = [
-			$l['name'],
-			$l['email'],
-			$l['phone'],
-			$l['website'],
-			$l['address'],
-			strip_tags((string)$l['description']),
-			implode(', ', $cat_names),
-			implode(', ', $amn_names),
-			implode(', ', $cert_names),
-			$l['listing_type'],
-			$l['status'],
-			$l['is_featured'] ? 'Si' : 'No',
-			isset($cities[$l['city_id']]) ? $cities[$l['city_id']] : '',
-			isset($states[$l['state_id']]) ? $states[$l['state_id']] : '',
-			isset($countries[$l['country_id']]) ? $countries[$l['country_id']] : '',
-			$l['latitude'],
-			$l['longitude'],
-			$l['tags'],
-			$l['video_url'],
-			$l['owner_name'],
-			$l['owner_phone'],
-			$l['owner_email'],
+			$l['id'],
 			$owner['name'],
 			$owner['email'],
 			(!empty($l['date_added']) && is_numeric($l['date_added'])) ? date('Y-m-d H:i', $l['date_added']) : $l['date_added'],
-			$l['package_expiry_date'],
-			$l['price_range'],
-			$l['opened_minutes'],
-			$l['closed_minutes'],
+			$l['got_review'] ? 'Si' : 'No',
+			$url,
+			$l['name'],
+			$l['address'],
+			$l['phone'],
+			strip_tags((string)$l['description']),
+			(!empty($l['date_modified']) && is_numeric($l['date_modified'])) ? date('Y-m-d H:i', $l['date_modified']) : $l['date_modified'],
+			$l['video_url'],
+			$l['videos'],
+			$l['video_provider'],
+			$l['website'],
+			$l['status'],
+			$l['listing_thumbnail'],
+			$l['listing_cover'],
+			$l['seo_meta_tags'],
+			$l['meta_description'],
+			$l['is_featured'] ? 'Si' : 'No',
+			$l['owner_name'],
+			$l['owner_phone'],
+			$l['owner_email'],
+			implode(', ', $cat_names),
+			implode(', ', $amn_names),
+			implode(', ', $cert_names),
+			
 		];
     }
 
