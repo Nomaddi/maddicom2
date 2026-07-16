@@ -208,10 +208,6 @@ class Home extends CI_Controller
         $with_open   = 'all';
         $search_string="";
 
-     
-
-        //name  //zzz
-
         if (isset($_GET['search_string']) && !empty($_GET['search_string'])) {
             $search_string=$_GET['search_string'];
            
@@ -221,18 +217,14 @@ class Home extends CI_Controller
             $search_string="";
         }
 
-    
-
-     
-
-        if (isset($_GET['selected_city_id']) && !empty($_GET['selected_city_id'])) {
+       /*  if (isset($_GET['selected_city_id']) && !empty($_GET['selected_city_id'])) {
             if ($_GET['selected_city_id'] != '') {
                 $city_id = $_GET['selected_city_id'];
             } else {
 
                 $city_id = '';
             }
-        }
+        } */
 
         if (isset($_GET['selected_category_id']) && !empty($_GET['selected_category_id'])) {
            
@@ -253,13 +245,13 @@ class Home extends CI_Controller
         }
 
         // Get the amenity ids
-        if (isset($_GET['amenity']) && !empty($_GET['amenity'])) {
+        /* if (isset($_GET['amenity']) && !empty($_GET['amenity'])) {
             $selected_amenities = explode('--', $_GET['amenity']);
             foreach ($selected_amenities as $amenity) {
                 $amenity_id = $this->db->get_where('amenities', array('slug' => $amenity))->row()->id;
                 array_push($amenity_ids, $amenity_id);
             }
-        }
+        } */
 
         // Get the certification ids  <--- NUEVO
         if (isset($_GET['certification']) && !empty($_GET['certification'])) {
@@ -273,28 +265,28 @@ class Home extends CI_Controller
         }
 
         // Get the city ids
-        if (isset($_GET['city']) && !empty($_GET['city'])) {
+       /*  if (isset($_GET['city']) && !empty($_GET['city'])) {
             if ($_GET['city'] != 'all') {
                 $city_id = $this->db->get_where('city', array('slug' => $_GET['city']))->row()->id;
             } else {
 
                 $city_id = 'all';
             }
-        }
+        } */
 
         // Get the state ids
-        if (isset($_GET['state']) && !empty($_GET['state'])) {
+        /* if (isset($_GET['state']) && !empty($_GET['state'])) {
             if ($_GET['state'] != 'all') {
                 $state_id = $this->db->get_where('state', array('slug' => $_GET['state']))->row()->id;
             } else {
                 $state_id = 'all';
             }
-        }
+        } */
 
         // Get video existance filter
-        if (isset($_GET['video']) && !empty($_GET['video'])) {
+        /* if (isset($_GET['video']) && !empty($_GET['video'])) {
             $with_video = $_GET['video'];
-        }
+        } */
 
         // Get status existance filter
         if (isset($_GET['status']) && !empty($_GET['status'])) {
@@ -302,9 +294,9 @@ class Home extends CI_Controller
         }
 
         // Get Price range filter
-        if (isset($_GET['price-range']) && !empty($_GET['price-range'])) {
+        /* if (isset($_GET['price-range']) && !empty($_GET['price-range'])) {
             $price_range = $_GET['price-range'];
-        }
+        } */
 
         // If all the filter options remain default, redirect to listings method
         if ($_GET['category'] == "" && $_GET['amenity'] == "" &&  (empty($_GET['certification']) || $_GET['certification'] == "") && $_GET['city'] == "all" && $price_range == 0 && $_GET['video'] == 0 && $_GET['status'] == 'all') {
@@ -315,7 +307,7 @@ class Home extends CI_Controller
         $listings = $this->frontend_model->filter_listing($search_string,$category_ids, $amenity_ids, $certification_ids, $state_id, $city_id, $price_range, $with_video, $with_open, $page_number);
 
 
-        $page_data['geo_json']       =  $this->make_geo_json_for_map($listings);
+        // $page_data['geo_json']       =  $this->make_geo_json_for_map($listings);
 
 
         $total_listings = count($all_listings);

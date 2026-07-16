@@ -1219,8 +1219,8 @@ public function export_listings_xlsx()
 
     $headers = [
 		'Id', 'Padrino', 'Email del padrino', 'Fecha creacion', 'Review Si/No', 'Link en Directorio', 'Nombre del Negocio', 'Direccion', 'Telefono', 'Descripcion',
-		'Fecha modificacion', 'Video URL',  'Videos', 'Video Provider', 'Website', 'Status', 'Logo', 'Portada', 'Palabras Meta', 'Descripción Meta',
-		'Destacado', 'Representante legal (nombre)', 'Representante legal (telefono)', 'Representante legal (email)', 'Categorias', 'Servicios', 'Certificaciones', 'Influencer',
+		'Fecha modificacion',  'Website', 'Status', 'Logo', 'Portada', 'Palabras Meta', 'Descripción Meta', 'social',
+		'Destacado', 'Representante legal (nombre)', 'Representante legal (telefono)', 'Representante legal (email)', 'Categorias', 'Servicios', 'Certificaciones', 'Video URL',  'Videos', 'Video Provider', 'Influencer',
 	];
 
     $rows = [];
@@ -1254,15 +1254,13 @@ public function export_listings_xlsx()
 			$l['phone'],
 			strip_tags((string)$l['description']),
 			(!empty($l['date_modified']) && is_numeric($l['date_modified'])) ? date('Y-m-d H:i', $l['date_modified']) : $l['date_modified'],
-			$l['video_url'],
-			$l['videos'],
-			$l['video_provider'],
 			$l['website'],
 			$l['status'],
 			$l['listing_thumbnail'],
 			$l['listing_cover'],
 			$l['seo_meta_tags'],
 			$l['meta_description'],
+			$l['social'],
 			$l['is_featured'] ? 'Si' : 'No',
 			$l['owner_name'],
 			$l['owner_phone'],
@@ -1270,11 +1268,14 @@ public function export_listings_xlsx()
 			implode(', ', $cat_names),
 			implode(', ', $amn_names),
 			implode(', ', $cert_names),
+			$l['video_url'],
+			$l['videos'],
+			$l['video_provider'],
 			
 		];
     }
 
-    $filename = 'listings_export_' . date('Y-m-d_His') . '.xlsx';
+    $filename = 'BD_directorio_comercial_' . date('Y-m-d_His') . '.xlsx';
     $this->_stream_xlsx($filename, $headers, $rows);
 }
 
