@@ -46,8 +46,8 @@ class Frontend_model extends CI_Model
     {
       $this->db->group_start();
         $this->db->like('name', $search_string);
-        $this->db->or_like('description', $search_string);
-        $this->db->or_like('listing_type', $search_string);
+        /* $this->db->or_like('description', $search_string);
+        $this->db->or_like('listing_type', $search_string); */
         $this->db->or_like('seo_meta_tags', $search_string);
       $this->db->group_end();
     }
@@ -64,7 +64,7 @@ class Frontend_model extends CI_Model
       $this->db->group_end();
     }
 
-    if(count($amenity_ids) > 0){
+    /* if(count($amenity_ids) > 0){
       $this->db->group_start();
         foreach($amenity_ids as $amenity_key => $amenity_id){
           if($amenity_key == 0){
@@ -74,7 +74,7 @@ class Frontend_model extends CI_Model
           }
         }
       $this->db->group_end();
-    }
+    } */
 
     // Filtro por certificaciones (JSON con IDs)
     if (count($certification_ids) > 0) {
@@ -90,7 +90,7 @@ class Frontend_model extends CI_Model
     }
 
 
-    if($state_id != 'all'){
+    /* if($state_id != 'all'){
       $this->db->group_start();
         $this->db->where('state_id', $state_id);
       $this->db->group_end();
@@ -120,7 +120,7 @@ class Frontend_model extends CI_Model
         $this->db->where('opened_minutes <=', $current_time_minutes);
         $this->db->where('closed_minutes >=', $current_time_minutes);
       $this->db->group_end();
-    }
+    } */
     // ✅ Agregar este filtro
     $this->db->where('status !=', 'pending');
 
@@ -130,14 +130,15 @@ class Frontend_model extends CI_Model
 
   function filter_listing_all_rows($search_string,$category_ids = array(), $amenity_ids = array(), $certification_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = 'all')
   {
-    $this->listing_table_data_centralized();
+    // $this->listing_table_data_centralized();
 
     if($search_string!="")
     {
       $this->db->group_start();
         $this->db->like('name', $search_string);
-        $this->db->or_like('description', $search_string);
-        $this->db->or_like('listing_type', $search_string);
+        $this->db->or_like('seo_meta_tags', $search_string);
+        /* $this->db->or_like('description', $search_string);
+        $this->db->or_like('listing_type', $search_string); */
       $this->db->group_end();
     }
 
@@ -153,7 +154,7 @@ class Frontend_model extends CI_Model
       $this->db->group_end();
     }
 
-    if(count($amenity_ids) > 0){
+    /* if(count($amenity_ids) > 0){
       $this->db->group_start();
         foreach($amenity_ids as $amenity_key => $amenity_id){
           if($amenity_key == 0){
@@ -163,7 +164,7 @@ class Frontend_model extends CI_Model
           }
         }
       $this->db->group_end();
-    }
+    } */
 
     // Filtro por certificaciones (JSON con IDs)
     if (count($certification_ids) > 0) {
@@ -179,7 +180,7 @@ class Frontend_model extends CI_Model
     }
 
 
-    if($state_id != 'all'){
+    /* if($state_id != 'all'){
       $this->db->group_start();
         $this->db->where('state_id', $state_id);
       $this->db->group_end();
@@ -209,7 +210,7 @@ class Frontend_model extends CI_Model
         $this->db->where('opened_minutes <=', $current_time_minutes);
         $this->db->where('closed_minutes >=', $current_time_minutes);
       $this->db->group_end();
-    }
+    } */
 
     // ✅ Excluir los pendientes
     $this->db->where('status !=', 'pending');
