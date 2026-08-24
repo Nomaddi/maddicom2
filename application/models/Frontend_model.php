@@ -18,6 +18,7 @@ class Frontend_model extends CI_Model
 
     $this->db->group_start();
     $this->db->where('status', 'active');
+    $this->db->where('got_review', 1);
     $this->db->group_end();
 
     /* $this->db->group_start();
@@ -141,7 +142,7 @@ class Frontend_model extends CI_Model
         $this->db->or_like('listing_type', $search_string); */
       $this->db->group_end();
     }
-
+    
     if(count($category_ids) > 0){
       $this->db->group_start();
         foreach($category_ids as $category_key => $category_id){
@@ -570,38 +571,31 @@ public function get_certification($id, $field = '')
   }
 
   public function get_top_listings_by_certs($limit = 8)
-  {
-      $listing_ids = array();
-      $listing_id_with_cert_count = array();
-      $listings = $this->get_listings()->result_array();
-      foreach ($listings as $listing) {
-          if (!has_package($listing['user_id']) > 0) {
-              continue;
-          }
-          // Obtener la cantidad de certificaciones
-          $certs = json_decode($listing['certifications'] ?? '[]', true);
-          $listing_id_with_cert_count[$listing['id']] = count($certs);
-      }
+{
+    $listings_by_cert_count = array();
+    $listings = $this->get_listings()->result_array();
+    if (empty($listings)) {
+        return array();
+    }
+    foreach ($listings as $listing) {
+        $certs = json_decode($listing['certifications'] ?? '[]', true);
+        $cert_count = is_array($certs) ? count($certs) : 0;
+        $listings_by_cert_count[$cert_count][] = $listing;
+    }
+    krsort($listings_by_cert_count);
+    $final = array();
+    foreach ($listings_by_cert_count as $cert_count => $group_listings) {
+        shuffle($group_listings);
+        foreach ($group_listings as $listing) {
+            $final[] = $listing;
+            if (count($final) >= $limit) {
+                return $final;
+            }
+        }
+    }
 
-      // Ordenamos por la cantidad de certificaciones
-      arsort($listing_id_with_cert_count);
-      foreach ($listing_id_with_cert_count as $key => $value) {
-          if (count($listing_ids) <= $limit) {
-              array_push($listing_ids, $key);
-          }
-      }
-
-      // Filtrar solo aquellos con paquetes activos
-      $final = [];
-      foreach ($listing_ids as $listing_id) {
-          $listing = $this->db->get_where('listing', ['id' => $listing_id])->row_array();
-          if (has_package($listing['user_id']) > 0) {
-              $final[] = $listing;
-              if (count($final) >= $limit) break;
-          }
-      }
-      return $final;
-  }
+    return $final;
+}
 
 
   ////Search function For custom pagination

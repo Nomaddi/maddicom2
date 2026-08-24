@@ -86,7 +86,7 @@
     $calificame = "";
     $my_business = "";
     $whatsapp = "";
-    
+    $url_listing = get_listing_url($listing_details['id']);
     if (!empty($social_links))
     {
         foreach($social_links as $key => $url)
@@ -113,7 +113,7 @@
     if (!empty($phone_clean) && strpos($phone_clean, '57') !== 0) {
         $phone_clean = '57' . $phone_clean;
     }
-    $mensaje_wa = "Hola, te encontré en el directorio comercial de Acacías, me podrías ayudar con  ";
+    $mensaje_wa = "Hola, te encontré en el directorio comercial de Acacías, en: ". $url_listing. " me podrías ayudar con  ";
     $whatsapp_url = "https://wa.me/" . preg_replace('/^0/', '57', $whatsapp) . "?text=" . urlencode($mensaje_wa);
 
     // Preparar URL de Google Maps
