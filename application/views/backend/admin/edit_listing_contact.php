@@ -18,7 +18,12 @@
     <input type="text" class="form-control" id="phone_number" name="phone" placeholder="<?php echo get_phrase('phone_number'); ?>" value="<?php echo $listing_details['phone']; ?>">
   </div>
 </div>
-
+<div class="form-group">
+  <label class="col-sm-3 control-label" for="phone_number_2"><?php echo get_phrase('phone_number_2'); ?></label>
+  <div class="col-sm-7">
+    <input type="text" class="form-control" id="phone_number_2" name="phone2" placeholder="<?php echo get_phrase('phone_number_2'); ?> " value="<?php echo $listing_details['phone2']; ?>">
+  </div>
+</div>
 <?php 
 // Puedes mover esta lista a un archivo config o helper si prefieres
 $social_networks = array(
