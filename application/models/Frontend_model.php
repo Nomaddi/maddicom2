@@ -18,6 +18,7 @@ class Frontend_model extends CI_Model
 
     $this->db->group_start();
     $this->db->where('status', 'active');
+    $this->db->where('got_review', 1);
     $this->db->group_end();
 
     /* $this->db->group_start();
@@ -141,7 +142,7 @@ class Frontend_model extends CI_Model
         $this->db->or_like('listing_type', $search_string); */
       $this->db->group_end();
     }
-
+    
     if(count($category_ids) > 0){
       $this->db->group_start();
         foreach($category_ids as $category_key => $category_id){
