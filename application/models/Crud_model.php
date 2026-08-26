@@ -451,6 +451,7 @@ return $this->db->get('listing');
     $data['website'] = sanitizer($this->input->post('website'));
     $data['email'] = sanitizer($this->input->post('email'));
     $data['phone'] = sanitizer($this->input->post('phone'));
+    $data['phone2'] = sanitizer($this->input->post('phone2'));
     $data['listing_type'] = sanitizer($this->input->post('listing_type'));
 
     // Recibe todas las redes desde el array asociativo del formulario
@@ -738,6 +739,7 @@ return $this->db->get('listing');
     $data['website'] = sanitizer($this->input->post('website'));
     $data['email'] = sanitizer($this->input->post('email'));
     $data['phone'] = sanitizer($this->input->post('phone'));
+    $data['phone2'] = sanitizer($this->input->post('phone2'));
     // Recibe todas las redes desde el array asociativo del formulario
     $social_input = $this->input->post('social');
     $social_data_string = isset($data['social']) ? $data['social'] : '';

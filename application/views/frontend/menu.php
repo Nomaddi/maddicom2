@@ -12,5 +12,40 @@
                     </ul>
                 </li>
         <?php endif; ?>
+        <!-- Ítem de búsqueda en el menú -->
+        <li class="nav-item nav-search-dropdown dropdown">
+            <!-- Botón de Lupa -->
+            <a class="nav-link search-toggle-btn" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Buscar comercios">
+                <i class="fas fa-search"></i>
+            </a>
+
+            <!-- Caja flotante desplegable -->
+            <div class="dropdown-menu dropdown-menu-right search-dropdown-box p-3" aria-labelledby="searchDropdown">
+                <form action="<?php echo site_url('home/filter_listings'); ?>" method="get">
+                    <!-- Parámetros ocultos necesarios -->
+                    <input type="hidden" name="category" value="">
+                    <input type="hidden" name="amenity" value="">
+                    <input type="hidden" name="city" value="">
+                    <input type="hidden" name="price-range" value="0">
+                    <input type="hidden" name="status" value="">
+                    
+                    <!-- Valores fijos de ubicación -->
+                    <?php $ACACIAS_ID = 3; ?>
+                    <input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
+                    <input type="hidden" name="state" value="meta">
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search_string" 
+                            placeholder="<?php echo get_phrase('Buscar...'); ?>..." 
+                            required autofocus>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
     </ul>
 </nav>

@@ -522,7 +522,19 @@
 	<script src="js/common_scripts.js"></script>
 	<script src="js/functions.js"></script>
 	<script src="assets/validate.js"></script>
-
+	<script>// Poner el foco en el input al abrir el desplegable
+		$('.nav-search-dropdown').on('shown.bs.dropdown', function () {
+			$(this).find('input[name="search_string"]').focus();
+		});
+	</script>
+	<script>
+		// Cerrar el desplegable al hacer clic fuera de él
+		$(document).on('click', function (event) {
+			if (!$(event.target).closest('.nav-search-dropdown').length) {
+				$('.nav-search-dropdown .dropdown-menu').removeClass('show');
+			}
+		});
+	</script>
 </body>
 
 </html>

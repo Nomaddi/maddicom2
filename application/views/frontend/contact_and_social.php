@@ -199,6 +199,18 @@
             </div>
         </div>
         <?php endif; ?>
+        <?php if (!empty($listing_details['phone2'])): 
+        ?>
+        <div class="info-item">
+            <div class="info-icon social-btn" style="background-color: #444;"><i class="fa-solid fa-phone"></i></div>
+            <div>
+                <small class="text-muted d-block" style="line-height: 1;">Teléfono 2</small>
+                <a href="tel:<?php echo $listing_details['phone2']; ?>"><?php echo $listing_details['phone2']; ?></a> 
+                
+            </a>
+            </div>
+        </div>
+        <?php endif; ?>
         <?php if (!empty($calificame)): ?>
         <div class="info-item">
             <div class="info-icon social-btn" style="background-color: #FFFC00;"><i class="fa-brands fa-google"></i></div>
