@@ -26,7 +26,7 @@
 			</div>
 			<div class="col-lg-9 col-md-8 col-2">
 				<a href="#0" class="search_mob btn_search_mobile"></a> <!-- /open search panel -->
-				<form action="<?php echo site_url('home/filter_listings?'); ?>" method="GET">
+				<form action="<?php echo site_url('home/filter_listings?'); ?>" method="GET" id="main_search_form">
 			
 					<div class="row no-gutters custom-search-input-2 inner">
 						<div class="col-lg-8">
@@ -35,19 +35,17 @@
 								<i class="icon_search"></i>
 							</div>
 						</div>
-						<?php
-						$ACACIAS_ID   = 3;
-						$ACACIAS_NAME = 'Acacías';
-						?>
 
-						<!-- estos 2 sí se envían en la búsqueda -->
-						<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
-						<input type="hidden" name="state"           value="meta">
+					<?php
+					$ACACIAS_ID   = 3;
+					$ACACIAS_NAME = 'Acacías';
+					?>
 
-						
+					<!-- estos 2 sí se envían en la búsqueda -->
+					<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
+					<input type="hidden" name="state"           value="meta">
 
-					
-						<!-- <div class="col-lg-4">
+					<!-- <div class="col-lg-4">
 							<select class="wide" name="category">
 								<option value=""><?php echo get_phrase('all_categories'); ?></option>
 								<?php
@@ -58,20 +56,16 @@
 							</select>
 						</div> -->
 
-						
-
-						<input type="hidden" name="amenity" value="">
-						<input type="hidden" name="certification" value="">
-						<input type="hidden" name="price-range" value="">
-						<input type="hidden" name="with_video" value="<?=$with_video?>">
-						<input type="hidden" name="status" value="all">
+						<input type="hidden" name="amenity" id="hidden_amenity" value="">
+						<input type="hidden" name="status" id="hidden_status" value="">
 
 						
 						<div class="col-lg-4">
 							<input type="submit" value="Search">
 						</div>
 					</div>
-				</form>			</div>
+				</form>
+			</div>
 		</div>
 		<!-- /row -->
 		<div class="search_mob_wp">
@@ -155,7 +149,7 @@
 				<a data-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt"><?php echo get_phrase('filters'); ?> </a>
 				<!-- Filter form starts-->
 				<form class="filter-form" action="" method="get" enctype="multipart/form-data">
-					<div class="collapse show" id="collapseFilters">
+					<!-- <div class="collapse show" id="collapseFilters">
 						<div class="filter_type">
 						<h6><?php echo get_phrase('certifications'); ?></h6>
 						<ul>
@@ -200,9 +194,51 @@
 						<a href="javascript::" id="certification-toggle-btn" onclick="showToggle(this, 'hidden-certifications')">
 							<?php echo count($certs) > $number_of_visible_certifications ? get_phrase('show_more') : ""; ?>
 						</a>
-					</div>
+					</div> -->
+					<div class="filter_type">
+						<h6><?php echo get_phrase('Apertura'); ?></h6>
+						<ul>
+							<li>
+								<label class="container_check">
+								<span class="">Abierto</span>
+									<input type="checkbox" class="with_open" name="with_open" value="1" onclick="filter(this)">
+									<span class="checkmark"></span>
+								</label>
+							</li>
+						</ul>
+						<h6><?php echo get_phrase('amenities'); ?></h6>
+						<ul>
+							<?php
+							$counter = 0;
+							$amenities = $this->crud_model->get_amenities()->result_array();
+							foreach ($amenities as $amenity):
+								$counter++;
+								$is_checked = in_array($amenity['id'], $amenity_ids);
+								$row_html = '
+								<li>
+									<label class="container_check">
+										'.(!empty($amenity['icon']) ? '<i class="'.html_escape($amenity['icon']).'"></i> ' : '').html_escape($amenity['name']).'
+										<input type="checkbox" class="amenities" name="amenity[]" value="'.html_escape($amenity['slug']).'" onclick="filter(this)" '.($is_checked ? 'checked' : '').'>
+										<span class="checkmark"></span>
+									</label>
+								</li>
+								';
 
-						
+								if ($counter <= $number_of_visible_amenities): ?>
+									<div class="">
+										<?php echo $row_html; ?>
+									</div>
+								<?php else: ?>
+									<div class="hidden-amenities hidden">
+										<?php echo $row_html; ?>
+									</div>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						</ul>
+						<a href="javascript::" id="amenities-toggle-btn" onclick="showToggle(this, 'hidden-amenities')">
+							<?php echo count($amenities) > $number_of_visible_amenities ? get_phrase('show_more') : ""; ?>
+						</a>
+					
 					</div>
 					<!--/collapse -->
 				</form>
@@ -435,66 +471,6 @@ $('.stateonchange').change(function($this){
 	$('.city').val('');
 	filter($this);    });
 
-
-	function filter(elem, sub_class) {
-
-		if(sub_class && $(elem).prop('checked') == true){
-			$('.'+sub_class).prop('checked', true);
-		}else{
-			$('.'+sub_class).prop('checked', false);
-		}
-
-
-		var urlPrefix 	= '<?php echo site_url('home/filter_listings?'); ?>'
-		var urlSuffix = "";
-		var slectedCategories = "";
-		var selectedAmenities = "";
-		var selectedCertifications = "";
-		var selectedCity = "";
-		var selectedState = "";
-		var selectedVideoAvailability = 0;
-		var selectedPriceRange = 0;
-		var selectedOpeningStatus = "all";
-		var search_string=document.getElementById("search_string_1").value;  
-
-		$('.categories:checked').each(function() {
-			(slectedCategories === "") ? slectedCategories = $(this).attr('value') : slectedCategories = slectedCategories + "--" + $(this).attr('value');
-		});
-
-		$('.amenities:checked').each(function() {
-			(selectedAmenities === "") ? selectedAmenities = $(this).attr('value') : selectedAmenities = selectedAmenities + "--" + $(this).attr('value');
-		});
-
-		$('.certifications:checked').each(function() {
-			(selectedCertifications === "") ? selectedCertifications = $(this).attr('value') : selectedCertifications = selectedCertifications + "--" + $(this).attr('value');
-		});
-
-
-		$('.state:checked').each(function() {
- 
-            (selectedState === "") ? selectedState = $(this).attr('value') : selectedState = selectedState + "--" + $(this).attr('value');
-
-          });
-
-		$('.city:checked').each(function() {
-			(selectedCity === "") ? selectedCity = $(this).attr('value') : selectedCity = selectedCity + "--" + $(this).attr('value');
-		});
-
-		$('.video_availability:checked').each(function() {
-			(selectedVideoAvailability === 0) ? selectedVideoAvailability = $(this).attr('value') : selectedVideoAvailability = selectedVideoAvailability + "--" + $(this).attr('value');
-		});
-		$('.openingStatus:checked').each(function() {
-			(selectedOpeningStatus === 'all') ? selectedOpeningStatus = $(this).attr('value') : selectedOpeningStatus = $(this).attr('value');
-		});
-
-
-		
-		selectedPriceRange = $('.price-range').val();
-		urlSuffix = "search_string="+search_string+"&&category="+slectedCategories+"&&amenity="+selectedAmenities+"&&certification="+selectedCertifications+"&&city="+'Acacias'+"&&price-range="+selectedPriceRange+"&&video="+selectedVideoAvailability+"&&status="+selectedOpeningStatus+"&&state="+'meta';
-	
-		window.location.replace(urlPrefix+urlSuffix);
-	}
-
 	function addToWishList(elem, listing_id) {
 		var isLoggedIn = '<?php echo $this->session->userdata('is_logged_in'); ?>';
 		if (isLoggedIn === '1') {
@@ -545,4 +521,25 @@ $('.stateonchange').change(function($this){
 			}
 		});
 	}
+</script>
+
+<script>
+	$(document).ready(function() {
+    // Escuchar cambios en los checkboxes de los filtros
+    $('.filter-form input[type="checkbox"]').on('change', function() {
+        
+        // 1. Manejar Estado de Apertura (with_open)
+        let isOpenChecked = $('.with_open:checked').length > 0 ? 1 : 0;
+        $('#hidden_status').val(isOpenChecked);
+
+        // 2. Manejar Amenidades seleccionadas (Crear un array o cadena separada por comas)
+        let selectedAmenities = [];
+        $('.amenities:checked').each(function() {
+            selectedAmenities.push($(this).val());
+        });
+        
+        // Guardar las amenidades unidas por comas (ej: "wifi,parqueadero")
+        $('#hidden_amenity').val(selectedAmenities.join(','));
+    });
+});
 </script>

@@ -245,13 +245,13 @@ class Home extends CI_Controller
         }
 
         // Get the amenity ids
-        /* if (isset($_GET['amenity']) && !empty($_GET['amenity'])) {
+        if (isset($_GET['amenity']) && !empty($_GET['amenity'])) {
             $selected_amenities = explode('--', $_GET['amenity']);
             foreach ($selected_amenities as $amenity) {
                 $amenity_id = $this->db->get_where('amenities', array('slug' => $amenity))->row()->id;
                 array_push($amenity_ids, $amenity_id);
             }
-        } */
+        }
 
         // Get the certification ids  <--- NUEVO
         if (isset($_GET['certification']) && !empty($_GET['certification'])) {
@@ -607,18 +607,22 @@ class Home extends CI_Controller
     }
 
     //Search function For custom pagination
-    function search($page_number = 1)
+    /* function search($page_number = 1)
     {
         $search_string = $_GET['search_string'];
         $selected_city_id = $_GET['selected_city_id'];
         $selected_category_id = $_GET['selected_category_id'];
+        $status = $this->input->get('status', TRUE);
+        $amenity_raw = $this->input->get('amenity', TRUE);
 
-        if ($search_string == "" && $selected_city_id == "" && $selected_category_id == "") {
+        $amenities = !empty($amenity_raw) ? explode(',', $amenity_raw) : array();
+
+        if (empty($search_string) && empty($status) && empty($amenities)) {
             redirect('home/listings', 'refresh');
         }
 
-        $all_listings = $this->frontend_model->search_listing_all_rows($search_string, $selected_city_id, $selected_category_id);
-        $listings = $this->frontend_model->search_listing($search_string, $selected_city_id, $selected_category_id, $page_number);
+        $all_listings = $this->frontend_model->search_listing_all_rows($search_string, $selected_city_id, $selected_category_id, $status, $amenities);
+        $listings = $this->frontend_model->search_listing($search_string, $selected_city_id, $selected_category_id, $page_number, $status, $amenities);
         $geo_json = $this->make_geo_json_for_map($listings);
 
         $page_data['search_string'] = $search_string;
@@ -651,7 +655,67 @@ class Home extends CI_Controller
             $page_data['search_string'] = $search_string;
         }
         $this->load->view('frontend/index', $page_data);
-    }
+    } */
+
+    public function search($page_number = 1)
+        {
+            // Captura segura de datos mediante la librería Input de CodeIgniter
+            $search_string        = trim($this->input->get('search_string', TRUE));
+            $selected_city_id     = $this->input->get('selected_city_id', TRUE);
+            $selected_category_id = $this->input->get('selected_category_id', TRUE);
+            $status               = $this->input->get('status', TRUE);
+            $amenities = $this->input->get('amenity', TRUE);
+            
+            if (!is_array($amenities)) {
+                $amenities = !empty($amenities) ? array($amenities) : array();
+            }
+
+            // $amenities = array_filter(array_map('intval', $amenities));
+
+            // Redireccionar si no hay ningún criterio de búsqueda o filtro aplicado
+            if (empty($search_string) &&  empty($status) && empty($amenities)) {
+                redirect('home/listings', 'refresh');
+            }
+
+            // Consultas a la base de datos (puedes adaptar tu frontend_model para aceptar $status y $amenities)
+            $all_listings = $this->frontend_model->search_listing_all_rows($search_string, $selected_city_id, $selected_category_id, $status, $amenities);
+            $listings     = $this->frontend_model->search_listing($search_string, $selected_city_id, $selected_category_id, $page_number, $status, $amenities);
+            
+            // Generar GeoJSON para los mapas
+            $geo_json = $this->make_geo_json_for_map($listings);
+
+            // Configuración de la paginación simplificada
+            $total_listings = count($all_listings);
+            $limit = 12;
+
+            if ($total_listings > $limit) {
+                $page_data['pagination']          = 'search_page';
+                $page_data['total_page_number']   = ceil($total_listings / $limit);
+                $page_data['active_page_number']  = (int)$page_number;
+            } else {
+                $page_data['pagination'] = false;
+            }
+
+            // Datos enviados a la vista
+            $page_data['search_string']        = $search_string;
+            $page_data['selected_city_id']     = $selected_city_id;
+            $page_data['selected_category_id'] = $selected_category_id;
+            $page_data['status']               = $status;
+            $page_data['amenity_ids']          = $amenities;
+            $page_data['listings']             = $listings;
+            $page_data['geo_json']             = $geo_json;
+            $page_data['page_name']            = 'listings';
+            $page_data['title']                = get_phrase('listings');
+
+            if (!empty($selected_category_id)) {
+                $page_data['category_ids'] = array($selected_category_id);
+            }
+            if (!empty($selected_city_id)) {
+                $page_data['city_id'] = $selected_city_id;
+            }
+
+            $this->load->view('frontend/index', $page_data);
+        }
 
 
     // // Search function

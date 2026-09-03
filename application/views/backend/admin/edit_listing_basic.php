@@ -206,7 +206,7 @@
   </div>
 </div>
 
-<div class="form-group">
+<!-- <div class="form-group">
   <label class="col-sm-3 control-label" for="select_location"> <?php echo get_phrase('select_location'); ?></label>
   <div class="col-sm-7">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -262,4 +262,4 @@
 
      </script>
    </div>
- </div>
+ </div> -->
