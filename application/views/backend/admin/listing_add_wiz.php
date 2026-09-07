@@ -234,13 +234,13 @@ function removeCategory(categoryElem) {
 	jQuery(categoryElem).closest('.appendedCategoryFields').remove();
 }
 
-function appendPhotoUploader() {
+/* function appendPhotoUploader() {
 	jQuery('#photos_area').append(blank_photo_uploader);
 }
 
 function removePhotoUploader(photoElem) {
 	jQuery(photoElem).closest('.appendedPhotoUploader').remove();
-}
+} */
 
 function showListingTypeForm(listing_type) {
 	listing_type_value = listing_type;
@@ -343,4 +343,75 @@ function showListingTypeWiseDemo(param) {
 			error_notify('<?php echo get_phrase('listing_title').', '.get_phrase('listing_category').', '.get_phrase('location').' '.get_phrase('can_not_be_empty'); ?>');
 		}
 	}
+</script>
+<script>
+	var blank_photo_uploader = '';
+
+jQuery(document).ready(function($) {
+    // 1. Guardar la plantilla del uploader
+    blank_photo_uploader = $('#blank_photo_uploader').html();
+
+    // 2. Delegación de eventos para validar el formato .webp en TODOS los inputs (existentes y dinámicos)
+    $('#photos_area, #blank_photo_uploader').on('change', 'input[type="file"][name="listing_images[]"]', function() {
+        var file = this.files[0];
+        
+        if (file) {
+            // Validar la extensión o el tipo MIME
+            var fileName = file.name;
+            var fileExtension = fileName.split('.').pop().toLowerCase();
+
+            if (fileExtension !== 'webp' || file.type !== 'image/webp') {
+                alert('Solo se permiten imágenes en formato .webp');
+                
+                // Limpiar la selección si el plugin Jasny Fileinput está presente
+                var $fileinputContainer = $(this).closest('.fileinput');
+                if ($fileinputContainer.length && $.isFunction($fileinputContainer.fileinput)) {
+                    $fileinputContainer.fileinput('clear');
+                } else {
+                    $(this).val(''); // Limpieza estándar del input
+                }
+            }
+        }
+    });
+});
+
+function appendPhotoUploader() {
+    // Insertar la nueva fila en el contenedor
+    var $newRow = jQuery(blank_photo_uploader);
+    jQuery('#photos_area').append($newRow);
+
+    // Re-inicializar el plugin de previsualización en la nueva fila
+    if (jQuery.isFunction(jQuery.fn.fileinput)) {
+        $newRow.find('.fileinput').fileinput();
+    }
+}
+
+function removePhotoUploader(btn) {
+    jQuery(btn).closest('.appendedPhotoUploader').remove();
+}	
+
+</script>
+<script>
+	document.getElementById('listing_thumbnail').addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        // Validar tipo MIME
+        if (file.type !== 'image/webp') {
+            alert('Solo se permiten imágenes en formato .webp');
+            this.value = ''; // Limpiar la selección
+        }
+    }
+});
+</script>
+<script>
+	document.getElementById('listing_cover').addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        // Validar tipo MIME
+        if (file.type !== 'image/webp') {
+            alert('Solo se permiten imágenes en formato .webp');
+            this.value = ''; // Limpiar la selección
+        }
+    }
+});
 </script>

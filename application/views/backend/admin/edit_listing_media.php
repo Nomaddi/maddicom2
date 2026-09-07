@@ -17,7 +17,7 @@
         <span class="btn btn-white btn-file">
           <span class="fileinput-new"><?php echo get_phrase('select_image'); ?></span>
           <span class="fileinput-exists"><?php echo get_phrase('change'); ?></span>
-          <input type="file" name="listing_thumbnail" accept="image/*">
+          <input type="file" name="listing_thumbnail" accept="image/webp" id="listing_thumbnail">
         </span>
         <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
       </div>
@@ -44,7 +44,7 @@
         <span class="btn btn-white btn-file">
           <span class="fileinput-new"><?php echo get_phrase('select_image'); ?></span>
           <span class="fileinput-exists"><?php echo get_phrase('change'); ?></span>
-          <input type="file" name="listing_cover" accept="image/*">
+          <input type="file" name="listing_cover" accept="image/webp" id="listing_cover">
         </span>
         <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
       </div>
@@ -161,7 +161,7 @@ if (empty($videos) && !empty($listing_details['video_url'])) {
                         <span class="btn btn-white btn-file">
                           <span class="fileinput-new"><?php echo get_phrase('select_image'); ?></span>
                           <span class="fileinput-exists"><?php echo get_phrase('change'); ?></span>
-                          <input type="file" name="listing_images[]" accept="image/*">
+                          <input type="file" name="listing_images[]" accept="image/webp">
                         </span>
                         <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
                       </div>
@@ -188,7 +188,7 @@ if (empty($videos) && !empty($listing_details['video_url'])) {
                         <span class="btn btn-white btn-file">
                           <span class="fileinput-new"><?php echo get_phrase('select_image'); ?></span>
                           <span class="fileinput-exists"><?php echo get_phrase('change'); ?></span>
-                          <input type="file" name="listing_images[]" accept="image/*">
+                          <input type="file" name="listing_images[]" accept="image/webp">
                         </span>
                         <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
                       </div>
@@ -217,7 +217,7 @@ if (empty($videos) && !empty($listing_details['video_url'])) {
                     <span class="btn btn-white btn-file">
                       <span class="fileinput-new"><?php echo get_phrase('select_image'); ?></span>
                       <span class="fileinput-exists"><?php echo get_phrase('change'); ?></span>
-                      <input type="file" name="listing_images[]" accept="image/*">
+                      <input type="file" name="listing_images[]" accept="image/webp">
                     </span>
                     <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
                   </div>
@@ -246,7 +246,7 @@ if (empty($videos) && !empty($listing_details['video_url'])) {
                   <span class="btn btn-white btn-file">
                     <span class="fileinput-new"><?php echo get_phrase('select_image'); ?></span>
                     <span class="fileinput-exists"><?php echo get_phrase('change'); ?></span>
-                    <input type="file" name="listing_images[]" accept="image/*">
+                    <input type="file" name="listing_images[]" accept="image/webp">
                   </span>
                   <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
                 </div>
