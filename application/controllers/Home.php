@@ -673,7 +673,7 @@ class Home extends CI_Controller
             // $amenities = array_filter(array_map('intval', $amenities));
 
             // Redireccionar si no hay ningún criterio de búsqueda o filtro aplicado
-            if (empty($search_string) &&  empty($status) && empty($amenities)) {
+            if (empty($search_string) &&  empty($status) && empty($amenities) && empty($selected_city_id) && empty($selected_category_id)) {
                 redirect('home/listings', 'refresh');
             }
 
