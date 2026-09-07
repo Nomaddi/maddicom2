@@ -43,7 +43,7 @@
 
 					<!-- estos 2 sí se envían en la búsqueda -->
 					<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
-					<input type="hidden" name="state"           value="meta">
+					<input type="hidden" name="state" value="meta">
 
 					<!-- <div class="col-lg-4">
 							<select class="wide" name="category">
@@ -56,8 +56,8 @@
 							</select>
 						</div> -->
 
-						<input type="hidden" name="amenity" id="hidden_amenity" value="">
-						<input type="hidden" name="status" id="hidden_status" value="">
+						<input type="hidden" name="amenity" id="hidden_amenity_mobile" value="">
+						<input type="hidden" name="status" id="hidden_status_mobile" value="">
 
 						
 						<div class="col-lg-4">
@@ -70,15 +70,15 @@
 		<!-- /row -->
 		<div class="search_mob_wp">
 			<div class="custom-search-input-2">
-				<form action="<?php echo site_url('home/search'); ?>" method="GET" id="">
+				<form action="<?php echo site_url('home/filter_listings?'); ?>" method="GET" id="main_search_form">
 					<div class="form-group">
 						<input class="form-control" name="search_string" type="text" placeholder="<?php echo get_phrase('what_are_you_looking_for') ?>...">
 						<i class="icon_search"></i>
 					</div>
 
 					<!-- Campos ocultos para sincronizar desde los checkboxes -->
-					<!-- <input type="hidden" name="amenity" id="hidden_amenity" value="">
-					<input type="hidden" name="status" id="hidden_status" value=""> -->
+					<input type="hidden" name="amenity" id="hidden_amenity" value="">
+					<input type="hidden" name="status" id="hidden_status" value="">
 					
 					<input type="submit" value="Search">
 				</form>
@@ -546,7 +546,7 @@ $('.stateonchange').change(function($this){
         // 1. Manejar Estado de Apertura (with_open)
         let isOpenChecked = $('.with_open:checked').length > 0 ? 1 : 0;
         $('#hidden_status').val(isOpenChecked);
-
+		$('#hidden_status_mobile').val(isOpenChecked);
         // 2. Manejar Amenidades seleccionadas (Crear un array o cadena separada por comas)
         let selectedAmenities = [];
         $('.amenities:checked').each(function() {
@@ -555,6 +555,7 @@ $('.stateonchange').change(function($this){
         
         // Guardar las amenidades unidas por comas (ej: "wifi,parqueadero")
         $('#hidden_amenity').val(selectedAmenities.join(','));
+        $('#hidden_amenity_mobile').val(selectedAmenities.join(','));
     });
 });
 </script>
