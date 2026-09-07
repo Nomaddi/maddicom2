@@ -30,7 +30,7 @@ class Frontend_model extends CI_Model
   }
 
 
-  function filter_listing($search_string,$category_ids = array(), $amenity_ids = array(), $certification_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = 'all', $page_number = 1)
+  function filter_listing($search_string,$category_ids = array(), $amenity_ids = array(), $certification_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = "", $page_number = 1)
   {
     //for custom pagination
     if ($page_number <= 1) :
@@ -38,7 +38,7 @@ class Frontend_model extends CI_Model
     else :
       $starting_value = $page_number * 12 - 12;
     endif;
-
+    // dd('stopping here');
 
     $this->db->order_by('is_featured', 'desc');
     $this->db->limit(12, $starting_value);
@@ -47,25 +47,12 @@ class Frontend_model extends CI_Model
     {
       $this->db->group_start();
         $this->db->like('name', $search_string);
-        /* $this->db->or_like('description', $search_string);
-        $this->db->or_like('listing_type', $search_string); */
         $this->db->or_like('seo_meta_tags', $search_string);
       $this->db->group_end();
     }
 
-    if(count($category_ids) > 0){
-      $this->db->group_start();
-        foreach($category_ids as $category_key => $category_id){
-          if($category_key == 0){
-            $this->db->like('categories', '"'.$category_id.'"');
-          }else{
-            $this->db->or_like('categories', '"'.$category_id.'"');
-          }
-        }
-      $this->db->group_end();
-    }
-
-    /* if(count($amenity_ids) > 0){
+    
+    if(count($amenity_ids) > 0){
       $this->db->group_start();
         foreach($amenity_ids as $amenity_key => $amenity_id){
           if($amenity_key == 0){
@@ -75,10 +62,21 @@ class Frontend_model extends CI_Model
           }
         }
       $this->db->group_end();
+    }
+
+    /* if (!empty($amenities) && is_array($amenities)) {
+      foreach ($amenities as $amenity_id) {
+          $amenity_id = (int)$amenity_id;
+          if ($amenity_id > 0) {
+              // Se formatea el valor directamente como entero
+              $escaped_amenity = $this->db->escape($amenity_id);
+              $this->db->where("JSON_CONTAINS(amenities, {$escaped_amenity})");
+          }
+      }
     } */
 
     // Filtro por certificaciones (JSON con IDs)
-    if (count($certification_ids) > 0) {
+    /* if (count($certification_ids) > 0) {
       $this->db->group_start();
         foreach ($certification_ids as $cert_key => $cert_id) {
           if ($cert_key == 0) {
@@ -88,7 +86,7 @@ class Frontend_model extends CI_Model
           }
         }
       $this->db->group_end();
-    }
+    } */
 
 
     /* if($state_id != 'all'){
@@ -114,14 +112,14 @@ class Frontend_model extends CI_Model
         $this->db->where('video_url !=', '');
       $this->db->group_end();
     }
-
+*/
     if($with_open != 'all'){
       $current_time_minutes = date('H') * 60;
       $this->db->group_start();
         $this->db->where('opened_minutes <=', $current_time_minutes);
         $this->db->where('closed_minutes >=', $current_time_minutes);
       $this->db->group_end();
-    } */
+    } 
     // ✅ Agregar este filtro
     $this->db->where('status !=', 'pending');
 
@@ -129,7 +127,7 @@ class Frontend_model extends CI_Model
   }
 
 
-  function filter_listing_all_rows($search_string,$category_ids = array(), $amenity_ids = array(), $certification_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = 'all')
+  function filter_listing_all_rows($search_string,$category_ids = array(), $amenity_ids = array(), $certification_ids = array(), $state_id = "", $city_id = "", $price_range = 0, $with_video = 0, $with_open = "")
   {
     // $this->listing_table_data_centralized();
 
@@ -155,7 +153,7 @@ class Frontend_model extends CI_Model
       $this->db->group_end();
     }
 
-    /* if(count($amenity_ids) > 0){
+    if(count($amenity_ids) > 0){
       $this->db->group_start();
         foreach($amenity_ids as $amenity_key => $amenity_id){
           if($amenity_key == 0){
@@ -165,10 +163,10 @@ class Frontend_model extends CI_Model
           }
         }
       $this->db->group_end();
-    } */
+    }
 
     // Filtro por certificaciones (JSON con IDs)
-    if (count($certification_ids) > 0) {
+    /* if (count($certification_ids) > 0) {
       $this->db->group_start();
         foreach ($certification_ids as $cert_key => $cert_id) {
           if ($cert_key == 0) {
@@ -178,7 +176,7 @@ class Frontend_model extends CI_Model
           }
         }
       $this->db->group_end();
-    }
+    } */
 
 
     /* if($state_id != 'all'){
@@ -203,15 +201,15 @@ class Frontend_model extends CI_Model
       $this->db->group_start();
         $this->db->where('video_url !=', '');
       $this->db->group_end();
-    }
-
+    }*/
+      
     if($with_open != 'all'){
       $current_time_minutes = date('H') * 60;
       $this->db->group_start();
         $this->db->where('opened_minutes <=', $current_time_minutes);
         $this->db->where('closed_minutes >=', $current_time_minutes);
       $this->db->group_end();
-    } */
+    } 
 
     // ✅ Excluir los pendientes
     $this->db->where('status !=', 'pending');
@@ -599,7 +597,7 @@ public function get_certification($id, $field = '')
 
 
   ////Search function For custom pagination
-  function search_listing($search_string = '', $selected_city_id = '', $selected_category_id = '', $page_number = 1)
+   /* function search_listing($search_string = '', $selected_city_id = '', $selected_category_id = '', $page_number = 1)
   {
     if ($page_number <= 1) :
       $starting_value = 0;
@@ -608,17 +606,14 @@ public function get_certification($id, $field = '')
     endif;
 
     $this->db->where('status', 'active');
-    /* $this->db->group_start();
-    $this->db->where('package_expiry_date >', time());
-    $this->db->or_where('package_expiry_date', 'admin');
-    $this->db->group_end(); */
+    
 
     if ($search_string != "") {
       $this->db->group_start();
       $this->db->like('name', $search_string);
-      $this->db->or_like('description', $search_string);
+      // $this->db->or_like('description', $search_string);
       $this->db->or_like('seo_meta_tags', $search_string);
-      $this->db->or_like('meta_description', $search_string);
+      // $this->db->or_like('meta_description', $search_string);
       $this->db->group_end();
     }
 
@@ -633,7 +628,7 @@ public function get_certification($id, $field = '')
 
 
     return  $this->db->get('listing', 12, $starting_value)->result_array();
-  }
+  }  */
 
   // function search_listing($search_string = '', $selected_category_id = '') {
   //     if ($search_string != "") {
@@ -651,7 +646,7 @@ public function get_certification($id, $field = '')
   //     return  $this->db->get('listing')->result_array();
   // }
 
-  function search_listing_all_rows($search_string = '', $selected_city_id = '', $selected_category_id = '')
+ /*  function search_listing_all_rows($search_string = '', $selected_city_id = '', $selected_category_id = '')
   {
     $this->db->where('status', 'active');
     $this->db->where('package_expiry_date >', time());
@@ -672,6 +667,78 @@ public function get_certification($id, $field = '')
 
     $this->db->order_by('is_featured', 'desc');
     return  $this->db->get('listing')->result_array();
+  } */
+
+/**
+ * Aplica los filtros comunes a las consultas de búsqueda
+ */
+private function _apply_search_filters($search_string, $selected_city_id, $selected_category_id, $status, $amenities)
+{
+    $this->db->where('status', 'active');
+
+    if (!empty($search_string)) {
+        $this->db->group_start()
+            ->like('name', $search_string)
+            ->or_like('seo_meta_tags', $search_string)
+        ->group_end();
+    }
+
+    if (!empty($selected_city_id)) {
+        $this->db->where('city_id', $selected_city_id);
+    }
+
+    
+    if (!empty($amenities) && is_array($amenities)) {
+      foreach ($amenities as $amenity_id) {
+          $amenity_id = (int)$amenity_id;
+          if ($amenity_id > 0) {
+              // Se formatea el valor directamente como entero
+              $escaped_amenity = $this->db->escape($amenity_id);
+              $this->db->where("JSON_CONTAINS(amenities, {$escaped_amenity})");
+          }
+      }
+    }
+
+    if ($status == '1' || $status === 1) {
+        $current_minutes = (date('H') * 60) + date('i');
+
+        $this->db->group_start();
+            // Caso 1: Horario normal en el mismo día (ej. 8:00 AM a 6:00 PM)
+            $this->db->group_start()
+                ->where('opened_minutes <= closed_minutes')
+                ->where('opened_minutes <=', $current_minutes)
+                ->where('closed_minutes >=', $current_minutes)
+            ->group_end();
+
+            // Caso 2: Horario nocturno que sobrepasa la medianoche (ej. 8:00 PM a 2:00 AM)
+            $this->db->or_group_start()
+                ->where('opened_minutes > closed_minutes')
+                ->group_start()
+                    ->where('opened_minutes <=', $current_minutes)
+                    ->or_where('closed_minutes >=', $current_minutes)
+                ->group_end()
+            ->group_end();
+        $this->db->group_end();
+    }
+}
+
+public function search_listing($search_string = '', $selected_city_id = '', $selected_category_id = '', $page_number = 1, $status = '', $amenities = array())
+  {
+      $limit = 12;
+      $starting_value = max(0, ((int)$page_number - 1) * $limit);
+
+      $this->_apply_search_filters($search_string, $selected_city_id, $selected_category_id, $status, $amenities);
+
+      $this->db->order_by('is_featured', 'desc');
+
+      return $this->db->get('listing', $limit, $starting_value)->result_array();
+  }
+
+public function search_listing_all_rows($search_string = '', $selected_city_id = '', $selected_category_id = '', $status = '', $amenities = array())
+  {
+      $this->_apply_search_filters($search_string, $selected_city_id, $selected_category_id, $status, $amenities);
+
+      return $this->db->get('listing')->result_array();
   }
 
   function get_the_maximum_price_limit_of_all_listings()
