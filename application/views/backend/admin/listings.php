@@ -270,7 +270,9 @@ $microservice_url = $this->db->get_where('settings', array('type' => 'microservi
         <nav class="text-center">
           <?php echo $this->pagination->create_links(); ?>
         </nav>
+        <?php if ($this->session->userdata('role_id') == 1): ?>
         <button class="btn btn-danger" id="delete_listings" style="display: none;"><?php echo get_phrase('delete_selected'); ?></button>
+        <?php endif; ?>  
       </div>
     </div>
   </div><!-- end col-->
