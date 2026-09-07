@@ -682,6 +682,15 @@ private function _apply_search_filters($search_string, $selected_city_id, $selec
             ->or_like('seo_meta_tags', $search_string)
         ->group_end();
     }
+    if (!empty($selected_category_id)) {
+          $escaped_cat_num = $this->db->escape((int)$selected_category_id);
+          $escaped_cat_str = $this->db->escape('"' . $selected_category_id . '"');
+
+          $this->db->group_start()
+              ->where("JSON_CONTAINS(categories, {$escaped_cat_num})")
+              ->or_where("JSON_CONTAINS(categories, {$escaped_cat_str})")
+          ->group_end();
+    }
 
     if (!empty($selected_city_id)) {
         $this->db->where('city_id', $selected_city_id);
