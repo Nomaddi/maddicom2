@@ -315,7 +315,7 @@ $.ajax({
 
   // This fucntion checks the minimul required fields of listing form
   function checkMinimumFieldRequired() {
-    set_previous_lat_lan();
+    // set_previous_lat_lan();
 
   	var title = $('#title').val();
   	var defaultCategory = $('#category_default').val();
