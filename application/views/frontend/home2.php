@@ -39,6 +39,7 @@
 			$banner_path = FCPATH . 'uploads/system/home_banner.jpg';
 			$banner_url = base_url('uploads/system/home_banner.jpg') . (is_file($banner_path) ? '?v=' . filemtime($banner_path) : '');
 			?>
+
 			<section class="hero_single version_2 version_4"
 				style="background: linear-gradient(rgba(17,164,83,0.2), rgba(17,164,83,0.2)), url('<?= $banner_url ?>') center center / cover no-repeat;">
 				<div class="wrapper">
@@ -92,6 +93,57 @@
 					</div>
 				</div>
 			</section>
+			<!-- <section class="hero_single version_2 version_4" -->
+				<!-- style="position: relative; background: linear-gradient(rgba(17,164,83,0.2), rgba(17,164,83,0.2)), url('<?= $banner_url ?>') center center / cover no-repeat;"> -->
+			
+			<!-- <a href="<?php echo site_url('home/search?selected_category_id=1'); ?>"  -->
+			<!-- style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: block;"> -->
+			<!-- </a> -->
+
+			<!-- <div class="wrapper" style="position: relative; z-index: 2; pointer-events: none;"> -->
+				<!-- <div class="container"> -->
+					
+					<!-- FORMULARIO: Con pointer-events: auto para ser 100% interactivo -->
+					<!-- <form action="<?php echo site_url('home/filter_listings?'); ?>" 
+						method="get" 
+						style="pointer-events: auto;">
+						
+						<input type="hidden" name="category" value="">
+						<input type="hidden" name="amenity" value="">
+						<input type="hidden" name="city" value="">
+						<input type="hidden" name="price-range" value="0">
+						<input type="hidden" name="status" value="">
+						<input type="hidden" name="state" value="">
+						
+						<div class="row no-gutters custom-search-input-2">
+							<div class="col-lg-8">
+								<div class="form-group">
+									<input class="form-control" type="text" name="search_string"
+										placeholder="<?php echo get_phrase('what_are_you_looking_for'); ?>...">
+									<i class="icon_search"></i>
+								</div>
+							</div>
+							
+							<?php
+							$ACACIAS_ID = 3;
+							$ACACIAS_NAME = 'Acacías';
+							?>
+
+							<input type="hidden" name="selected_city_id" value="<?php echo $ACACIAS_ID; ?>">
+							<input type="hidden" name="state" value="meta">
+
+							<div class="col-lg-4">
+								<input type="submit" value="<?= get_phrase('search'); ?>">
+							</div>
+						</div>
+					</form> -->
+
+					<!-- <h3 style="pointer-events: auto; inline-block; width: fit-content; margin-top: 15px;"><?php echo get_frontend_settings('banner_title'); ?></h3>
+					<p style="pointer-events: auto; inline-block; width: fit-content;"><?php echo get_frontend_settings('slogan'); ?></p>
+
+				</div>
+			</div>
+		</section> -->
 			<!-- /container -->
 			<div class="bg_color_1">
 				<div class="container margin_80_55">

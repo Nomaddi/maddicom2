@@ -12,6 +12,9 @@
 <!--  -->
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
+<!-- season script -->
+<script src="<?php echo base_url();?>assets/frontend/js/seasonal.js"></script>
+
 <!--cookie modal-->
 
 <!-- SHOW TOASTR NOTIFIVATION -->

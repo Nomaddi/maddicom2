@@ -1,0 +1,181 @@
+.seasonal-particle {
+    position: fixed;
+    top: -30px;
+    user-select: none;
+    z-index: 9998;
+    pointer-events: none;
+}
+
+/* Efecto de Nieve (Navidad) */
+body.season-christmas .seasonal-particle {
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.3);
+    animation: snowfall linear infinite;
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(-20px) translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(105vh) translateX(15px);
+        opacity: 0.2;
+    }
+}
+
+/* Efecto de Murciélagos (Halloween) */
+body.season-halloween .seasonal-particle {
+    color: #1a1a1a;
+    animation: batfly ease-in-out infinite;
+}
+
+@keyframes batfly {
+    0% {
+        transform: translateY(-20px) translateX(0) scale(0.8);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateY(50vh) translateX(-30px) scale(1.1);
+    }
+    100% {
+        transform: translateY(105vh) translateX(30px) scale(0.8);
+        opacity: 0.2;
+    }
+}
+
+/* Estilos para las telarañas de Halloween en las esquinas */
+body.season-halloween .corner-web {
+    position: fixed;
+    z-index: 9997;
+    pointer-events: none;
+    font-size: 70px; /* Tamaño de la telaraña (puedes ajustarlo) */
+    opacity: 0.75;
+    user-select: none;
+}
+
+/* Esquina Superior Izquierda */
+body.season-halloween .web-top-left {
+    top: 0;
+    left: 0;
+}
+
+/* Esquina Superior Derecha (Rotada para simular esquina) */
+body.season-halloween .web-top-right {
+    top: 0;
+    right: 0;
+    transform: scaleX(-1);
+}
+
+/* Esquina Inferior Izquierda (Opcional) */
+body.season-halloween .web-bottom-left {
+    bottom: 0;
+    left: 0;
+    transform: scaleY(-1);
+}
+
+/* Esquina Inferior Derecha (Opcional - Cuidado con el botón de WhatsApp) */
+body.season-halloween .web-bottom-right {
+    bottom: 0;
+    right: 0;
+    transform: rotate(180deg);
+}
+
+/* Contenedor de telarañas en las esquinas */
+.corner-decoration {
+    position: fixed;
+    z-index: 9997;
+    pointer-events: none; /* Permite hacer clic a través de ellas */
+    user-select: none;
+}
+
+.corner-decoration img {
+    width: 220px; /* Ajusta este valor si las quieres aún más grandes (ej. 250px o 280px) */
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); /* Sombra para dar profundidad */
+}
+
+/* Posiciones fijas */
+.corner-top-left { 
+    top: 0; 
+    left: 0; 
+}
+
+.corner-top-right { 
+    top: 0; 
+    right: 0; 
+}
+.center-top {
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+/* ==========================================
+   ESTILO HALLOWEEN - BOTÓN DE WHATSAPP
+   ================================---------- */
+body.season-halloween .whatsapp-float-btn {
+    background-color: #ff6600 !important; /* Naranja calabaza brillante */
+    border: 2px dashed #1a1a1a !important; /* Borde punteado oscuro temático */
+    box-shadow: 0 0 15px rgba(255, 102, 0, 0.8), 2px 4px 12px rgba(0,0,0,0.4) !important; /* Brillo naranja */
+    color: #1a1a1a !important; /* Icono oscuro para contraste */
+}
+
+body.season-halloween .whatsapp-float-btn:hover {
+    background-color: #e65c00 !important;
+    transform: scale(1.12) rotate(6deg) !important; /* Pequeño giro divertido y dinámico */
+    box-shadow: 0 0 20px rgba(255, 102, 0, 1), 2px 6px 15px rgba(0,0,0,0.5) !important;
+}
+
+/* Opcional: Si tienes activa la ventana de bienvenida del chat, también la adaptamos */
+body.season-halloween .chat-header {
+    background-color: #1a1a1a !important; /* Encabezado negro tenebroso */
+    border-bottom: 3px solid #ff6600 !important;
+}
+
+body.season-halloween .start-chat-btn {
+    background-color: #ff6600 !important;
+}
+
+body.season-halloween .start-chat-btn:hover {
+    background-color: #e65c00 !important;
+}
+
+/* bruja voladora */
+body.season-halloween .flying-witch {
+    position: fixed;
+    z-index: 9996;
+    pointer-events: none;
+    user-select: none;
+    width: 140px; 
+    height: auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));
+}
+
+@keyframes flyLeftToRight {
+    0% {
+        transform: translate(-160px, 0) scaleX(1);
+        opacity: 0;
+    }
+    15% { opacity: 0.9; }
+    85% { opacity: 0.9; }
+    100% {
+        transform: translate(105vw, -60px) scaleX(1);
+        opacity: 0;
+    }
+}
+
+@keyframes flyRightToLeft {
+    0% {
+        transform: translate(105vw, 0) scaleX(-1);
+        opacity: 0;
+    }
+    15% { opacity: 0.9; }
+    85% { opacity: 0.9; }
+    100% {
+        transform: translate(-160px, -60px) scaleX(-1);
+        opacity: 0;
+    }
+}
