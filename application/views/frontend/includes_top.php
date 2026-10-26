@@ -18,6 +18,7 @@
 <link href="<?php echo base_url();?>assets/frontend/css/style.css" rel="stylesheet">
 <link href="<?php echo base_url();?>assets/frontend/css/vendors.css" rel="stylesheet">
 <link href="<?php echo base_url();?>assets/frontend/css/tables.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/frontend/css/seasonal.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -48,3 +49,6 @@
 
 <!-- Timepicker js -->
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var base_url = "<?php echo base_url(); ?>";
+</script>

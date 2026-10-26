@@ -61,8 +61,8 @@
 		}
 		</style>
 	</head>
-
-	<body>
+	<?php $season = get_current_season(); ?>
+	<body class="season-<?php echo $season; ?>">
 		<div id="page">
 
 			<!-- Header -->
@@ -115,7 +115,7 @@
 				endif;
 			}
 		?>
-
+	
 		<!-- Botón Flotante de WhatsApp -->
 		<a href="https://wa.me/573118113276?text=Hola,%20Chigüira,%20me%20gustaría%20obtener%20más%20información" 
 		class="whatsapp-float-btn" 
