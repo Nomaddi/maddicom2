@@ -24,7 +24,7 @@ if (!function_exists('get_current_season')) {
         }
 
         // Navidad: Del 15 de Noviembre al 6 de Enero
-        if (($month == 11 && $day >= 15) || ($month == 1 && $day <= 6)) {
+        if (($month == 11 && $day >= 1) || ($month == 1 && $day <= 6)) {
             return 'christmas';
         }
 
