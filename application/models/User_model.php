@@ -49,6 +49,7 @@ class User_model extends CI_Model {
                 $this->db->insert('user', $data);
                 $user_id = $this->db->insert_id();
                 $this->upload_user_image($user_id);
+                log_activity('CREATE', 'usuarios', "Creó el usuario: '{$data['name']}' (ID: {$user_id})");
                 $this->session->set_flashdata('flash_message', get_phrase('user_registration_successfully_done'));
             }else {
                 $data['is_verified'] = 0;
@@ -56,6 +57,7 @@ class User_model extends CI_Model {
                 $user_id = $this->db->insert_id();
                 $this->upload_user_image($user_id);
                 $this->email_model->send_email_verification_mail($data['email'], $verification_code);
+                log_activity('CREATE', 'usuarios', "Registró un nuevo usuario: '{$data['name']}' (ID: {$user_id})");
                 $this->session->set_flashdata('flash_message', get_phrase('your_registration_has_been_successfully_done').'. '.get_phrase('please_check_your_mail_inbox_to_verify_your_email_address').'.');
             }
             
@@ -67,16 +69,21 @@ class User_model extends CI_Model {
                 if($unverified_user->num_rows() > 0){
                     $unverified_user_row = $unverified_user->row_array();
                     $this->email_model->send_email_verification_mail($unverified_user_row['email'], $unverified_user_row['verification_code']);
+                    log_activity('CREATE', 'usuarios', "Intentó crear un usuario con correo duplicado (no verificado): '{$data['email']}'");
                     $this->session->set_flashdata('flash_message', get_phrase('You have already registered').'. '.get_phrase('please_check_your_mail_inbox_to_verify_your_email_address').'.');
                     return;
                 }
             }
+            log_activity('CREATE', 'usuarios', "Intentó crear un usuario con correo duplicado: '{$data['email']}'");
             $this->session->set_flashdata('error_message', get_phrase('this_email_id_has_been_taken'));
         }
         return;
     }
 
     function edit_user($user_id="") {
+        $old_user = $this->db->get_where('user', array('id' => $user_id))->row();
+        $user_name = $this->input->post('name');
+
         $data['email'] = sanitizer($this->input->post('email'));
         $data['name'] = sanitizer($this->input->post('name'));
         $data['address'] = sanitizer($this->input->post('address'));
@@ -99,6 +106,8 @@ class User_model extends CI_Model {
             $this->db->update('user', $data);
             $this->upload_user_image($user_id);
             $this->upload_user_background_image($user_id);
+            $old_name = ($old_user) ? $old_user->name : 'Desconocido';
+            log_activity('UPDATE', 'usuarios', "Actualizó el usuario: '{$user_name}' (ID: {$user_id})");
             $this->session->set_flashdata('flash_message', get_phrase('user_updated_successfully'));
         }else {
             $this->session->set_flashdata('error_message', get_phrase('this_email_id_has_been_taken'));

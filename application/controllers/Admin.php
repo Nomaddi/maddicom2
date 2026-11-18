@@ -1416,6 +1416,20 @@ private function check_access($allowed_role_ids = []) {
     }
 }
 
+public function audit_logs() {
+    if ($this->session->userdata('admin_login') != 1) {
+        redirect('dashboard');
+    }
+
+    $this->load->model('Audit_model');
+    
+    $page_data['page_name'] = 'audit_view'; 
+	$page_data['page_title'] = get_phrase('audit_logs');
+    $page_data['logs'] = $this->Audit_model->get_logs(50, 0);
+
+    $this->load->view('backend/index', $page_data);
+}
+
 
 
 }

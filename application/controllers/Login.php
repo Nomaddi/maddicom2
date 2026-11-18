@@ -48,13 +48,16 @@ class Login extends CI_Controller {
             $this->session->set_userdata('name', $row->name);
             if ($row->role_id == 1) {
                 $this->session->set_userdata('admin_login', '1');
+                log_activity('LOGIN', 'auth', 'El usuario inició sesión en el sistema.');
                 redirect(site_url('admin/listings'), 'refresh');
             }else if($row->role_id == 2){
                 $this->session->set_userdata('user_login', '1');
+                log_activity('LOGIN', 'auth', 'El usuario inició sesión en el sistema.');
                 redirect(site_url('user/listings'), 'refresh');
             }else if ($row->role_id == 3) {
                 // $this->session->set_userdata('mapeador_login', '1'); 
                 $this->session->set_userdata('admin_login', '1'); 
+                log_activity('LOGIN', 'auth', 'El usuario inició sesión en el sistema.');
                 redirect(site_url('admin/listings'), 'refresh');
             }
         }else {
@@ -87,6 +90,7 @@ class Login extends CI_Controller {
 
     function logout() {
         $this->session->sess_destroy();
+        log_activity('LOGOUT', 'auth', 'El usuario cerró sesión en el sistema.');
         redirect(site_url('home/login'), 'refresh');
     }
 

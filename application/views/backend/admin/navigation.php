@@ -386,5 +386,14 @@
         </ul>
     </li>
     <?php endif; ?>
+    <?php if ($this->session->userdata('role_id') == 1): ?>
+    <!-- Audit Logs -->
+    <li class="<?php if ($page_name == 'audit_logs') echo 'active'; ?>">
+        <a href="<?php echo site_url('admin/audit_logs'); ?>">
+            <i class="fa fa-shield-alt"></i>
+            <span><?php echo get_phrase('audit_logs'); ?></span>
+        </a>
+    </li>
+    <?php endif; ?>
 </ul>
 </div>
