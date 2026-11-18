@@ -44,6 +44,7 @@ class Crud_model extends CI_Model
         move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/category_thumbnails/' . $data['thumbnail']);
       }
     }
+    log_activity('CREATE', 'categorias', "Creó la categoría: '{$data['name']}'");
     $this->db->insert('category', $data);
   }
 
@@ -58,6 +59,7 @@ class Crud_model extends CI_Model
       move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/category_thumbnails/' . $data['thumbnail']);
     }
     $this->db->where('id', $category_id);
+    log_activity('UPDATE', 'categorias', "Actualizó la categoría: '{$data['name']}' (ID: {$category_id})");
     $this->db->update('category', $data);
   }
 
@@ -176,6 +178,7 @@ class Crud_model extends CI_Model
     $data['name'] = sanitizer($this->input->post('name'));
     $data['icon'] = sanitizer($this->input->post('icon'));
     $data['slug'] = slugify(sanitizer($this->input->post('name')));
+    log_activity('CREATE', 'servicios', "Creó el servicio: '{$data['name']}'");
     $this->db->insert('amenities', $data);
   }
   function edit_amenity($amenity_id="")
@@ -184,6 +187,7 @@ class Crud_model extends CI_Model
     $data['icon'] = sanitizer($this->input->post('icon'));
     $data['slug'] = slugify(sanitizer($this->input->post('name')));
     $this->db->where('id', $amenity_id);
+    log_activity('UPDATE', 'servicios', "Actualizó el servicio: '{$data['name']}' (ID: {$amenity_id})");
     $this->db->update('amenities', $data);
   }
 
@@ -516,6 +520,7 @@ return $this->db->get('listing');
 
       // Add listing inner details data
       $this->add_listing_type_wise_details(sanitizer($this->input->post('listing_type')), $listing_id);
+      log_activity('CREATE', 'Comercios', "Agregó un nuevo negocio: '{$data['name']}' (ID: {$listing_id})");
       $this->session->set_flashdata('flash_message', get_phrase('listing_added_successfully'));
     } else {
       $this->session->set_flashdata('error_message', get_phrase('there_is_no_free_space_to_add_to_the_listing'));
@@ -905,6 +910,7 @@ return $this->db->get('listing');
 
     // remove the existing listing details from other tables
     $this->remove_from_other_tables(sanitizer($this->input->post('listing_type')), $listing_id);
+    log_activity('UPDATE', 'Comercios', "Actualizó un negocio: '{$data['name']}' (ID: {$listing_id})");
     $this->session->set_flashdata('flash_message', get_phrase('listing_updated_successfully'));
   }
 
@@ -1193,6 +1199,7 @@ return $this->db->get('listing');
       $column_name => $value
     );
     $this->db->where('id', $listing_id);
+    log_activity('UPDATE', 'Comercios', "Actualizó el campo '{$column_name}' del negocio con ID: {$listing_id} a '{$value}'");
     $this->db->update('listing', $data);
   }
 
@@ -1231,6 +1238,7 @@ return $this->db->get('listing');
   {
     $this->db->where('id', $id);
     $this->db->delete($table_name);
+    log_activity('DELETE', $table_name, "Eliminó un registro de la tabla: " . $table_name . " con ID: " . $id);
     unlink("assets/frontend/single-listing-geojson/listing-id-" . $id . ".json");
   }
   function trim_file_name($old_file_name="")
@@ -1608,7 +1616,7 @@ return $this->db->get('listing');
             $data['image'] = $filename;
         }
     }
-
+    log_activity('CREATE', 'certificaciones', "Creó la certificación: '{$data['name']}'");
     $this->db->insert('certifications', $data);
   }
 
@@ -1632,6 +1640,7 @@ return $this->db->get('listing');
     }
 
     $this->db->where('id', $id);
+    log_activity('UPDATE', 'certificaciones', "Actualizó la certificación: '{$data['name']}' (ID: {$id})");
     $this->db->update('certifications', $data);
   }
 
@@ -1644,6 +1653,7 @@ return $this->db->get('listing');
     }
 
     $this->db->where('id', $id);
+    log_activity('DELETE', 'certificaciones', "Eliminó la certificación: '{$row->name}' (ID: {$id})");
     $this->db->delete('certifications');
   }
 

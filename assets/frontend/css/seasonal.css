@@ -179,3 +179,79 @@ body.season-halloween .flying-witch {
         opacity: 0;
     }
 }
+
+/* ==========================================
+   ESTILO NAVIDAD - BOTÓN DE WHATSAPP
+   ================================---------- */
+body.season-christmas .whatsapp-float-btn {
+    background-color: #d42426 !important; /* Rojo navideño intenso */
+    border: 2px dashed #ffffff !important; /* Borde punteado blanco simulando nieve o estilo festivo */
+    box-shadow: 0 0 15px rgba(212, 36, 38, 0.8), 2px 4px 12px rgba(0,0,0,0.4) !important; /* Brillo rojo */
+    color: #ffffff !important;
+}
+
+body.season-christmas .whatsapp-float-btn:hover {
+    background-color: #b31e20 !important;
+    transform: scale(1.12) rotate(-6deg) !important; /* Giro festivo divertido al pasar el cursor */
+    box-shadow: 0 0 20px rgba(212, 36, 38, 1), 2px 6px 15px rgba(0,0,0,0.5) !important;
+}
+
+/* ==========================================
+   ADAPTACIÓN NAVIDEÑA PARA LA BURBUJA (TOOLTIP)
+   ================================---------- */
+body.season-christmas .whatsapp-tooltip {
+    background-color: #d42426 !important; /* Fondo rojo navideño */
+    color: #ffffff !important;
+    border: 1px solid #ffffff; /* Borde blanco nítido */
+    box-shadow: 0 4px 15px rgba(212, 36, 38, 0.4);
+}
+
+body.season-christmas .whatsapp-tooltip::after {
+    border-color: transparent transparent transparent #d42426;
+}
+
+/* ==========================================
+   ADAPTACIÓN PARA LA VENTANA DE CHAT DESPLEGABLE (SI LA USAS)
+   ================================---------- */
+body.season-christmas .chat-header {
+    background-color: #b31e20 !important; /* Encabezado rojo festivo */
+    border-bottom: 3px solid #ffffff !important;
+}
+
+body.season-christmas .start-chat-btn {
+    background-color: #d42426 !important;
+}
+
+body.season-christmas .start-chat-btn:hover {
+    background-color: #b31e20 !important;
+}
+
+/* Contenedor de guirnaldas navideñas en la parte superior */
+.holiday-garland {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9997;
+    pointer-events: none; /* Permite hacer clic a través de ellas */
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.holiday-garland img {
+    width: 350px; /* Tamaño de la guirnalda (puedes ajustarlo según tu imagen) */
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); /* Sombra para dar profundidad */
+}
+
+/* Guirnalda Izquierda y Derecha (simétrica) */
+.garland-left {
+    transform-origin: top left;
+}
+
+.garland-right {
+    transform: scaleX(-1); /* Voltea la imagen simétricamente si es necesario */
+    transform-origin: top right;
+}

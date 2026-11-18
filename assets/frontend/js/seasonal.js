@@ -1,13 +1,32 @@
 document.addEventListener("DOMContentLoaded", function() {
     const body = document.body;
-    let particleChar = [];
+    let particleChars = [];
     let count = 0;
 
     // Detectar temporada activa según la clase del body
     if (body.classList.contains('season-christmas')) {
-        particleChar = ['❄️', '🎄', '🎅', '⛄'];
+        particleChars = ['❄️'];
         count = 30; 
-    } else if (body.classList.contains('season-halloween')) {
+        // --- COLOCAR GUIRNALDAS NAVIDEÑAS EN LA PARTE SUPERIOR ---
+        let garlandContainer = document.createElement('div');
+        garlandContainer.className = 'holiday-garland';
+
+        // Guirnalda Izquierda
+        let garlandLeft = document.createElement('img');
+        garlandLeft.src = base_url + 'uploads/seasonal/christmas/garland1.png'; 
+        garlandLeft.className = 'garland-left';
+        garlandContainer.appendChild(garlandLeft);
+
+        // Guirnalda Derecha
+        let garlandRight = document.createElement('img');
+        garlandRight.src = base_url + 'uploads/seasonal/christmas/garland1.png'; 
+        garlandRight.className = 'garland-right';
+        garlandContainer.appendChild(garlandRight);
+
+        document.body.appendChild(garlandContainer);
+
+    }
+     else if (body.classList.contains('season-halloween')) {
         particleChars = ['🦇', '🎃', '👻'];
         count = 20; 
 
