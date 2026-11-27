@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Audit_model extends CI_Model {
     
-    public function get_logs($limit = 50, $offset = 0, $filters = array()) {
+    public function get_logs($offset = 0, $filters = array()) {
         if (!empty($filters['module'])) {
             $this->db->where('module', $filters['module']);
         }
@@ -18,7 +18,6 @@ class Audit_model extends CI_Model {
         }
 
         $this->db->order_by('created_at', 'DESC');
-        $this->db->limit($limit, $offset);
         return $this->db->get('audit_logs')->result();
     }
 

@@ -1425,7 +1425,7 @@ public function audit_logs() {
     
     $page_data['page_name'] = 'audit_view'; 
 	$page_data['page_title'] = get_phrase('audit_logs');
-    $page_data['logs'] = $this->Audit_model->get_logs(50, 0);
+    $page_data['logs'] = $this->Audit_model->get_logs();
 
     $this->load->view('backend/index', $page_data);
 }

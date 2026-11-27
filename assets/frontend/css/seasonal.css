@@ -229,18 +229,17 @@ body.season-christmas .start-chat-btn:hover {
 /* Contenedor de guirnaldas navideñas en la parte superior */
 .holiday-garland {
     position: fixed;
+    z-index: 9997;
+    pointer-events: none;
+    font-size: 70px; 
+    opacity: 0.75;
+    user-select: none;
     top: 0;
     left: 0;
-    width: 100%;
-    z-index: 9997;
-    pointer-events: none; /* Permite hacer clic a través de ellas */
-    user-select: none;
-    display: flex;
-    justify-content: space-between;
 }
 
 .holiday-garland img {
-    width: 350px; /* Tamaño de la guirnalda (puedes ajustarlo según tu imagen) */
+    width: 350px;
     height: auto;
     display: block;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); /* Sombra para dar profundidad */
@@ -249,9 +248,18 @@ body.season-christmas .start-chat-btn:hover {
 /* Guirnalda Izquierda y Derecha (simétrica) */
 .garland-left {
     transform-origin: top left;
+    
 }
 
 .garland-right {
-    transform: scaleX(-1); /* Voltea la imagen simétricamente si es necesario */
     transform-origin: top right;
+    top: 0;
+    right: 0;
+}
+
+/* Ocultar guirnaldas navideñas en móviles */
+@media (max-width: 768px) {
+    .corner-decoration {
+        display: none;
+    }
 }

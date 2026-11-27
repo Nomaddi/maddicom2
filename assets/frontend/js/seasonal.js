@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
         particleChars = ['❄️'];
         count = 30; 
         // --- COLOCAR GUIRNALDAS NAVIDEÑAS EN LA PARTE SUPERIOR ---
-        let garlandContainer = document.createElement('div');
+       /*  let garlandContainer = document.createElement('div');
         garlandContainer.className = 'holiday-garland';
 
         // Guirnalda Izquierda
@@ -19,11 +19,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Guirnalda Derecha
         let garlandRight = document.createElement('img');
-        garlandRight.src = base_url + 'uploads/seasonal/christmas/garland1.png'; 
+        garlandRight.src = base_url + 'uploads/seasonal/christmas/garland2.webp'; 
         garlandRight.className = 'garland-right';
         garlandContainer.appendChild(garlandRight);
 
-        document.body.appendChild(garlandContainer);
+        document.body.appendChild(garlandContainer); */
+        const cornerGarland = [
+            { pos: 'top-left', img: 'garland1.png' },    
+            { pos: 'top-right', img: 'garland2.webp' },
+        ];
+
+        cornerGarland.forEach(corner => {
+            let cornerDiv = document.createElement('div');
+            cornerDiv.className = `corner-decoration corner-${corner.pos}`;
+            
+            let img = document.createElement('img');
+            img.src = base_url + 'uploads/seasonal/christmas/' + corner.img;
+            cornerDiv.appendChild(img);
+            
+            document.body.appendChild(cornerDiv);
+        });
 
     }
      else if (body.classList.contains('season-halloween')) {

@@ -1199,8 +1199,8 @@ return $this->db->get('listing');
       $column_name => $value
     );
     $this->db->where('id', $listing_id);
-    log_activity('UPDATE', 'Comercios', "Actualizó el campo '{$column_name}' del negocio con ID: {$listing_id} a '{$value}'");
     $this->db->update('listing', $data);
+    log_activity('UPDATE', 'Comercios', "Actualizó el campo '{$column_name}' del negocio con ID: {$listing_id} a '{$value}'");
   }
 
   function check_listing_form_submission_status($data = array())
